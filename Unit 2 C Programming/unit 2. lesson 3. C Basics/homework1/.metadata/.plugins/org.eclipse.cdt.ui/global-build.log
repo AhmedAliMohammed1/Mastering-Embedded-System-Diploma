@@ -1,0 +1,145 @@
+14:46:46 **** Rebuild of configuration Debug for project ex_1 ****
+Info: Internal Builder is used for build
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -o "src\\ex_1.o" "..\\src\\ex_1.c" 
+gcc -o ex_1.exe "src\\ex_1.o" 
+Info: Nothing to build for ex_1
+Info: Nothing to build for ex_1
+14:48:18 **** Rebuild of configuration Debug for project ex_2 ****
+Info: Internal Builder is used for build
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -o "src\\ex_2.o" "..\\src\\ex_2.c" 
+gcc -o ex_2.exe "src\\ex_2.o" 
+Info: Nothing to build for ex_2
+Info: Nothing to build for ex_1
+14:57:35 **** Incremental Build of configuration Debug for project ex_2 ****
+Info: Internal Builder is used for build
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -o "src\\ex_2.o" "..\\src\\ex_2.c" 
+gcc -o ex_2.exe "src\\ex_2.o" 
+Info: Nothing to build for ex_2
+14:57:47 **** Incremental Build of configuration Debug for project ex_2 ****
+Info: Internal Builder is used for build
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -o "src\\ex_2.o" "..\\src\\ex_2.c" 
+gcc -o ex_2.exe "src\\ex_2.o" 
+c:/mingw/bin/../lib/gcc/x86_64-w64-mingw32/12.1.0/../../../../x86_64-w64-mingw32/bin/ld.exe: cannot open output file ex_2.exe: Permission denied
+collect2.exe: error: ld returned 1 exit status
+14:57:50 **** Incremental Build of configuration Debug for project ex_2 ****
+Info: Internal Builder is used for build
+gcc -o ex_2.exe "src\\ex_2.o" 
+Info: Nothing to build for ex_1
+Info: Nothing to build for ex_2
+15:00:42 **** Rebuild of configuration Debug for project ex_3 ****
+Info: Internal Builder is used for build
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -o "src\\ex_3.o" "..\\src\\ex_3.c" 
+..\src\ex_3.c: In function 'main':
+..\src\ex_3.c:19:9: warning: 'y' is used uninitialized [-Wuninitialized]
+   19 |         printf("Sum : %d",(x+y));
+      |         ^~~~~~~~~~~~~~~~~~~~~~~~
+..\src\ex_3.c:15:15: note: 'y' was declared here
+   15 |         int x,y;
+      |               ^
+gcc -o ex_3.exe "src\\ex_3.o" 
+Info: Nothing to build for ex_1
+Info: Nothing to build for ex_2
+15:00:54 **** Incremental Build of configuration Debug for project ex_3 ****
+Info: Internal Builder is used for build
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -o "src\\ex_3.o" "..\\src\\ex_3.c" 
+gcc -o ex_3.exe "src\\ex_3.o" 
+Info: Nothing to build for ex_1
+Info: Nothing to build for ex_2
+Info: Nothing to build for ex_3
+Info: Nothing to build for ex_3
+Info: Nothing to build for ex_1
+Info: Nothing to build for ex_2
+Info: Nothing to build for ex_3
+Info: Nothing to build for ex_1
+Info: Nothing to build for ex_2
+Info: Nothing to build for ex_3
+15:03:37 **** Rebuild of configuration Debug for project ex_4 ****
+Info: Internal Builder is used for build
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -o "src\\ex_4.o" "..\\src\\ex_4.c" 
+gcc -o ex_4.exe "src\\ex_4.o" 
+Info: Nothing to build for ex_4
+Info: Nothing to build for ex_1
+Info: Nothing to build for ex_2
+Info: Nothing to build for ex_3
+15:03:59 **** Incremental Build of configuration Debug for project ex_4 ****
+Info: Internal Builder is used for build
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -o "src\\ex_4.o" "..\\src\\ex_4.c" 
+gcc -o ex_4.exe "src\\ex_4.o" 
+Info: Nothing to build for ex_4
+Info: Nothing to build for ex_1
+Info: Nothing to build for ex_2
+Info: Nothing to build for ex_3
+15:04:16 **** Incremental Build of configuration Debug for project ex_4 ****
+Info: Internal Builder is used for build
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -o "src\\ex_4.o" "..\\src\\ex_4.c" 
+gcc -o ex_4.exe "src\\ex_4.o" 
+Info: Nothing to build for ex_1
+Info: Nothing to build for ex_2
+Info: Nothing to build for ex_3
+Info: Nothing to build for ex_4
+Info: Nothing to build for ex_4
+Info: Nothing to build for ex_1
+Info: Nothing to build for ex_2
+Info: Nothing to build for ex_3
+Info: Nothing to build for ex_4
+15:05:50 **** Rebuild of configuration Debug for project ex_5 ****
+Info: Internal Builder is used for build
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -o "src\\ex_5.o" "..\\src\\ex_5.c" 
+gcc -o ex_5.exe "src\\ex_5.o" 
+Info: Nothing to build for ex_5
+Info: Nothing to build for ex_1
+Info: Nothing to build for ex_2
+Info: Nothing to build for ex_3
+Info: Nothing to build for ex_4
+15:06:03 **** Incremental Build of configuration Debug for project ex_5 ****
+Info: Internal Builder is used for build
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -o "src\\ex_5.o" "..\\src\\ex_5.c" 
+gcc -o ex_5.exe "src\\ex_5.o" 
+c:/mingw/bin/../lib/gcc/x86_64-w64-mingw32/12.1.0/../../../../x86_64-w64-mingw32/bin/ld.exe: cannot open output file ex_5.exe: Permission denied
+collect2.exe: error: ld returned 1 exit status
+15:06:07 **** Incremental Build of configuration Debug for project ex_5 ****
+Info: Internal Builder is used for build
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -o "src\\ex_5.o" "..\\src\\ex_5.c" 
+gcc -o ex_5.exe "src\\ex_5.o" 
+Info: Nothing to build for ex_1
+Info: Nothing to build for ex_2
+Info: Nothing to build for ex_3
+Info: Nothing to build for ex_4
+Info: Nothing to build for ex_5
+15:08:43 **** Rebuild of configuration Debug for project ex_6 ****
+Info: Internal Builder is used for build
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -o "src\\ex_6.o" "..\\src\\ex_6.c" 
+gcc -o ex_6.exe "src\\ex_6.o" 
+Info: Nothing to build for ex_6
+Info: Nothing to build for ex_1
+Info: Nothing to build for ex_2
+Info: Nothing to build for ex_3
+Info: Nothing to build for ex_4
+Info: Nothing to build for ex_5
+15:09:11 **** Incremental Build of configuration Debug for project ex_6 ****
+Info: Internal Builder is used for build
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -o "src\\ex_6.o" "..\\src\\ex_6.c" 
+gcc -o ex_6.exe "src\\ex_6.o" 
+Info: Nothing to build for ex_6
+Info: Nothing to build for ex_1
+Info: Nothing to build for ex_2
+Info: Nothing to build for ex_3
+Info: Nothing to build for ex_4
+Info: Nothing to build for ex_5
+15:09:30 **** Incremental Build of configuration Debug for project ex_6 ****
+Info: Internal Builder is used for build
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -o "src\\ex_6.o" "..\\src\\ex_6.c" 
+gcc -o ex_6.exe "src\\ex_6.o" 
+Info: Nothing to build for ex_6
+Info: Nothing to build for ex_6
+Info: Nothing to build for ex_1
+Info: Nothing to build for ex_2
+Info: Nothing to build for ex_3
+Info: Nothing to build for ex_4
+Info: Nothing to build for ex_5
+Info: Nothing to build for ex_6
+15:11:30 **** Rebuild of configuration Debug for project ex_7 ****
+Info: Internal Builder is used for build
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -o "src\\ex_7.o" "..\\src\\ex_7.c" 
+gcc -o ex_7.exe "src\\ex_7.o" 
+Info: Nothing to build for ex_7

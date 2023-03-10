@@ -1,0 +1,89 @@
+16:33:41 **** Rebuild of configuration Debug for project Lab_1 ****
+Info: Internal Builder is used for build
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -o "src\\Lab_1.o" "..\\src\\Lab_1.c" 
+gcc -o Lab_1.exe "src\\Lab_1.o" 
+Info: Nothing to build for Lab_1
+16:34:08 **** Incremental Build of configuration Debug for project Lab_1 ****
+Info: Internal Builder is used for build
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -o "src\\Lab_1.o" "..\\src\\Lab_1.c" 
+gcc -o Lab_1.exe "src\\Lab_1.o" 
+Info: Nothing to build for Lab_1
+Info: Nothing to build for Lab_1
+Info: Nothing to build for Lab_1
+16:36:39 **** Rebuild of configuration Debug for project lab_2 ****
+Info: Internal Builder is used for build
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -o "src\\lab_2.o" "..\\src\\lab_2.c" 
+..\src\lab_2.c: In function 'main':
+..\src\lab_2.c:18:25: warning: format '%f' expects argument of type 'float *', but argument 2 has type 'int *' [-Wformat=]
+   18 |                 scanf("%f %f %f",&x,&y,&z);
+      |                        ~^        ~~
+      |                         |        |
+      |                         float *  int *
+      |                        %d
+..\src\lab_2.c:18:28: warning: format '%f' expects argument of type 'float *', but argument 3 has type 'int *' [-Wformat=]
+   18 |                 scanf("%f %f %f",&x,&y,&z);
+      |                           ~^        ~~
+      |                            |        |
+      |                            float *  int *
+      |                           %d
+..\src\lab_2.c:18:31: warning: format '%f' expects argument of type 'float *', but argument 4 has type 'int *' [-Wformat=]
+   18 |                 scanf("%f %f %f",&x,&y,&z);
+      |                              ~^        ~~
+      |                               |        |
+      |                               float *  int *
+      |                              %d
+gcc -o lab_2.exe "src\\lab_2.o" 
+Info: Nothing to build for Lab_1
+16:36:46 **** Incremental Build of configuration Debug for project lab_2 ****
+Info: Internal Builder is used for build
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -o "src\\lab_2.o" "..\\src\\lab_2.c" 
+gcc -o lab_2.exe "src\\lab_2.o" 
+Info: Nothing to build for lab_2
+Info: Nothing to build for Lab_1
+Info: Nothing to build for lab_2
+16:38:42 **** Rebuild of configuration Debug for project lab_3 ****
+Info: Internal Builder is used for build
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -o "src\\lab_3.o" "..\\src\\lab_3.c" 
+gcc -o lab_3.exe "src\\lab_3.o" 
+Info: Nothing to build for lab_3
+Info: Nothing to build for lab_3
+Info: Nothing to build for lab_3
+Info: Nothing to build for Lab_1
+Info: Nothing to build for lab_2
+Info: Nothing to build for lab_3
+16:43:30 **** Rebuild of configuration Debug for project lab_5 ****
+Info: Internal Builder is used for build
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -o "src\\lab_5.o" "..\\src\\lab_5.c" 
+gcc -o lab_5.exe "src\\lab_5.o" 
+Info: Nothing to build for lab_5
+Info: Nothing to build for lab_5
+Info: Nothing to build for lab_5
+Info: Nothing to build for Lab_1
+Info: Nothing to build for lab_2
+Info: Nothing to build for lab_3
+Info: Nothing to build for lab_5
+16:48:37 **** Rebuild of configuration Debug for project lab_6 ****
+Info: Internal Builder is used for build
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -o "src\\lab_6.o" "..\\src\\lab_6.c" 
+gcc -o lab_6.exe "src\\lab_6.o" 
+Info: Nothing to build for lab_6
+Info: Nothing to build for Lab_1
+Info: Nothing to build for lab_2
+Info: Nothing to build for lab_3
+Info: Nothing to build for lab_5
+Info: Nothing to build for lab_6
+16:51:40 **** Rebuild of configuration Debug for project lab_7 ****
+Info: Internal Builder is used for build
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -o "src\\lab_7.o" "..\\src\\lab_7.c" 
+gcc -o lab_7.exe "src\\lab_7.o" 
+Info: Nothing to build for lab_7
+Info: Nothing to build for Lab_1
+Info: Nothing to build for lab_2
+Info: Nothing to build for lab_3
+Info: Nothing to build for lab_5
+Info: Nothing to build for lab_6
+16:51:49 **** Incremental Build of configuration Debug for project lab_7 ****
+Info: Internal Builder is used for build
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -o "src\\lab_7.o" "..\\src\\lab_7.c" 
+gcc -o lab_7.exe "src\\lab_7.o" 
+Info: Nothing to build for lab_7

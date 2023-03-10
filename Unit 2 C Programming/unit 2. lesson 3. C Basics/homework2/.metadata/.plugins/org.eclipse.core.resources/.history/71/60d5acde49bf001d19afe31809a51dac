@@ -1,0 +1,25 @@
+/*
+ ============================================================================
+ Name        : ex_4.c
+ Author      : 
+ Version     :
+ Copyright   : Your copyright notice
+ Description : Hello World in C, Ansi-style
+ ============================================================================
+ */
+
+#include <stdio.h>
+#include <stdlib.h>
+
+int main(void) {
+	float x;
+		printf("Enter three numbers");
+		fflush(stdin); fflush(stdout);
+			scanf("%f %f %f",&x);
+			if(x==0){
+				printf("you enterd zero");
+			}else{
+				x>=0?printf("%d is positive"):printf("%d is negative");
+			}
+	return 0;
+}

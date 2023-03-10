@@ -1,0 +1,395 @@
+15:18:09 **** Rebuild of configuration Debug for project ex_1 ****
+Info: Internal Builder is used for build
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -o "src\\ex_1.o" "..\\src\\ex_1.c" 
+gcc -o ex_1.exe "src\\ex_1.o" 
+Info: Nothing to build for ex_1
+Info: Nothing to build for ex_1
+15:25:13 **** Rebuild of configuration Debug for project ex_2 ****
+Info: Internal Builder is used for build
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -o "src\\ex_2.o" "..\\src\\ex_2.c" 
+gcc -o ex_2.exe "src\\ex_2.o" 
+Info: Nothing to build for ex_2
+Info: Nothing to build for ex_2
+Info: Nothing to build for ex_2
+Info: Nothing to build for ex_1
+Info: Nothing to build for ex_2
+15:29:57 **** Rebuild of configuration Debug for project ex_3 ****
+Info: Internal Builder is used for build
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -o "src\\ex_3.o" "..\\src\\ex_3.c" 
+gcc -o ex_3.exe "src\\ex_3.o" 
+Info: Nothing to build for ex_3
+Info: Nothing to build for ex_1
+Info: Nothing to build for ex_2
+15:30:07 **** Incremental Build of configuration Debug for project ex_3 ****
+Info: Internal Builder is used for build
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -o "src\\ex_3.o" "..\\src\\ex_3.c" 
+..\src\ex_3.c: In function 'main':
+..\src\ex_3.c:18:25: warning: format '%d' expects argument of type 'int *', but argument 2 has type 'float *' [-Wformat=]
+   18 |                 scanf("%d %d %d",&x,&y,&z);
+      |                        ~^        ~~
+      |                         |        |
+      |                         int *    float *
+      |                        %e
+..\src\ex_3.c:18:28: warning: format '%d' expects argument of type 'int *', but argument 3 has type 'float *' [-Wformat=]
+   18 |                 scanf("%d %d %d",&x,&y,&z);
+      |                           ~^        ~~
+      |                            |        |
+      |                            int *    float *
+      |                           %e
+..\src\ex_3.c:18:31: warning: format '%d' expects argument of type 'int *', but argument 4 has type 'float *' [-Wformat=]
+   18 |                 scanf("%d %d %d",&x,&y,&z);
+      |                              ~^        ~~
+      |                               |        |
+      |                               int *    float *
+      |                              %e
+..\src\ex_3.c:32:26: warning: format '%d' expects argument of type 'int', but argument 2 has type 'double' [-Wformat=]
+   32 |                 printf("%d is the largest :",max);
+      |                         ~^                   ~~~
+      |                          |                   |
+      |                          int                 double
+      |                         %f
+gcc -o ex_3.exe "src\\ex_3.o" 
+c:/mingw/bin/../lib/gcc/x86_64-w64-mingw32/12.1.0/../../../../x86_64-w64-mingw32/bin/ld.exe: cannot open output file ex_3.exe: Permission denied
+collect2.exe: error: ld returned 1 exit status
+Info: Nothing to build for ex_1
+Info: Nothing to build for ex_2
+15:30:24 **** Incremental Build of configuration Debug for project ex_3 ****
+Info: Internal Builder is used for build
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -o "src\\ex_3.o" "..\\src\\ex_3.c" 
+gcc -o ex_3.exe "src\\ex_3.o" 
+Info: Nothing to build for ex_3
+Info: Nothing to build for ex_1
+Info: Nothing to build for ex_2
+15:31:03 **** Incremental Build of configuration Debug for project ex_3 ****
+Info: Internal Builder is used for build
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -o "src\\ex_3.o" "..\\src\\ex_3.c" 
+gcc -o ex_3.exe "src\\ex_3.o" 
+Info: Nothing to build for ex_3
+Info: Nothing to build for ex_1
+Info: Nothing to build for ex_2
+Info: Nothing to build for ex_3
+15:45:43 **** Rebuild of configuration Debug for project ex_4 ****
+Info: Internal Builder is used for build
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -o "src\\ex_4.o" "..\\src\\ex_4.c" 
+..\src\ex_4.c: In function 'main':
+..\src\ex_4.c:18:36: warning: format '%f' expects a matching 'float *' argument [-Wformat=]
+   18 |                         scanf("%f %f %f",&x);
+      |                                   ~^
+      |                                    |
+      |                                    float *
+..\src\ex_4.c:18:39: warning: format '%f' expects a matching 'float *' argument [-Wformat=]
+   18 |                         scanf("%f %f %f",&x);
+      |                                      ~^
+      |                                       |
+      |                                       float *
+..\src\ex_4.c:22:47: warning: format '%d' expects a matching 'int' argument [-Wformat=]
+   22 |                                 x>=0?printf("%d is positive"):printf("%d is negative");
+      |                                              ~^
+      |                                               |
+      |                                               int
+..\src\ex_4.c:22:72: warning: format '%d' expects a matching 'int' argument [-Wformat=]
+   22 |                                 x>=0?printf("%d is positive"):printf("%d is negative");
+      |                                                                       ~^
+      |                                                                        |
+      |                                                                        int
+gcc -o ex_4.exe "src\\ex_4.o" 
+Info: Nothing to build for ex_1
+Info: Nothing to build for ex_2
+Info: Nothing to build for ex_3
+15:45:51 **** Incremental Build of configuration Debug for project ex_4 ****
+Info: Internal Builder is used for build
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -o "src\\ex_4.o" "..\\src\\ex_4.c" 
+..\src\ex_4.c: In function 'main':
+..\src\ex_4.c:22:47: warning: format '%d' expects a matching 'int' argument [-Wformat=]
+   22 |                                 x>=0?printf("%d is positive"):printf("%d is negative");
+      |                                              ~^
+      |                                               |
+      |                                               int
+..\src\ex_4.c:22:72: warning: format '%d' expects a matching 'int' argument [-Wformat=]
+   22 |                                 x>=0?printf("%d is positive"):printf("%d is negative");
+      |                                                                       ~^
+      |                                                                        |
+      |                                                                        int
+gcc -o ex_4.exe "src\\ex_4.o" 
+Info: Nothing to build for ex_1
+Info: Nothing to build for ex_2
+Info: Nothing to build for ex_3
+15:46:16 **** Incremental Build of configuration Debug for project ex_4 ****
+Info: Internal Builder is used for build
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -o "src\\ex_4.o" "..\\src\\ex_4.c" 
+gcc -o ex_4.exe "src\\ex_4.o" 
+Info: Nothing to build for ex_4
+Info: Nothing to build for ex_1
+Info: Nothing to build for ex_2
+Info: Nothing to build for ex_3
+15:46:30 **** Incremental Build of configuration Debug for project ex_4 ****
+Info: Internal Builder is used for build
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -o "src\\ex_4.o" "..\\src\\ex_4.c" 
+gcc -o ex_4.exe "src\\ex_4.o" 
+Info: Nothing to build for ex_4
+Info: Nothing to build for ex_1
+Info: Nothing to build for ex_2
+Info: Nothing to build for ex_3
+15:46:46 **** Incremental Build of configuration Debug for project ex_4 ****
+Info: Internal Builder is used for build
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -o "src\\ex_4.o" "..\\src\\ex_4.c" 
+gcc -o ex_4.exe "src\\ex_4.o" 
+Info: Nothing to build for ex_4
+Info: Nothing to build for ex_1
+Info: Nothing to build for ex_2
+Info: Nothing to build for ex_3
+15:47:00 **** Incremental Build of configuration Debug for project ex_4 ****
+Info: Internal Builder is used for build
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -o "src\\ex_4.o" "..\\src\\ex_4.c" 
+gcc -o ex_4.exe "src\\ex_4.o" 
+Info: Nothing to build for ex_4
+Info: Nothing to build for ex_1
+Info: Nothing to build for ex_2
+Info: Nothing to build for ex_3
+15:47:14 **** Incremental Build of configuration Debug for project ex_4 ****
+Info: Internal Builder is used for build
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -o "src\\ex_4.o" "..\\src\\ex_4.c" 
+gcc -o ex_4.exe "src\\ex_4.o" 
+Info: Nothing to build for ex_4
+Info: Nothing to build for ex_1
+Info: Nothing to build for ex_2
+Info: Nothing to build for ex_3
+15:47:29 **** Incremental Build of configuration Debug for project ex_4 ****
+Info: Internal Builder is used for build
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -o "src\\ex_4.o" "..\\src\\ex_4.c" 
+gcc -o ex_4.exe "src\\ex_4.o" 
+Info: Nothing to build for ex_4
+Info: Nothing to build for ex_1
+Info: Nothing to build for ex_2
+Info: Nothing to build for ex_3
+15:47:40 **** Incremental Build of configuration Debug for project ex_4 ****
+Info: Internal Builder is used for build
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -o "src\\ex_4.o" "..\\src\\ex_4.c" 
+..\src\ex_4.c: In function 'main':
+..\src\ex_4.c:22:49: warning: field precision specifier '.*' expects argument of type 'int', but argument 3 has type 'double' [-Wformat=]
+   22 |                                 x>=0?printf("%*.*f is positive",3,x):printf("%0.2f is negative",x);
+      |                                              ~~~^~                ~
+      |                                                 |                 |
+      |                                                 int               double
+..\src\ex_4.c:22:50: warning: format '%f' expects a matching 'double' argument [-Wformat=]
+   22 |                                 x>=0?printf("%*.*f is positive",3,x):printf("%0.2f is negative",x);
+      |                                              ~~~~^
+      |                                                  |
+      |                                                  double
+gcc -o ex_4.exe "src\\ex_4.o" 
+Info: Nothing to build for ex_1
+Info: Nothing to build for ex_2
+Info: Nothing to build for ex_3
+15:47:49 **** Incremental Build of configuration Debug for project ex_4 ****
+Info: Internal Builder is used for build
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -o "src\\ex_4.o" "..\\src\\ex_4.c" 
+gcc -o ex_4.exe "src\\ex_4.o" 
+Info: Nothing to build for ex_4
+Info: Nothing to build for ex_1
+Info: Nothing to build for ex_2
+Info: Nothing to build for ex_3
+15:48:01 **** Incremental Build of configuration Debug for project ex_4 ****
+Info: Internal Builder is used for build
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -o "src\\ex_4.o" "..\\src\\ex_4.c" 
+gcc -o ex_4.exe "src\\ex_4.o" 
+Info: Nothing to build for ex_4
+Info: Nothing to build for ex_4
+Info: Nothing to build for ex_1
+Info: Nothing to build for ex_2
+Info: Nothing to build for ex_3
+15:48:24 **** Incremental Build of configuration Debug for project ex_4 ****
+Info: Internal Builder is used for build
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -o "src\\ex_4.o" "..\\src\\ex_4.c" 
+gcc -o ex_4.exe "src\\ex_4.o" 
+Info: Nothing to build for ex_4
+Info: Nothing to build for ex_4
+Info: Nothing to build for ex_1
+Info: Nothing to build for ex_2
+Info: Nothing to build for ex_3
+15:48:35 **** Incremental Build of configuration Debug for project ex_4 ****
+Info: Internal Builder is used for build
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -o "src\\ex_4.o" "..\\src\\ex_4.c" 
+gcc -o ex_4.exe "src\\ex_4.o" 
+Info: Nothing to build for ex_4
+Info: Nothing to build for ex_1
+Info: Nothing to build for ex_2
+Info: Nothing to build for ex_3
+15:48:40 **** Incremental Build of configuration Debug for project ex_4 ****
+Info: Internal Builder is used for build
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -o "src\\ex_4.o" "..\\src\\ex_4.c" 
+gcc -o ex_4.exe "src\\ex_4.o" 
+c:/mingw/bin/../lib/gcc/x86_64-w64-mingw32/12.1.0/../../../../x86_64-w64-mingw32/bin/ld.exe: cannot open output file ex_4.exe: Permission denied
+collect2.exe: error: ld returned 1 exit status
+15:48:41 **** Incremental Build of configuration Debug for project ex_4 ****
+Info: Internal Builder is used for build
+gcc -o ex_4.exe "src\\ex_4.o" 
+c:/mingw/bin/../lib/gcc/x86_64-w64-mingw32/12.1.0/../../../../x86_64-w64-mingw32/bin/ld.exe: cannot open output file ex_4.exe: Permission denied
+collect2.exe: error: ld returned 1 exit status
+15:48:42 **** Incremental Build of configuration Debug for project ex_4 ****
+Info: Internal Builder is used for build
+gcc -o ex_4.exe "src\\ex_4.o" 
+Info: Nothing to build for ex_4
+Info: Nothing to build for ex_1
+Info: Nothing to build for ex_2
+Info: Nothing to build for ex_3
+Info: Nothing to build for ex_4
+15:52:56 **** Rebuild of configuration Debug for project ex_5 ****
+Info: Internal Builder is used for build
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -o "src\\ex_5.o" "..\\src\\ex_5.c" 
+gcc -o ex_5.exe "src\\ex_5.o" 
+Info: Nothing to build for ex_5
+Info: Nothing to build for ex_5
+Info: Nothing to build for ex_1
+Info: Nothing to build for ex_2
+Info: Nothing to build for ex_3
+Info: Nothing to build for ex_4
+15:53:17 **** Incremental Build of configuration Debug for project ex_5 ****
+Info: Internal Builder is used for build
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -o "src\\ex_5.o" "..\\src\\ex_5.c" 
+gcc -o ex_5.exe "src\\ex_5.o" 
+Info: Nothing to build for ex_5
+Info: Nothing to build for ex_1
+Info: Nothing to build for ex_2
+Info: Nothing to build for ex_3
+Info: Nothing to build for ex_4
+Info: Nothing to build for ex_5
+15:55:09 **** Rebuild of configuration Debug for project ex_6 ****
+Info: Internal Builder is used for build
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -o "src\\ex_6.o" "..\\src\\ex_6.c" 
+gcc -o ex_6.exe "src\\ex_6.o" 
+Info: Nothing to build for ex_6
+Info: Nothing to build for ex_1
+Info: Nothing to build for ex_2
+Info: Nothing to build for ex_3
+Info: Nothing to build for ex_4
+Info: Nothing to build for ex_5
+15:55:28 **** Incremental Build of configuration Debug for project ex_6 ****
+Info: Internal Builder is used for build
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -o "src\\ex_6.o" "..\\src\\ex_6.c" 
+gcc -o ex_6.exe "src\\ex_6.o" 
+Info: Nothing to build for ex_6
+Info: Nothing to build for ex_1
+Info: Nothing to build for ex_2
+Info: Nothing to build for ex_3
+Info: Nothing to build for ex_4
+Info: Nothing to build for ex_5
+Info: Nothing to build for ex_6
+16:01:23 **** Rebuild of configuration Debug for project ex_7 ****
+Info: Internal Builder is used for build
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -o "src\\ex_7.o" "..\\src\\ex_7.c" 
+gcc -o ex_7.exe "src\\ex_7.o" 
+Info: Nothing to build for ex_6
+Info: Nothing to build for ex_1
+Info: Nothing to build for ex_2
+Info: Nothing to build for ex_3
+Info: Nothing to build for ex_4
+Info: Nothing to build for ex_5
+Info: Nothing to build for ex_6
+Info: Nothing to build for ex_7
+Info: Nothing to build for ex_6
+Info: Nothing to build for ex_7
+Info: Nothing to build for ex_7
+Info: Nothing to build for ex_7
+Info: Nothing to build for ex_1
+Info: Nothing to build for ex_2
+Info: Nothing to build for ex_3
+Info: Nothing to build for ex_4
+Info: Nothing to build for ex_5
+Info: Nothing to build for ex_6
+16:05:29 **** Incremental Build of configuration Debug for project ex_7 ****
+Info: Internal Builder is used for build
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -o "src\\ex_7.o" "..\\src\\ex_7.c" 
+gcc -o ex_7.exe "src\\ex_7.o" 
+Info: Nothing to build for ex_7
+Info: Nothing to build for ex_7
+Info: Nothing to build for ex_7
+Info: Nothing to build for ex_7
+Info: Nothing to build for ex_7
+Info: Nothing to build for ex_1
+Info: Nothing to build for ex_2
+Info: Nothing to build for ex_3
+Info: Nothing to build for ex_4
+Info: Nothing to build for ex_5
+Info: Nothing to build for ex_6
+16:05:54 **** Incremental Build of configuration Debug for project ex_7 ****
+Info: Internal Builder is used for build
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -o "src\\ex_7.o" "..\\src\\ex_7.c" 
+gcc -o ex_7.exe "src\\ex_7.o" 
+c:/mingw/bin/../lib/gcc/x86_64-w64-mingw32/12.1.0/../../../../x86_64-w64-mingw32/bin/ld.exe: cannot open output file ex_7.exe: Permission denied
+collect2.exe: error: ld returned 1 exit status
+16:05:56 **** Incremental Build of configuration Debug for project ex_7 ****
+Info: Internal Builder is used for build
+gcc -o ex_7.exe "src\\ex_7.o" 
+Info: Nothing to build for ex_1
+Info: Nothing to build for ex_2
+Info: Nothing to build for ex_3
+Info: Nothing to build for ex_4
+Info: Nothing to build for ex_5
+Info: Nothing to build for ex_6
+Info: Nothing to build for ex_7
+16:17:40 **** Rebuild of configuration Debug for project ex_8 ****
+Info: Internal Builder is used for build
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -o "src\\ex_8.o" "..\\src\\ex_8.c" 
+..\src\ex_8.c: In function 'main':
+..\src\ex_8.c:21:39: warning: format '%f' expects a matching 'float *' argument [-Wformat=]
+   21 |                         scanf("%f %f %f",&x,&y);
+      |                                      ~^
+      |                                       |
+      |                                       float *
+gcc -o ex_8.exe "src\\ex_8.o" 
+Info: Nothing to build for ex_1
+Info: Nothing to build for ex_2
+Info: Nothing to build for ex_3
+Info: Nothing to build for ex_4
+Info: Nothing to build for ex_5
+Info: Nothing to build for ex_6
+Info: Nothing to build for ex_7
+16:18:19 **** Incremental Build of configuration Debug for project ex_8 ****
+Info: Internal Builder is used for build
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -o "src\\ex_8.o" "..\\src\\ex_8.c" 
+gcc -o ex_8.exe "src\\ex_8.o" 
+Info: Nothing to build for ex_1
+Info: Nothing to build for ex_2
+Info: Nothing to build for ex_3
+Info: Nothing to build for ex_4
+Info: Nothing to build for ex_5
+Info: Nothing to build for ex_6
+Info: Nothing to build for ex_7
+Info: Nothing to build for ex_8
+Info: Nothing to build for ex_8
+Info: Nothing to build for ex_1
+Info: Nothing to build for ex_2
+Info: Nothing to build for ex_3
+Info: Nothing to build for ex_4
+Info: Nothing to build for ex_5
+Info: Nothing to build for ex_6
+Info: Nothing to build for ex_7
+16:18:31 **** Incremental Build of configuration Debug for project ex_8 ****
+Info: Internal Builder is used for build
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -o "src\\ex_8.o" "..\\src\\ex_8.c" 
+gcc -o ex_8.exe "src\\ex_8.o" 
+c:/mingw/bin/../lib/gcc/x86_64-w64-mingw32/12.1.0/../../../../x86_64-w64-mingw32/bin/ld.exe: cannot open output file ex_8.exe: Permission denied
+collect2.exe: error: ld returned 1 exit status
+Info: Nothing to build for ex_1
+Info: Nothing to build for ex_2
+Info: Nothing to build for ex_3
+Info: Nothing to build for ex_4
+Info: Nothing to build for ex_5
+Info: Nothing to build for ex_6
+Info: Nothing to build for ex_7
+16:18:33 **** Incremental Build of configuration Debug for project ex_8 ****
+Info: Internal Builder is used for build
+gcc -o ex_8.exe "src\\ex_8.o" 
+Info: Nothing to build for ex_8
+Info: Nothing to build for ex_1
+Info: Nothing to build for ex_2
+Info: Nothing to build for ex_3
+Info: Nothing to build for ex_4
+Info: Nothing to build for ex_5
+Info: Nothing to build for ex_6
+Info: Nothing to build for ex_7
+16:20:20 **** Incremental Build of configuration Debug for project ex_8 ****
+Info: Internal Builder is used for build
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -o "src\\ex_8.o" "..\\src\\ex_8.c" 
+gcc -o ex_8.exe "src\\ex_8.o" 
+Info: Nothing to build for ex_8
