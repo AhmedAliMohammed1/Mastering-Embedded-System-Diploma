@@ -1,6 +1,6 @@
 /*
  ============================================================================
- Name        : ex_3.c
+ Name        : ex_4.c
  Author      : 
  Version     :
  Copyright   : Your copyright notice
@@ -10,19 +10,20 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-
-void reverse(){
-	char c;
-	scanf("%c",&c);
-	if(c!='\n'){
-		reverse();
-		printf("%c",c);
-	}
-}
-
+int power(int num,int power_num);
 int main(void) {
-	printf("Enter a sentence:");
+	int x,y;
+	printf("Enter base number");
 	fflush(stdin); fflush(stdout);
-	reverse();
+	scanf("%d",&x);
+	printf("Enter power number");
+	fflush(stdin); fflush(stdout);
+	scanf("%d",&y);
+	printf("%d ^%d = %d",x,y,power(x,y));
 	return 0;
+}
+int power(int num,int power_num){
+	if(power_num!=1){
+		return num*power(num,(power_num-1));
+	}
 }
