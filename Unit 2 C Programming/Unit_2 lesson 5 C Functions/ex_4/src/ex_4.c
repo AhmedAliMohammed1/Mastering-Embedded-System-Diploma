@@ -1,7 +1,7 @@
 /*
  ============================================================================
  Name        : ex_4.c
- Author      : 
+ Author      :
  Version     :
  Copyright   : Your copyright notice
  Description : Hello World in C, Ansi-style
@@ -10,20 +10,37 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-int power(int num,int power_num);
-int main(void) {
-	int x,y;
-	printf("Enter base number");
-	fflush(stdin); fflush(stdout);
-	scanf("%d",&x);
-	printf("Enter power number");
-	fflush(stdin); fflush(stdout);
-	scanf("%d",&y);
-	printf("%d ^%d = %d",x,y,power(x,y));
-	return 0;
-}
-int power(int num,int power_num){
-	if(power_num!=1){
-		return num*power(num,(power_num-1));
+void reveres_arr(int arr[],int n){
+
+	int temp,i,y;
+	for(i=0,y=(n-1);i<y;i++,y--){
+			temp=arr[i];
+			arr[i]=arr[y];
+			arr[y]=temp;
 	}
 }
+int check_3_power(int num){
+	int flag;
+	if(num==3){
+		return 1;
+	}else{
+		for(int i=0;i<=num;i++){
+			num/=3;
+			if(num==1){
+				flag= 1;
+			}else{
+				flag=0;
+			}
+		}
+}
+	return flag;
+}
+int main(void) {
+	int num;
+	scanf("%d",&num);
+printf("%d",check_3_power(num));
+
+	return 0;
+}
+
+
