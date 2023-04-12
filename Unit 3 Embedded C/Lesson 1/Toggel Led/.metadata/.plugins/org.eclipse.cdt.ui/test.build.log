@@ -1,0 +1,23 @@
+00:55:12 **** Incremental Build of configuration Debug for project test ****
+make -j4 all 
+arm-none-eabi-gcc "../Src/main.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DSTM32 -DSTM32F1 -DSTM32F103C6Tx -DDEBUG -c -I../Inc -O3 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Src/main.d" -MT"Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Src/main.o"
+arm-none-eabi-gcc -o "test.elf" @"objects.list"   -mcpu=cortex-m3 -T"C:\Users\Ahmed\STM32CubeIDE\workspace_1.4.0\test\STM32F103C6TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="test.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: test.elf
+ 
+arm-none-eabi-objdump -h -S  test.elf  > "test.list"
+arm-none-eabi-objcopy  -O ihex  test.elf  "test.hex"
+arm-none-eabi-objcopy  -O binary  test.elf  "test.bin"
+arm-none-eabi-size   test.elf 
+   text	   data	    bss	    dec	    hex	filename
+    608	      8	   1568	   2184	    888	test.elf
+Finished building: default.size.stdout
+Finished building: test.list
+Finished building: test.hex
+Finished building: test.bin
+ 
+ 
+ 
+ 
+
+00:55:12 Build Finished. 0 errors, 0 warnings. (took 672ms)
+

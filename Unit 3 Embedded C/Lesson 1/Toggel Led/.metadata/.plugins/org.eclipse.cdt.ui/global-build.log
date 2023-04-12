@@ -1,0 +1,724 @@
+23:37:17 **** Build of configuration Debug for project test ****
+make -j4 all 
+arm-none-eabi-gcc -mcpu=cortex-m3 -g3 -c -x assembler-with-cpp -MMD -MP -MF"Startup/startup_stm32f103c6tx.d" -MT"Startup/startup_stm32f103c6tx.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Startup/startup_stm32f103c6tx.o" "../Startup/startup_stm32f103c6tx.s"
+arm-none-eabi-gcc "../Src/main.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DSTM32 -DSTM32F1 -DSTM32F103C6Tx -DDEBUG -c -I../Inc -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Src/main.d" -MT"Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Src/main.o"
+arm-none-eabi-gcc "../Src/syscalls.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DSTM32 -DSTM32F1 -DSTM32F103C6Tx -DDEBUG -c -I../Inc -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Src/syscalls.d" -MT"Src/syscalls.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Src/syscalls.o"
+arm-none-eabi-gcc "../Src/sysmem.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DSTM32 -DSTM32F1 -DSTM32F103C6Tx -DDEBUG -c -I../Inc -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Src/sysmem.d" -MT"Src/sysmem.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Src/sysmem.o"
+../Src/main.c: In function 'main':
+../Src/main.c:26:19: warning: variable 'data2' set but not used [-Wunused-but-set-variable]
+  uint8_t data1=50,data2;
+                   ^~~~~
+arm-none-eabi-gcc -o "test.elf" @"objects.list"   -mcpu=cortex-m3 -T"C:\Users\Ahmed\STM32CubeIDE\workspace_1.4.0\test\STM32F103C6TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="test.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: test.elf
+ 
+arm-none-eabi-size   test.elf 
+arm-none-eabi-objdump -h -S  test.elf  > "test.list"
+arm-none-eabi-objcopy  -O binary  test.elf  "test.bin"
+   text	   data	    bss	    dec	    hex	filename
+    568	      8	   1568	   2144	    860	test.elf
+Finished building: default.size.stdout
+ 
+Finished building: test.list
+Finished building: test.bin
+ 
+ 
+23:39:14 **** Incremental Build of configuration Debug for project test ****
+make -j4 all 
+arm-none-eabi-gcc "../Src/main.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DSTM32 -DSTM32F1 -DSTM32F103C6Tx -DDEBUG -c -I../Inc -O3 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Src/main.d" -MT"Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Src/main.o"
+arm-none-eabi-gcc "../Src/syscalls.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DSTM32 -DSTM32F1 -DSTM32F103C6Tx -DDEBUG -c -I../Inc -O3 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Src/syscalls.d" -MT"Src/syscalls.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Src/syscalls.o"
+arm-none-eabi-gcc "../Src/sysmem.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DSTM32 -DSTM32F1 -DSTM32F103C6Tx -DDEBUG -c -I../Inc -O3 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Src/sysmem.d" -MT"Src/sysmem.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Src/sysmem.o"
+../Src/main.c: In function 'main':
+../Src/main.c:26:19: warning: variable 'data2' set but not used [-Wunused-but-set-variable]
+  uint8_t data1=50,data2;
+                   ^~~~~
+arm-none-eabi-gcc -o "test.elf" @"objects.list"   -mcpu=cortex-m3 -T"C:\Users\Ahmed\STM32CubeIDE\workspace_1.4.0\test\STM32F103C6TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="test.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: test.elf
+ 
+arm-none-eabi-objdump -h -S  test.elf  > "test.list"
+arm-none-eabi-objcopy  -O binary  test.elf  "test.bin"
+arm-none-eabi-size   test.elf 
+   text	   data	    bss	    dec	    hex	filename
+    552	      8	   1568	   2128	    850	test.elf
+Finished building: default.size.stdout
+ 
+Finished building: test.list
+Finished building: test.bin
+ 
+ 
+23:44:33 **** Incremental Build of configuration Debug for project test ****
+make -j4 all 
+arm-none-eabi-gcc "../Src/main.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DSTM32 -DSTM32F1 -DSTM32F103C6Tx -DDEBUG -c -I../Inc -O3 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Src/main.d" -MT"Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Src/main.o"
+../Src/main.c: In function 'main':
+../Src/main.c:26:28: warning: variable 'data2' set but not used [-Wunused-but-set-variable]
+  volatile uint8_t data1=50,data2;
+                            ^~~~~
+arm-none-eabi-gcc -o "test.elf" @"objects.list"   -mcpu=cortex-m3 -T"C:\Users\Ahmed\STM32CubeIDE\workspace_1.4.0\test\STM32F103C6TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="test.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: test.elf
+ 
+arm-none-eabi-objdump -h -S  test.elf  > "test.list"
+arm-none-eabi-objcopy  -O binary  test.elf  "test.bin"
+arm-none-eabi-size   test.elf 
+   text	   data	    bss	    dec	    hex	filename
+    580	      8	   1568	   2156	    86c	test.elf
+Finished building: default.size.stdout
+ 
+Finished building: test.list
+Finished building: test.bin
+ 
+ 
+23:46:10 **** Incremental Build of configuration Debug for project test ****
+make -j4 all 
+arm-none-eabi-gcc "../Src/main.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DSTM32 -DSTM32F1 -DSTM32F103C6Tx -DDEBUG -c -I../Inc -O3 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Src/main.d" -MT"Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Src/main.o"
+../Src/main.c: In function 'main':
+../Src/main.c:27:19: warning: variable 'data2' set but not used [-Wunused-but-set-variable]
+  volatile uint8_t data2;
+                   ^~~~~
+arm-none-eabi-gcc -o "test.elf" @"objects.list"   -mcpu=cortex-m3 -T"C:\Users\Ahmed\STM32CubeIDE\workspace_1.4.0\test\STM32F103C6TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="test.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: test.elf
+ 
+arm-none-eabi-objdump -h -S  test.elf  > "test.list"
+arm-none-eabi-objcopy  -O binary  test.elf  "test.bin"
+arm-none-eabi-size   test.elf 
+   text	   data	    bss	    dec	    hex	filename
+    580	      8	   1568	   2156	    86c	test.elf
+Finished building: default.size.stdout
+Finished building: test.list
+Finished building: test.bin
+ 
+ 
+ 
+23:46:37 **** Incremental Build of configuration Debug for project test ****
+make -j4 all 
+arm-none-eabi-gcc "../Src/main.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DSTM32 -DSTM32F1 -DSTM32F103C6Tx -DDEBUG -c -I../Inc -O3 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Src/main.d" -MT"Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Src/main.o"
+../Src/main.c: In function 'main':
+../Src/main.c:27:19: warning: variable 'data2' set but not used [-Wunused-but-set-variable]
+  volatile uint8_t data2;
+                   ^~~~~
+arm-none-eabi-gcc -o "test.elf" @"objects.list"   -mcpu=cortex-m3 -T"C:\Users\Ahmed\STM32CubeIDE\workspace_1.4.0\test\STM32F103C6TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="test.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: test.elf
+ 
+arm-none-eabi-objdump -h -S  test.elf  > "test.list"
+arm-none-eabi-objcopy  -O binary  test.elf  "test.bin"
+arm-none-eabi-size   test.elf 
+   text	   data	    bss	    dec	    hex	filename
+    580	      8	   1568	   2156	    86c	test.elf
+Finished building: default.size.stdout
+ 
+Finished building: test.list
+Finished building: test.bin
+ 
+ 
+23:48:44 **** Incremental Build of configuration Debug for project test ****
+make -j4 all 
+arm-none-eabi-gcc "../Src/main.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DSTM32 -DSTM32F1 -DSTM32F103C6Tx -DDEBUG -c -I../Inc -O3 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Src/main.d" -MT"Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Src/main.o"
+../Src/main.c: In function 'main':
+../Src/main.c:27:19: warning: variable 'data2' set but not used [-Wunused-but-set-variable]
+  volatile uint8_t data2;
+                   ^~~~~
+arm-none-eabi-gcc -o "test.elf" @"objects.list"   -mcpu=cortex-m3 -T"C:\Users\Ahmed\STM32CubeIDE\workspace_1.4.0\test\STM32F103C6TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="test.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: test.elf
+ 
+arm-none-eabi-objdump -h -S  test.elf  > "test.list"
+arm-none-eabi-objcopy  -O binary  test.elf  "test.bin"
+arm-none-eabi-size   test.elf 
+   text	   data	    bss	    dec	    hex	filename
+    580	      8	   1568	   2156	    86c	test.elf
+Finished building: default.size.stdout
+ 
+Finished building: test.list
+Finished building: test.bin
+ 
+ 
+23:51:00 **** Incremental Build of configuration Debug for project test ****
+make -j4 all 
+arm-none-eabi-gcc "../Src/main.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DSTM32 -DSTM32F1 -DSTM32F103C6Tx -DDEBUG -c -I../Inc -O3 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Src/main.d" -MT"Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Src/main.o"
+../Src/main.c: In function 'main':
+../Src/main.c:25:19: warning: variable 'data2' set but not used [-Wunused-but-set-variable]
+  volatile uint8_t data2;
+                   ^~~~~
+arm-none-eabi-gcc -o "test.elf" @"objects.list"   -mcpu=cortex-m3 -T"C:\Users\Ahmed\STM32CubeIDE\workspace_1.4.0\test\STM32F103C6TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="test.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: test.elf
+ 
+arm-none-eabi-objdump -h -S  test.elf  > "test.list"
+arm-none-eabi-objcopy  -O binary  test.elf  "test.bin"
+arm-none-eabi-size   test.elf 
+   text	   data	    bss	    dec	    hex	filename
+    580	      8	   1568	   2156	    86c	test.elf
+Finished building: default.size.stdout
+ 
+Finished building: test.list
+Finished building: test.bin
+ 
+ 
+23:54:06 **** Incremental Build of configuration Debug for project test ****
+make -j4 all 
+arm-none-eabi-gcc "../Src/main.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DSTM32 -DSTM32F1 -DSTM32F103C6Tx -DDEBUG -c -I../Inc -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Src/main.d" -MT"Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Src/main.o"
+arm-none-eabi-gcc "../Src/syscalls.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DSTM32 -DSTM32F1 -DSTM32F103C6Tx -DDEBUG -c -I../Inc -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Src/syscalls.d" -MT"Src/syscalls.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Src/syscalls.o"
+arm-none-eabi-gcc "../Src/sysmem.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DSTM32 -DSTM32F1 -DSTM32F103C6Tx -DDEBUG -c -I../Inc -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Src/sysmem.d" -MT"Src/sysmem.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Src/sysmem.o"
+../Src/main.c: In function 'main':
+../Src/main.c:25:19: warning: variable 'data2' set but not used [-Wunused-but-set-variable]
+  volatile uint8_t data2;
+                   ^~~~~
+arm-none-eabi-gcc -o "test.elf" @"objects.list"   -mcpu=cortex-m3 -T"C:\Users\Ahmed\STM32CubeIDE\workspace_1.4.0\test\STM32F103C6TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="test.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: test.elf
+ 
+arm-none-eabi-objdump -h -S  test.elf  > "test.list"
+arm-none-eabi-objcopy  -O binary  test.elf  "test.bin"
+arm-none-eabi-size   test.elf 
+   text	   data	    bss	    dec	    hex	filename
+    572	      8	   1568	   2148	    864	test.elf
+Finished building: default.size.stdout
+ 
+Finished building: test.list
+Finished building: test.bin
+ 
+ 
+23:59:37 **** Incremental Build of configuration Debug for project test ****
+make -j4 all 
+arm-none-eabi-gcc "../Src/main.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DSTM32 -DSTM32F1 -DSTM32F103C6Tx -DDEBUG -c -I../Inc -O3 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Src/main.d" -MT"Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Src/main.o"
+arm-none-eabi-gcc "../Src/syscalls.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DSTM32 -DSTM32F1 -DSTM32F103C6Tx -DDEBUG -c -I../Inc -O3 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Src/syscalls.d" -MT"Src/syscalls.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Src/syscalls.o"
+arm-none-eabi-gcc "../Src/sysmem.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DSTM32 -DSTM32F1 -DSTM32F103C6Tx -DDEBUG -c -I../Inc -O3 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Src/sysmem.d" -MT"Src/sysmem.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Src/sysmem.o"
+../Src/main.c: In function 'main':
+../Src/main.c:25:19: warning: variable 'data2' set but not used [-Wunused-but-set-variable]
+  volatile uint8_t data2;
+                   ^~~~~
+arm-none-eabi-gcc -o "test.elf" @"objects.list"   -mcpu=cortex-m3 -T"C:\Users\Ahmed\STM32CubeIDE\workspace_1.4.0\test\STM32F103C6TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="test.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: test.elf
+ 
+arm-none-eabi-objdump -h -S  test.elf  > "test.list"
+arm-none-eabi-objcopy  -O binary  test.elf  "test.bin"
+arm-none-eabi-size   test.elf 
+   text	   data	    bss	    dec	    hex	filename
+    584	      8	   1568	   2160	    870	test.elf
+Finished building: default.size.stdout
+ 
+Finished building: test.list
+Finished building: test.bin
+ 
+ 
+00:00:15 **** Incremental Build of configuration Debug for project test ****
+make -j4 all 
+arm-none-eabi-gcc "../Src/main.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DSTM32 -DSTM32F1 -DSTM32F103C6Tx -DDEBUG -c -I../Inc -O3 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Src/main.d" -MT"Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Src/main.o"
+../Src/main.c: In function 'main':
+../Src/main.c:25:19: warning: variable 'data2' set but not used [-Wunused-but-set-variable]
+  volatile uint8_t data2;
+                   ^~~~~
+arm-none-eabi-gcc -o "test.elf" @"objects.list"   -mcpu=cortex-m3 -T"C:\Users\Ahmed\STM32CubeIDE\workspace_1.4.0\test\STM32F103C6TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="test.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: test.elf
+ 
+arm-none-eabi-objdump -h -S  test.elf  > "test.list"
+arm-none-eabi-objcopy  -O binary  test.elf  "test.bin"
+arm-none-eabi-size   test.elf 
+   text	   data	    bss	    dec	    hex	filename
+    584	      8	   1568	   2160	    870	test.elf
+Finished building: default.size.stdout
+ 
+Finished building: test.list
+Finished building: test.bin
+ 
+ 
+00:18:37 **** Incremental Build of configuration Debug for project test ****
+make -j4 all 
+arm-none-eabi-gcc "../Src/main.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DSTM32 -DSTM32F1 -DSTM32F103C6Tx -DDEBUG -c -I../Inc -O3 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Src/main.d" -MT"Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Src/main.o"
+arm-none-eabi-gcc -o "test.elf" @"objects.list"   -mcpu=cortex-m3 -T"C:\Users\Ahmed\STM32CubeIDE\workspace_1.4.0\test\STM32F103C6TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="test.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: test.elf
+ 
+arm-none-eabi-objdump -h -S  test.elf  > "test.list"
+arm-none-eabi-objcopy  -O binary  test.elf  "test.bin"
+arm-none-eabi-size   test.elf 
+   text	   data	    bss	    dec	    hex	filename
+    600	      8	   1568	   2176	    880	test.elf
+Finished building: default.size.stdout
+Finished building: test.list
+ 
+Finished building: test.bin
+ 
+ 
+00:22:00 **** Incremental Build of configuration Debug for project test ****
+make -j4 all 
+arm-none-eabi-size   test.elf 
+arm-none-eabi-objcopy  -O ihex  test.elf  "test.hex"
+   text	   data	    bss	    dec	    hex	filename
+    600	      8	   1568	   2176	    880	test.elf
+Finished building: default.size.stdout
+ 
+Finished building: test.hex
+ 
+00:29:15 **** Incremental Build of configuration Debug for project test ****
+make -j4 all 
+arm-none-eabi-size   test.elf 
+   text	   data	    bss	    dec	    hex	filename
+    600	      8	   1568	   2176	    880	test.elf
+Finished building: default.size.stdout
+ 
+00:29:50 **** Incremental Build of configuration Debug for project test ****
+make -j4 all 
+arm-none-eabi-gcc "../Src/main.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DSTM32 -DSTM32F1 -DSTM32F103C6Tx -DDEBUG -c -I../Inc -O3 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Src/main.d" -MT"Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Src/main.o"
+arm-none-eabi-gcc -o "test.elf" @"objects.list"   -mcpu=cortex-m3 -T"C:\Users\Ahmed\STM32CubeIDE\workspace_1.4.0\test\STM32F103C6TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="test.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: test.elf
+ 
+arm-none-eabi-objdump -h -S  test.elf  > "test.list"
+arm-none-eabi-objcopy  -O ihex  test.elf  "test.hex"
+arm-none-eabi-objcopy  -O binary  test.elf  "test.bin"
+arm-none-eabi-size   test.elf 
+   text	   data	    bss	    dec	    hex	filename
+    600	      8	   1568	   2176	    880	test.elf
+Finished building: default.size.stdout
+Finished building: test.hex
+Finished building: test.list
+Finished building: test.bin
+ 
+ 
+ 
+ 
+00:29:54 **** Incremental Build of configuration Debug for project test ****
+make -j4 all 
+arm-none-eabi-gcc "../Src/main.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DSTM32 -DSTM32F1 -DSTM32F103C6Tx -DDEBUG -c -I../Inc -O3 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Src/main.d" -MT"Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Src/main.o"
+arm-none-eabi-gcc -o "test.elf" @"objects.list"   -mcpu=cortex-m3 -T"C:\Users\Ahmed\STM32CubeIDE\workspace_1.4.0\test\STM32F103C6TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="test.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: test.elf
+ 
+arm-none-eabi-objdump -h -S  test.elf  > "test.list"
+arm-none-eabi-objcopy  -O ihex  test.elf  "test.hex"
+arm-none-eabi-objcopy  -O binary  test.elf  "test.bin"
+arm-none-eabi-size   test.elf 
+   text	   data	    bss	    dec	    hex	filename
+    600	      8	   1568	   2176	    880	test.elf
+Finished building: default.size.stdout
+ 
+Finished building: test.list
+Finished building: test.hex
+Finished building: test.bin
+ 
+ 
+ 
+00:29:55 **** Incremental Build of configuration Debug for project test ****
+make -j4 all 
+arm-none-eabi-size   test.elf 
+   text	   data	    bss	    dec	    hex	filename
+    600	      8	   1568	   2176	    880	test.elf
+Finished building: default.size.stdout
+ 
+00:30:07 **** Incremental Build of configuration Debug for project test ****
+make -j4 all 
+arm-none-eabi-gcc "../Src/main.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DSTM32 -DSTM32F1 -DSTM32F103C6Tx -DDEBUG -c -I../Inc -O3 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Src/main.d" -MT"Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Src/main.o"
+arm-none-eabi-gcc -o "test.elf" @"objects.list"   -mcpu=cortex-m3 -T"C:\Users\Ahmed\STM32CubeIDE\workspace_1.4.0\test\STM32F103C6TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="test.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: test.elf
+ 
+arm-none-eabi-objdump -h -S  test.elf  > "test.list"
+arm-none-eabi-objcopy  -O ihex  test.elf  "test.hex"
+arm-none-eabi-objcopy  -O binary  test.elf  "test.bin"
+arm-none-eabi-size   test.elf 
+   text	   data	    bss	    dec	    hex	filename
+    600	      8	   1568	   2176	    880	test.elf
+Finished building: default.size.stdout
+Finished building: test.list
+Finished building: test.hex
+ 
+Finished building: test.bin
+ 
+ 
+ 
+00:36:18 **** Incremental Build of configuration Debug for project test ****
+make -j4 all 
+arm-none-eabi-gcc "../Src/main.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DSTM32 -DSTM32F1 -DSTM32F103C6Tx -DDEBUG -c -I../Inc -O3 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Src/main.d" -MT"Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Src/main.o"
+arm-none-eabi-gcc -o "test.elf" @"objects.list"   -mcpu=cortex-m3 -T"C:\Users\Ahmed\STM32CubeIDE\workspace_1.4.0\test\STM32F103C6TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="test.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: test.elf
+ 
+arm-none-eabi-objdump -h -S  test.elf  > "test.list"
+arm-none-eabi-objcopy  -O ihex  test.elf  "test.hex"
+arm-none-eabi-objcopy  -O binary  test.elf  "test.bin"
+arm-none-eabi-size   test.elf 
+   text	   data	    bss	    dec	    hex	filename
+    616	      8	   1568	   2192	    890	test.elf
+Finished building: default.size.stdout
+Finished building: test.list
+Finished building: test.hex
+ 
+Finished building: test.bin
+ 
+ 
+ 
+00:37:01 **** Incremental Build of configuration Debug for project test ****
+make -j4 all 
+arm-none-eabi-gcc "../Src/main.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DSTM32 -DSTM32F1 -DSTM32F103C6Tx -DDEBUG -c -I../Inc -O3 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Src/main.d" -MT"Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Src/main.o"
+arm-none-eabi-gcc -o "test.elf" @"objects.list"   -mcpu=cortex-m3 -T"C:\Users\Ahmed\STM32CubeIDE\workspace_1.4.0\test\STM32F103C6TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="test.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: test.elf
+ 
+arm-none-eabi-objdump -h -S  test.elf  > "test.list"
+arm-none-eabi-objcopy  -O ihex  test.elf  "test.hex"
+arm-none-eabi-objcopy  -O binary  test.elf  "test.bin"
+arm-none-eabi-size   test.elf 
+   text	   data	    bss	    dec	    hex	filename
+    616	      8	   1568	   2192	    890	test.elf
+Finished building: default.size.stdout
+Finished building: test.list
+ 
+Finished building: test.hex
+Finished building: test.bin
+ 
+ 
+ 
+00:37:13 **** Incremental Build of configuration Debug for project test ****
+make -j4 all 
+arm-none-eabi-size   test.elf 
+   text	   data	    bss	    dec	    hex	filename
+    616	      8	   1568	   2192	    890	test.elf
+Finished building: default.size.stdout
+ 
+00:38:05 **** Incremental Build of configuration Debug for project test ****
+make -j4 all 
+arm-none-eabi-gcc "../Src/main.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DSTM32 -DSTM32F1 -DSTM32F103C6Tx -DDEBUG -c -I../Inc -O3 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Src/main.d" -MT"Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Src/main.o"
+arm-none-eabi-gcc -o "test.elf" @"objects.list"   -mcpu=cortex-m3 -T"C:\Users\Ahmed\STM32CubeIDE\workspace_1.4.0\test\STM32F103C6TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="test.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: test.elf
+ 
+arm-none-eabi-objdump -h -S  test.elf  > "test.list"
+arm-none-eabi-objcopy  -O ihex  test.elf  "test.hex"
+arm-none-eabi-objcopy  -O binary  test.elf  "test.bin"
+arm-none-eabi-size   test.elf 
+   text	   data	    bss	    dec	    hex	filename
+    612	      8	   1568	   2188	    88c	test.elf
+Finished building: default.size.stdout
+Finished building: test.list
+ 
+Finished building: test.hex
+Finished building: test.bin
+ 
+ 
+ 
+00:40:16 **** Incremental Build of configuration Debug for project test ****
+make -j4 all 
+arm-none-eabi-gcc "../Src/main.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DSTM32 -DSTM32F1 -DSTM32F103C6Tx -DDEBUG -c -I../Inc -O3 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Src/main.d" -MT"Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Src/main.o"
+arm-none-eabi-gcc -o "test.elf" @"objects.list"   -mcpu=cortex-m3 -T"C:\Users\Ahmed\STM32CubeIDE\workspace_1.4.0\test\STM32F103C6TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="test.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: test.elf
+ 
+arm-none-eabi-objdump -h -S  test.elf  > "test.list"
+arm-none-eabi-objcopy  -O ihex  test.elf  "test.hex"
+arm-none-eabi-objcopy  -O binary  test.elf  "test.bin"
+arm-none-eabi-size   test.elf 
+   text	   data	    bss	    dec	    hex	filename
+    612	      8	   1568	   2188	    88c	test.elf
+Finished building: default.size.stdout
+Finished building: test.list
+Finished building: test.hex
+Finished building: test.bin
+ 
+ 
+ 
+ 
+00:40:38 **** Incremental Build of configuration Debug for project test ****
+make -j4 all 
+arm-none-eabi-gcc "../Src/main.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DSTM32 -DSTM32F1 -DSTM32F103C6Tx -DDEBUG -c -I../Inc -O3 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Src/main.d" -MT"Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Src/main.o"
+arm-none-eabi-gcc -o "test.elf" @"objects.list"   -mcpu=cortex-m3 -T"C:\Users\Ahmed\STM32CubeIDE\workspace_1.4.0\test\STM32F103C6TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="test.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: test.elf
+ 
+arm-none-eabi-objdump -h -S  test.elf  > "test.list"
+arm-none-eabi-objcopy  -O ihex  test.elf  "test.hex"
+arm-none-eabi-objcopy  -O binary  test.elf  "test.bin"
+arm-none-eabi-size   test.elf 
+   text	   data	    bss	    dec	    hex	filename
+    612	      8	   1568	   2188	    88c	test.elf
+Finished building: default.size.stdout
+Finished building: test.list
+Finished building: test.bin
+Finished building: test.hex
+ 
+ 
+ 
+ 
+00:41:24 **** Incremental Build of configuration Debug for project test ****
+make -j4 all 
+arm-none-eabi-gcc "../Src/main.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DSTM32 -DSTM32F1 -DSTM32F103C6Tx -DDEBUG -c -I../Inc -O3 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Src/main.d" -MT"Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Src/main.o"
+arm-none-eabi-gcc -o "test.elf" @"objects.list"   -mcpu=cortex-m3 -T"C:\Users\Ahmed\STM32CubeIDE\workspace_1.4.0\test\STM32F103C6TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="test.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: test.elf
+ 
+arm-none-eabi-objdump -h -S  test.elf  > "test.list"
+arm-none-eabi-objcopy  -O ihex  test.elf  "test.hex"
+arm-none-eabi-objcopy  -O binary  test.elf  "test.bin"
+arm-none-eabi-size   test.elf 
+   text	   data	    bss	    dec	    hex	filename
+    604	      8	   1568	   2180	    884	test.elf
+Finished building: default.size.stdout
+Finished building: test.list
+Finished building: test.hex
+Finished building: test.bin
+ 
+ 
+ 
+ 
+00:41:43 **** Incremental Build of configuration Debug for project test ****
+make -j4 all 
+arm-none-eabi-gcc "../Src/main.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DSTM32 -DSTM32F1 -DSTM32F103C6Tx -DDEBUG -c -I../Inc -O3 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Src/main.d" -MT"Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Src/main.o"
+arm-none-eabi-gcc -o "test.elf" @"objects.list"   -mcpu=cortex-m3 -T"C:\Users\Ahmed\STM32CubeIDE\workspace_1.4.0\test\STM32F103C6TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="test.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: test.elf
+ 
+arm-none-eabi-objdump -h -S  test.elf  > "test.list"
+arm-none-eabi-objcopy  -O ihex  test.elf  "test.hex"
+arm-none-eabi-objcopy  -O binary  test.elf  "test.bin"
+arm-none-eabi-size   test.elf 
+   text	   data	    bss	    dec	    hex	filename
+    604	      8	   1568	   2180	    884	test.elf
+Finished building: default.size.stdout
+Finished building: test.hex
+Finished building: test.list
+Finished building: test.bin
+ 
+ 
+ 
+ 
+00:42:44 **** Incremental Build of configuration Debug for project test ****
+make -j4 all 
+arm-none-eabi-gcc "../Src/main.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DSTM32 -DSTM32F1 -DSTM32F103C6Tx -DDEBUG -c -I../Inc -O3 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Src/main.d" -MT"Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Src/main.o"
+../Src/main.c: In function 'main':
+../Src/main.c:26:19: warning: initialization makes pointer from integer without a cast [-Wint-conversion]
+ #define GPIOA_ODR *(volatile usint32_t     *)(GPIOA_BASE+ 0x0C)
+                   ^
+../Src/main.c:39:26: note: in expansion of macro 'GPIOA_ODR'
+  volatile GPIOA_O * pins=GPIOA_ODR;
+                          ^~~~~~~~~
+arm-none-eabi-gcc -o "test.elf" @"objects.list"   -mcpu=cortex-m3 -T"C:\Users\Ahmed\STM32CubeIDE\workspace_1.4.0\test\STM32F103C6TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="test.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: test.elf
+ 
+arm-none-eabi-objdump -h -S  test.elf  > "test.list"
+arm-none-eabi-objcopy  -O ihex  test.elf  "test.hex"
+arm-none-eabi-objcopy  -O binary  test.elf  "test.bin"
+arm-none-eabi-size   test.elf 
+   text	   data	    bss	    dec	    hex	filename
+    604	      8	   1568	   2180	    884	test.elf
+Finished building: default.size.stdout
+ 
+Finished building: test.list
+Finished building: test.hex
+Finished building: test.bin
+ 
+ 
+ 
+00:42:47 **** Incremental Build of configuration Debug for project test ****
+make -j4 all 
+arm-none-eabi-size   test.elf 
+   text	   data	    bss	    dec	    hex	filename
+    604	      8	   1568	   2180	    884	test.elf
+Finished building: default.size.stdout
+ 
+00:43:42 **** Incremental Build of configuration Debug for project test ****
+make -j4 all 
+arm-none-eabi-gcc "../Src/main.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DSTM32 -DSTM32F1 -DSTM32F103C6Tx -DDEBUG -c -I../Inc -O3 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Src/main.d" -MT"Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Src/main.o"
+arm-none-eabi-gcc -o "test.elf" @"objects.list"   -mcpu=cortex-m3 -T"C:\Users\Ahmed\STM32CubeIDE\workspace_1.4.0\test\STM32F103C6TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="test.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: test.elf
+ 
+arm-none-eabi-objdump -h -S  test.elf  > "test.list"
+arm-none-eabi-objcopy  -O ihex  test.elf  "test.hex"
+arm-none-eabi-objcopy  -O binary  test.elf  "test.bin"
+arm-none-eabi-size   test.elf 
+   text	   data	    bss	    dec	    hex	filename
+    600	      8	   1568	   2176	    880	test.elf
+Finished building: default.size.stdout
+Finished building: test.list
+Finished building: test.hex
+Finished building: test.bin
+ 
+ 
+ 
+ 
+00:43:45 **** Incremental Build of configuration Debug for project test ****
+make -j4 all 
+arm-none-eabi-size   test.elf 
+   text	   data	    bss	    dec	    hex	filename
+    600	      8	   1568	   2176	    880	test.elf
+Finished building: default.size.stdout
+ 
+00:44:14 **** Incremental Build of configuration Debug for project test ****
+make -j4 all 
+arm-none-eabi-gcc "../Src/main.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DSTM32 -DSTM32F1 -DSTM32F103C6Tx -DDEBUG -c -I../Inc -O3 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Src/main.d" -MT"Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Src/main.o"
+arm-none-eabi-gcc -o "test.elf" @"objects.list"   -mcpu=cortex-m3 -T"C:\Users\Ahmed\STM32CubeIDE\workspace_1.4.0\test\STM32F103C6TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="test.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: test.elf
+ 
+arm-none-eabi-objdump -h -S  test.elf  > "test.list"
+arm-none-eabi-objcopy  -O ihex  test.elf  "test.hex"
+arm-none-eabi-objcopy  -O binary  test.elf  "test.bin"
+arm-none-eabi-size   test.elf 
+   text	   data	    bss	    dec	    hex	filename
+    612	      8	   1568	   2188	    88c	test.elf
+Finished building: default.size.stdout
+Finished building: test.hex
+Finished building: test.list
+Finished building: test.bin
+ 
+ 
+ 
+ 
+00:44:50 **** Incremental Build of configuration Debug for project test ****
+make -j4 all 
+arm-none-eabi-gcc "../Src/main.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DSTM32 -DSTM32F1 -DSTM32F103C6Tx -DDEBUG -c -I../Inc -O3 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Src/main.d" -MT"Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Src/main.o"
+arm-none-eabi-gcc -o "test.elf" @"objects.list"   -mcpu=cortex-m3 -T"C:\Users\Ahmed\STM32CubeIDE\workspace_1.4.0\test\STM32F103C6TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="test.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: test.elf
+ 
+arm-none-eabi-objdump -h -S  test.elf  > "test.list"
+arm-none-eabi-objcopy  -O ihex  test.elf  "test.hex"
+arm-none-eabi-objcopy  -O binary  test.elf  "test.bin"
+arm-none-eabi-size   test.elf 
+   text	   data	    bss	    dec	    hex	filename
+    624	      8	   1568	   2200	    898	test.elf
+Finished building: default.size.stdout
+Finished building: test.list
+Finished building: test.hex
+ 
+Finished building: test.bin
+ 
+ 
+ 
+00:46:28 **** Incremental Build of configuration Debug for project test ****
+make -j4 all 
+arm-none-eabi-gcc "../Src/main.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DSTM32 -DSTM32F1 -DSTM32F103C6Tx -DDEBUG -c -I../Inc -O3 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Src/main.d" -MT"Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Src/main.o"
+../Src/main.c: In function 'main':
+../Src/main.c:45:2: error: expected ';' before 'for'
+  for(;;){
+  ^~~
+make: *** [Src/subdir.mk:24: Src/main.o] Error 1
+"make -j4 all" terminated with exit code 2. Build might be incomplete.
+00:46:44 **** Incremental Build of configuration Debug for project test ****
+make -j4 all 
+arm-none-eabi-gcc "../Src/main.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DSTM32 -DSTM32F1 -DSTM32F103C6Tx -DDEBUG -c -I../Inc -O3 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Src/main.d" -MT"Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Src/main.o"
+../Src/main.c: In function 'main':
+../Src/main.c:45:2: error: expected ';' before 'for'
+  for(;;){
+  ^~~
+make: *** [Src/subdir.mk:24: Src/main.o] Error 1
+"make -j4 all" terminated with exit code 2. Build might be incomplete.
+00:46:51 **** Incremental Build of configuration Debug for project test ****
+make -j4 all 
+arm-none-eabi-gcc "../Src/main.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DSTM32 -DSTM32F1 -DSTM32F103C6Tx -DDEBUG -c -I../Inc -O3 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Src/main.d" -MT"Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Src/main.o"
+arm-none-eabi-gcc -o "test.elf" @"objects.list"   -mcpu=cortex-m3 -T"C:\Users\Ahmed\STM32CubeIDE\workspace_1.4.0\test\STM32F103C6TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="test.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: test.elf
+ 
+arm-none-eabi-objdump -h -S  test.elf  > "test.list"
+arm-none-eabi-objcopy  -O ihex  test.elf  "test.hex"
+arm-none-eabi-objcopy  -O binary  test.elf  "test.bin"
+arm-none-eabi-size   test.elf 
+   text	   data	    bss	    dec	    hex	filename
+    616	      8	   1568	   2192	    890	test.elf
+Finished building: default.size.stdout
+ 
+Finished building: test.list
+Finished building: test.hex
+Finished building: test.bin
+ 
+ 
+ 
+00:48:30 **** Incremental Build of configuration Debug for project test ****
+make -j4 all 
+arm-none-eabi-size   test.elf 
+   text	   data	    bss	    dec	    hex	filename
+    616	      8	   1568	   2192	    890	test.elf
+Finished building: default.size.stdout
+ 
+00:49:00 **** Incremental Build of configuration Debug for project test ****
+make -j4 all 
+arm-none-eabi-gcc "../Src/main.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DSTM32 -DSTM32F1 -DSTM32F103C6Tx -DDEBUG -c -I../Inc -O3 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Src/main.d" -MT"Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Src/main.o"
+../Src/main.c: In function 'main':
+../Src/main.c:39:21: warning: unused variable 'pins' [-Wunused-variable]
+  volatile GPIOA_O * pins=(volatile GPIOA_O *)(GPIOA_BASE+0x0C);
+                     ^~~~
+arm-none-eabi-gcc -o "test.elf" @"objects.list"   -mcpu=cortex-m3 -T"C:\Users\Ahmed\STM32CubeIDE\workspace_1.4.0\test\STM32F103C6TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="test.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: test.elf
+ 
+arm-none-eabi-objdump -h -S  test.elf  > "test.list"
+arm-none-eabi-objcopy  -O ihex  test.elf  "test.hex"
+arm-none-eabi-objcopy  -O binary  test.elf  "test.bin"
+arm-none-eabi-size   test.elf 
+   text	   data	    bss	    dec	    hex	filename
+    600	      8	   1568	   2176	    880	test.elf
+Finished building: default.size.stdout
+ 
+Finished building: test.list
+Finished building: test.hex
+Finished building: test.bin
+ 
+ 
+ 
+00:51:34 **** Incremental Build of configuration Debug for project test ****
+make -j4 all 
+arm-none-eabi-gcc "../Src/main.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DSTM32 -DSTM32F1 -DSTM32F103C6Tx -DDEBUG -c -I../Inc -O3 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Src/main.d" -MT"Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Src/main.o"
+arm-none-eabi-gcc -o "test.elf" @"objects.list"   -mcpu=cortex-m3 -T"C:\Users\Ahmed\STM32CubeIDE\workspace_1.4.0\test\STM32F103C6TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="test.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: test.elf
+ 
+arm-none-eabi-objdump -h -S  test.elf  > "test.list"
+arm-none-eabi-objcopy  -O ihex  test.elf  "test.hex"
+arm-none-eabi-objcopy  -O binary  test.elf  "test.bin"
+arm-none-eabi-size   test.elf 
+   text	   data	    bss	    dec	    hex	filename
+    616	     12	   1564	   2192	    890	test.elf
+Finished building: default.size.stdout
+Finished building: test.list
+Finished building: test.hex
+Finished building: test.bin
+ 
+ 
+ 
+ 
+00:52:36 **** Incremental Build of configuration Debug for project test ****
+make -j4 all 
+arm-none-eabi-size   test.elf 
+   text	   data	    bss	    dec	    hex	filename
+    616	     12	   1564	   2192	    890	test.elf
+Finished building: default.size.stdout
+ 
+00:54:29 **** Incremental Build of configuration Debug for project test ****
+make -j4 all 
+arm-none-eabi-gcc "../Src/main.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DSTM32 -DSTM32F1 -DSTM32F103C6Tx -DDEBUG -c -I../Inc -O3 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Src/main.d" -MT"Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Src/main.o"
+arm-none-eabi-gcc -o "test.elf" @"objects.list"   -mcpu=cortex-m3 -T"C:\Users\Ahmed\STM32CubeIDE\workspace_1.4.0\test\STM32F103C6TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="test.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: test.elf
+ 
+arm-none-eabi-objdump -h -S  test.elf  > "test.list"
+arm-none-eabi-objcopy  -O ihex  test.elf  "test.hex"
+arm-none-eabi-objcopy  -O binary  test.elf  "test.bin"
+arm-none-eabi-size   test.elf 
+   text	   data	    bss	    dec	    hex	filename
+    616	     12	   1564	   2192	    890	test.elf
+Finished building: default.size.stdout
+Finished building: test.list
+Finished building: test.hex
+Finished building: test.bin
+ 
+ 
+ 
+ 
+00:54:45 **** Incremental Build of configuration Debug for project test ****
+make -j4 all 
+arm-none-eabi-gcc "../Src/main.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DSTM32 -DSTM32F1 -DSTM32F103C6Tx -DDEBUG -c -I../Inc -O3 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Src/main.d" -MT"Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Src/main.o"
+arm-none-eabi-gcc -o "test.elf" @"objects.list"   -mcpu=cortex-m3 -T"C:\Users\Ahmed\STM32CubeIDE\workspace_1.4.0\test\STM32F103C6TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="test.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: test.elf
+ 
+arm-none-eabi-objdump -h -S  test.elf  > "test.list"
+arm-none-eabi-objcopy  -O ihex  test.elf  "test.hex"
+arm-none-eabi-objcopy  -O binary  test.elf  "test.bin"
+arm-none-eabi-size   test.elf 
+   text	   data	    bss	    dec	    hex	filename
+    612	     12	   1564	   2188	    88c	test.elf
+Finished building: default.size.stdout
+Finished building: test.list
+Finished building: test.hex
+Finished building: test.bin
+ 
+ 
+ 
+ 
+00:55:12 **** Incremental Build of configuration Debug for project test ****
+make -j4 all 
+arm-none-eabi-gcc "../Src/main.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DSTM32 -DSTM32F1 -DSTM32F103C6Tx -DDEBUG -c -I../Inc -O3 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Src/main.d" -MT"Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Src/main.o"
+arm-none-eabi-gcc -o "test.elf" @"objects.list"   -mcpu=cortex-m3 -T"C:\Users\Ahmed\STM32CubeIDE\workspace_1.4.0\test\STM32F103C6TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="test.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: test.elf
+ 
+arm-none-eabi-objdump -h -S  test.elf  > "test.list"
+arm-none-eabi-objcopy  -O ihex  test.elf  "test.hex"
+arm-none-eabi-objcopy  -O binary  test.elf  "test.bin"
+arm-none-eabi-size   test.elf 
+   text	   data	    bss	    dec	    hex	filename
+    608	      8	   1568	   2184	    888	test.elf
+Finished building: default.size.stdout
+Finished building: test.list
+Finished building: test.hex
+Finished building: test.bin
+ 
+ 
+ 
+ 
