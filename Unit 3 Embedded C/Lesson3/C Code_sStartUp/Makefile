@@ -20,8 +20,8 @@ $(ProjectName).bin:$(ProjectName).elf
 $(ProjectName).hex:$(ProjectName).elf
 	$(CC)objcopy.exe -O ihex $< $@
 clean :
-	rm *.elf *.bin
+	rm *.elf *.bin *.hex
 	
 clean_all:
-	rm *.elf *.o *.bin
+	rm *.elf *.o *.bin *.hex
 	@echo "===============$(ProjectName) clean is done ================" 

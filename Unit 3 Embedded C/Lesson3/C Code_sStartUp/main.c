@@ -32,7 +32,9 @@ typedef union{
 	}pin;
 
 }GPIOA_O;
-
+vusint32_t ahmed[3]={1,2,3};
+vusint32_t ok;
+vusint32_t const a;
 
 int main(void)
 {

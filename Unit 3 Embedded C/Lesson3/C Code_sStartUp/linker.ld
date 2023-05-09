@@ -16,16 +16,24 @@ SECTIONS
 	*(.vectors*)
 	*(.text*)
 	*(.rodata)
-
+	_E_text = . ;
 	}> FLASH
 	.data :
 	{
+	_S_DATA = .;
 	*(.data)
-	
-	}> FLASH
+	_E_DATA = .;
+	. = ALIGN(4);
+	}> SRAM AT> FLASH
 	
 	.bss :
 	{
+	_S_BSS = .;
 	*(.bss*)
+	. = ALIGN(4);
+	_E_BSS = .;
+	. = ALIGN(4);
+	. = . +0x1000;
+	_stack_top = .;
 	}> SRAM
 }

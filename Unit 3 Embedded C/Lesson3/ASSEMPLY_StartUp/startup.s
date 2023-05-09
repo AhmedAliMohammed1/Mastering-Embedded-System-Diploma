@@ -1,7 +1,7 @@
 /* Assemply startup*/
 /*Eng: Ahmed Ali Mohammed*/
 
-.section .vector
+.section .vectors
 .word 0x20001000  /* Addres ->SP*/
 .word _vector_handler /* Reset Handler*/
 .word _vector_handler /* NMI*/
@@ -25,7 +25,7 @@
 .word _vector_handler	//EXTI1
 .word _vector_handler	//EXTI2
 
-
+.section .text
 _reset:
 	bl main
 	b .
