@@ -48,8 +48,8 @@ int main(void)
 		// another sol.
 		pins->pin.pin13 =	pins->pin.pin13 ^ 0x01; // led off
 
-
-		for(int i=0;i<5000;i++);
+	int i;
+		for(i=0;i<5000;i++);
 //		pins->pin.pin13 =	0; // led on
 //
 //		for(int i=0;i<5000;i++);
