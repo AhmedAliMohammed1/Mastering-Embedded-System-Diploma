@@ -8,25 +8,24 @@
 
 Student_Node *g_fStudent=NULL;
 void Fill_info(Student_Node *Student){
-	usint8_t temp[40];
-	printf("Please Enter ID:");
-	gets(temp);
-	Student->student.id=atoi(temp);
+	printf("Please Enter ID:\n");
+	fflush(stdout);
+	scanf("%d",&Student->student.id);
 	printf("Please Enter Name:");
-	gets(Student->student.name);
+	fflush(stdout);
+	scanf("%s",&Student->student.name);
 	printf("Please Enter Age:");
-	gets(temp);
-	Student->student.age=atoi(temp);
+	fflush(stdout);
+	scanf("%d",&Student->student.age);
+	fflush(stdout);
 	printf("Please Enter Height:");
-	gets(temp);
-	Student->student.hight=atof(temp);
-
-
+	fflush(stdout);
+	scanf("%f",&Student->student.hight);
 
 
 }
 void Add_student(){
-	Student_Node *New_student,*last_student;
+	Student_Node *New_student=NULL,*last_student=NULL;
 	if(g_fStudent==NULL){
 		New_student= (Student_Node *)malloc(sizeof(Student_Node));
 		g_fStudent=New_student;
@@ -51,21 +50,21 @@ Student_Status Delet_student(usint32_t wanted_id)
 	Student_Node* current_student=g_fStudent,*prev_student=NULL;
 	while(current_student){
 		if(current_student->student.id==wanted_id){
-		if(prev_student){
-			prev_student->PNxStudent=current_student->PNxStudent;
+			if(prev_student){
+				prev_student->PNxStudent=current_student->PNxStudent;
 
-		}else{
-			g_fStudent=current_student->PNxStudent;
+			}else{
+				g_fStudent=current_student->PNxStudent;
+			}
+			free(current_student);
+			return FOUND;
 		}
-		free(current_student);
-		return FOUND;
-	}
-	else{
+		else{
 
 
-		prev_student=current_student;
-		current_student=current_student->PNxStudent;
-	}
+			prev_student=current_student;
+			current_student=current_student->PNxStudent;
+		}
 
 	}
 	return NOTFOUND;
@@ -74,11 +73,14 @@ Student_Status Delet_student(usint32_t wanted_id)
 }
 void view_AllStudents(){
 	Student_Node *Student=g_fStudent;
+	if(Student){
 	while(Student){
-		Student_Print(Student);
+		Student_Print(*Student);
 		Student=Student->PNxStudent;
 	}
-
+	}else{
+		printf("List is EMPTY");
+	}
 }
 void Delet_AllStudents(){
 	Student_Node *current_student=g_fStudent;
@@ -89,13 +91,14 @@ void Delet_AllStudents(){
 
 
 	}
+	g_fStudent=NULL;
 
 }
-void Student_Print(Student_Node *Student){
-	printf("Name:%s\n",Student->student.name);
-	printf("ID:%d\n",Student->student.id);
-	printf("Age:%d\n",Student->student.age);
-	printf("Hight:%f\n",Student->student.hight);
+void Student_Print(Student_Node Student){
+	printf("Name:%s\n",&Student.student.name);
+	printf("ID:%d\n",Student.student.id);
+	printf("Age:%d\n",Student.student.age);
+	printf("Hight:%f\n",Student.student.hight);
 	printf("==============================\n");
 
 

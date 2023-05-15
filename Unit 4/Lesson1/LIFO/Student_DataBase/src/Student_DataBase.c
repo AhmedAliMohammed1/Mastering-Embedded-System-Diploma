@@ -16,19 +16,21 @@ int main(void) {
 	setvbuf(stderr, NULL, _IONBF, 0);
 	usint8_t choose;
 	usint32_t id=0;
-	//printf("\n\t Choose an Option\n");
-	//printf("\n\t 1.Add student\n");
-	//printf("\n\t 2.Delete Student\n");
-	//printf("\n\t 3.View All Students\n");
-	//printf("\n\t 4.Delete All Students\n");
-	scanf("%c",&choose);
+
+	while(1){
+		printf("\n\t Choose an Option\n");
+		printf("\n\t 1.Add student\n");
+		printf("\n\t 2.Delete Student\n");
+		printf("\n\t 3.View All Students\n");
+		printf("\n\t 4.Delete All Students\n");
+	scanf("%u",&choose);
 	switch(choose){
 	case 1:
 		Add_student();
 		break;
 	case 2:
-		//printf("Enter The ID:");
-		scanf("%u",id);
+		printf("Enter The ID:");
+		scanf("%lu",&id);
 		Delet_student(id);
 		break;
 	case 3:
@@ -39,6 +41,7 @@ int main(void) {
 		break;
 	default:
 
+	}
 	}
 	return 0;
 }
