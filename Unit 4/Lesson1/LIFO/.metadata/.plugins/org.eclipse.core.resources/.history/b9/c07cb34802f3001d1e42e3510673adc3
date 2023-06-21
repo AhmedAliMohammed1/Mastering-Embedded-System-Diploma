@@ -1,0 +1,24 @@
+/*
+ * FIFO.c
+ *
+ *  Created on: May 15, 2023
+ *      Author: Ahmed
+ */
+#include "FIFO.h"
+FIFO_status FIFO_init(FIFO_t *FIFO,element_type *buff,element_type length)
+{
+	if(buff==NULL)
+		return FIFO_null;
+	FIFO->base=buff;
+	FIFO->head=buff;
+	FIFO->tail=buff;
+	FIFO->length=length;
+	FIFO->count=0;
+
+	}
+FIFO_status FIFO_PUSH(FIFO_t *FIFO,element_type item)
+{
+	}
+FIFO_status FIFO_POP(FIFO_t *FIFO,element_type *item)
+{
+	}

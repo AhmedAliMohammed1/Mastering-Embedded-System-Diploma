@@ -1,0 +1,50 @@
+/*
+ * FIFO.c
+ *
+ *  Created on: May 15, 2023
+ *      Author: Ahmed
+ */
+#include "FIFO.h"
+FIFO_status FIFO_init(FIFO_t *FIFO,element_type *buff,element_type length)
+{
+	if(buff==NULL)
+		return FIFO_null;
+	FIFO->base=buff;
+	FIFO->head=buff;
+	FIFO->tail=buff;
+	FIFO->length=length;
+	FIFO->count=0;
+	return FIFO_no_error;
+
+	}
+FIFO_status FIFO_PUSH(FIFO_t *FIFO,element_type item)
+{
+	//check if fifo has been init befor or not
+	if(!FIFO->base || !FIFO->head || !FIFO->tail)
+		return FIFO_null;
+	//check if FIFO is full or not
+	 if((FIFO->head > ((FIFO->base) + (sizeof(element_type)*FIFO->length)))||(FIFO->count==FIFO->length))
+		 return FIFO_FULL;
+
+	 *(FIFO->head)=item;
+	 FIFO->head++;
+	 FIFO->count++;
+	 return FIFO_no_error;
+	}
+FIFO_status FIFO_POP(FIFO_t *FIFO,element_type *item)
+{
+	//check if fifo has been init befor or not
+	if(!FIFO->base || !FIFO->head || !FIFO->tail)
+		return FIFO_null;
+	//check if FIFO emty of not
+	if(FIFO->count==0)
+		return FIFO_empty;
+	if((FIFO->tail < ((FIFO->base) + (sizeof(element_type)*FIFO->length)))){
+	*item=*(FIFO->tail);
+	FIFO->tail++;
+	FIFO->count--;
+	}else{
+		FIFO->tail=FIFO->base;
+	}
+	return FIFO_no_error
+	}

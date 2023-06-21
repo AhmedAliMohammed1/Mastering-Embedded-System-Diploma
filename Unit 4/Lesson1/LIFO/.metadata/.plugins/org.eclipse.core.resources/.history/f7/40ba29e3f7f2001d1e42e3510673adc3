@@ -1,0 +1,20 @@
+/*
+ * LIFO.h
+ *
+ *  Created on: May 15, 2023
+ *      Author: Ahmed
+ */
+
+#ifndef LIFO_H_
+#define LIFO_H_
+#include "Platform_Types.h"
+#include <stdlib.h>
+
+typedef struct {
+
+
+
+};
+
+
+#endif /* LIFO_H_ */

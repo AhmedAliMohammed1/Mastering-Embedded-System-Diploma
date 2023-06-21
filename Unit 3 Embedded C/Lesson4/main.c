@@ -13,6 +13,9 @@ Eng :Ahmed Ali Mohammed*/
 #define GPIO_PORTF_DEN_R (*((vusint32_t *) (GPIOF_Base + 0x51c )))
 
 int main(void){
+		char  * ehab ="ehap";
+
+	ehab[0]='r';
 	SYSCTL_RCGC2_R=0x00000020;
 	vusint32_t i;
 	for(i=0;i<400;i++); // very littel delay tm make sure that SYSCTL_RCGC2_R is set
@@ -23,7 +26,7 @@ int main(void){
 	while(1){
 		
 		GPIO_PORTF_DATA_R ^= 1<<3 ;
-			for(i=0;i<200000;i++); 
+			for(i=0;i<200000;i++); 	
 	//	GPIO_PORTF_DATA_R &= ~(1<<3) ;	
 	//		for(i=0;i<200000;i++); 
 

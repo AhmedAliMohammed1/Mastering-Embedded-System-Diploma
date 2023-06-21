@@ -1,0 +1,41 @@
+/*
+ * DataStrct.c
+ *
+ *  Created on: May 15, 2023
+ *      Author: Ahmed
+ */
+#include "DataStruct.h"
+
+Student_Node *g_fStudent=NULL;
+void Fill_info(Student_Node *Student){
+	usint8_t temp[40];
+	printf("Please Enter ID:");
+	gets(temp);
+	Student->student.id=atoi(temp);
+	printf("Please Enter Name:");
+	gets(Student->student.name);
+	printf("Please Enter Age:");
+	gets(temp);
+	Student->student.age=atoi(temp);
+	printf("Please Enter Height:");
+	gets(temp);
+	Student->student.hight=atoi(temp);
+
+
+
+
+}
+void Add_student(){
+	Student_Node *New_student,*last_student;
+	if(g_fStudent==NULL){
+		New_student= (Student_Node *)malloc(sizeof(Student_Node))
+
+
+	}
+
+
+}
+void Delet_student();
+void view_AllStudents();
+void Delet_AllStudents();
+

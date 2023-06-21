@@ -1,0 +1,23 @@
+/*
+ * DataStruct.h
+ *
+ *  Created on: May 15, 2023
+ *      Author: Ahmed
+ */
+
+#ifndef DATASTRUCT_H_
+#define DATASTRUCT_H_
+#include "Platform_Types.h"
+
+typedef struct{
+	char *name;
+	usint8_t age;
+	double hight;
+
+}information;
+typedef struct{
+	information student;
+	Student_Node *PNxStudent;
+}Student_Node;
+
+#endif /* DATASTRUCT_H_ */

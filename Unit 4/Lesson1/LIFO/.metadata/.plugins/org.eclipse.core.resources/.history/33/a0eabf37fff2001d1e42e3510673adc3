@@ -1,0 +1,26 @@
+/*
+ * main.c
+ *
+ *  Created on: May 15, 2023
+ *      Author: Ahmed
+ */
+
+#include "LIFO.h"
+#define size 5
+
+element_type arr[size];
+LIFO_t UART_t,I2C;
+void main(void){
+	LIFO_init(&UART_t, arr, size);
+	int i;
+	for(i=0;i<7;i++){
+		if(LIFO_PUSH(&UART_t, i)==LIFO_no_error)
+			printf("LIFO PUSH %d ====Done",i);
+		else{
+			printf("LIFO PUSH %d ====Failed",i);
+		}
+	}
+
+
+
+}

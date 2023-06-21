@@ -15,9 +15,14 @@ SECTIONS
 	{
 	*(.vectors*)
 	*(.text*)
-	*(.rodata)
 	_E_text = . ;
 	}> FLASH
+	.rodata :
+	{
+		*(.rodata)
+	
+	}> FLASH
+	
 	.data :
 	{
 	_S_DATA = .;
