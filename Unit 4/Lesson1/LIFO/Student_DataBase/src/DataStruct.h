@@ -10,22 +10,19 @@
 #include "Platform_Types.h"
 #include <stdlib.h>
 #include <stdio.h>
-#include <string.h>
-#include <conio.h>
 #define NULL (void *)0
-
 /*************User Data Type*************/
 typedef struct{
 	char *name;
-	int age;
-	int id;
+	usint8_t age;
+	usint32_t id;
 
-	float hight;
+	double hight;
 
 }information;
-typedef struct Node{
+typedef struct{
 	information student;
-	struct Node* PNxStudent;
+	struct Student_Node* PNxStudent;
 }Student_Node;
 typedef enum{
 	FOUND,NOTFOUND
@@ -38,5 +35,5 @@ void Add_student();
 Student_Status Delet_student(usint32_t wanted_id);
 void view_AllStudents();
 void Delet_AllStudents();
-void Student_Print(Student_Node Student);
+void Student_Print(Student_Node *Student);
 #endif /* DATASTRUCT_H_ */
