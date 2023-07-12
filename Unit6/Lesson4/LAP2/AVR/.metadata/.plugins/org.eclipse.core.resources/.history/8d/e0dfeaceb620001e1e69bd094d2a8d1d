@@ -1,0 +1,28 @@
+/*
+ * main.c
+ *
+ *  Created on: Jul 12, 2023
+ *      Author: Ahmed
+ */
+
+#include <avr/io.h>
+#include <avr/interrupt.h>
+#include <util/delay.h>
+
+
+
+void EXTI0_init(){
+
+}
+void EXTI1_init(){
+
+}
+void EXTI2_init(){
+
+}
+void main(){
+
+
+
+
+}
