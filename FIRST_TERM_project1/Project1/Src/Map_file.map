@@ -222,23 +222,23 @@ OUTPUT(cortex-M4.elf elf32-littlearm)
  .debug_line    0x00000288       0x64 sensor.o
  .debug_line    0x000002ec       0x8c startup.o
 
-.debug_str      0x00000000      0x36c
- .debug_str     0x00000000       0xf7 alarm.o
-                                0x130 (size before relaxing)
- .debug_str     0x000000f7       0x6a alarmmonitor.o
-                                0x16b (size before relaxing)
- .debug_str     0x00000161       0x61 algor.o
-                                0x179 (size before relaxing)
- .debug_str     0x000001c2       0x6f detection.o
-                                0x188 (size before relaxing)
- .debug_str     0x00000231       0x55 driver.o
-                                0x139 (size before relaxing)
- .debug_str     0x00000286       0x1f main.o
-                                0x145 (size before relaxing)
- .debug_str     0x000002a5       0x47 sensor.o
+.debug_str      0x00000000      0x38c
+ .debug_str     0x00000000      0x117 alarm.o
+                                0x150 (size before relaxing)
+ .debug_str     0x00000117       0x6a alarmmonitor.o
+                                0x18b (size before relaxing)
+ .debug_str     0x00000181       0x61 algor.o
+                                0x199 (size before relaxing)
+ .debug_str     0x000001e2       0x6f detection.o
+                                0x1a8 (size before relaxing)
+ .debug_str     0x00000251       0x55 driver.o
                                 0x159 (size before relaxing)
- .debug_str     0x000002ec       0x80 startup.o
-                                0x15d (size before relaxing)
+ .debug_str     0x000002a6       0x1f main.o
+                                0x165 (size before relaxing)
+ .debug_str     0x000002c5       0x47 sensor.o
+                                0x179 (size before relaxing)
+ .debug_str     0x0000030c       0x80 startup.o
+                                0x17d (size before relaxing)
 
 .comment        0x00000000       0x11
  .comment       0x00000000       0x11 alarm.o
