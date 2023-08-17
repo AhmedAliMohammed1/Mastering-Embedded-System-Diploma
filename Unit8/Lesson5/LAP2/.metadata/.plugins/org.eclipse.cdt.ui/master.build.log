@@ -1,0 +1,70 @@
+07:44:03 **** Incremental Build of configuration Debug for project master ****
+make -j16 all 
+arm-none-eabi-gcc -gdwarf-2 -mcpu=cortex-m3 -g3 -c -x assembler-with-cpp -MMD -MP -MF"Startup/startup_stm32f103c6tx.d" -MT"Startup/startup_stm32f103c6tx.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Startup/startup_stm32f103c6tx.o" "../Startup/startup_stm32f103c6tx.s"
+arm-none-eabi-gcc -gdwarf-2 "../Src/main.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DSTM32 -DSTM32F1 -DSTM32F103C6Tx -DDEBUG -c -I../Inc -I"C:/Users/Ahmed/Desktop/SPI_WORK/master/STM32F103C6_DRIVERS/Inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Src/main.d" -MT"Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Src/main.o"
+arm-none-eabi-gcc -gdwarf-2 "../Src/syscalls.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DSTM32 -DSTM32F1 -DSTM32F103C6Tx -DDEBUG -c -I../Inc -I"C:/Users/Ahmed/Desktop/SPI_WORK/master/STM32F103C6_DRIVERS/Inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Src/syscalls.d" -MT"Src/syscalls.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Src/syscalls.o"
+arm-none-eabi-gcc -gdwarf-2 "../Src/sysmem.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DSTM32 -DSTM32F1 -DSTM32F103C6Tx -DDEBUG -c -I../Inc -I"C:/Users/Ahmed/Desktop/SPI_WORK/master/STM32F103C6_DRIVERS/Inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Src/sysmem.d" -MT"Src/sysmem.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Src/sysmem.o"
+arm-none-eabi-gcc -gdwarf-2 "../STM32F103C6_DRIVERS/EXTI_Driver.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DSTM32 -DSTM32F1 -DSTM32F103C6Tx -DDEBUG -c -I../Inc -I"C:/Users/Ahmed/Desktop/SPI_WORK/master/STM32F103C6_DRIVERS/Inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"STM32F103C6_DRIVERS/EXTI_Driver.d" -MT"STM32F103C6_DRIVERS/EXTI_Driver.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "STM32F103C6_DRIVERS/EXTI_Driver.o"
+arm-none-eabi-gcc -gdwarf-2 "../STM32F103C6_DRIVERS/GPIO_Driver.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DSTM32 -DSTM32F1 -DSTM32F103C6Tx -DDEBUG -c -I../Inc -I"C:/Users/Ahmed/Desktop/SPI_WORK/master/STM32F103C6_DRIVERS/Inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"STM32F103C6_DRIVERS/GPIO_Driver.d" -MT"STM32F103C6_DRIVERS/GPIO_Driver.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "STM32F103C6_DRIVERS/GPIO_Driver.o"
+arm-none-eabi-gcc -gdwarf-2 "../STM32F103C6_DRIVERS/RCC.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DSTM32 -DSTM32F1 -DSTM32F103C6Tx -DDEBUG -c -I../Inc -I"C:/Users/Ahmed/Desktop/SPI_WORK/master/STM32F103C6_DRIVERS/Inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"STM32F103C6_DRIVERS/RCC.d" -MT"STM32F103C6_DRIVERS/RCC.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "STM32F103C6_DRIVERS/RCC.o"
+arm-none-eabi-gcc -gdwarf-2 "../STM32F103C6_DRIVERS/SPI.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DSTM32 -DSTM32F1 -DSTM32F103C6Tx -DDEBUG -c -I../Inc -I"C:/Users/Ahmed/Desktop/SPI_WORK/master/STM32F103C6_DRIVERS/Inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"STM32F103C6_DRIVERS/SPI.d" -MT"STM32F103C6_DRIVERS/SPI.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "STM32F103C6_DRIVERS/SPI.o"
+arm-none-eabi-gcc -gdwarf-2 "../STM32F103C6_DRIVERS/USART_Driver.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DSTM32 -DSTM32F1 -DSTM32F103C6Tx -DDEBUG -c -I../Inc -I"C:/Users/Ahmed/Desktop/SPI_WORK/master/STM32F103C6_DRIVERS/Inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"STM32F103C6_DRIVERS/USART_Driver.d" -MT"STM32F103C6_DRIVERS/USART_Driver.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "STM32F103C6_DRIVERS/USART_Driver.o"
+../Src/main.c: In function 'main':
+../Src/main.c:38:26: warning: passing argument 2 of 'MCAL_SPI_SendData' from incompatible pointer type [-Wincompatible-pointer-types]
+   MCAL_SPI_SendData(SPI1,(uint8_t *)&data);
+                          ^
+In file included from ../Src/main.c:23:0:
+C:/Users/Ahmed/Desktop/SPI_WORK/master/STM32F103C6_DRIVERS/Inc/SPI.h:71:6: note: expected 'uint16_t * {aka short unsigned int *}' but argument is of type 'uint8_t * {aka unsigned char *}'
+ void MCAL_SPI_SendData(SPI_Reg *SPIx,uint16_t *data);
+      ^~~~~~~~~~~~~~~~~
+../Src/main.c:39:28: warning: passing argument 2 of 'MCAL_SPI_ReciveData' from incompatible pointer type [-Wincompatible-pointer-types]
+   MCAL_SPI_ReciveData(SPI1,(uint8_t *)&data);
+                            ^
+In file included from ../Src/main.c:23:0:
+C:/Users/Ahmed/Desktop/SPI_WORK/master/STM32F103C6_DRIVERS/Inc/SPI.h:72:6: note: expected 'uint16_t * {aka short unsigned int *}' but argument is of type 'uint8_t * {aka unsigned char *}'
+ void MCAL_SPI_ReciveData(SPI_Reg *SPIx,uint16_t *data);
+      ^~~~~~~~~~~~~~~~~~~
+../STM32F103C6_DRIVERS/RCC.c: In function 'MCAL_GET_SYS_CLCK':
+../STM32F103C6_DRIVERS/RCC.c:25:1: warning: control reaches end of non-void function [-Wreturn-type]
+ }
+ ^
+../STM32F103C6_DRIVERS/SPI.c: In function 'MCAL_SPI_init':
+../STM32F103C6_DRIVERS/SPI.c:49:3: warning: implicit declaration of function 'MCAL_SET_GPIO'; did you mean 'MCAL_SPI_init'? [-Wimplicit-function-declaration]
+   MCAL_SET_GPIO(SPIx);
+   ^~~~~~~~~~~~~
+   MCAL_SPI_init
+../STM32F103C6_DRIVERS/SPI.c: At top level:
+../STM32F103C6_DRIVERS/SPI.c:90:6: warning: conflicting types for 'MCAL_SET_GPIO'
+ void MCAL_SET_GPIO(SPI_Reg *SPIx){
+      ^~~~~~~~~~~~~
+../STM32F103C6_DRIVERS/SPI.c:49:3: note: previous implicit declaration of 'MCAL_SET_GPIO' was here
+   MCAL_SET_GPIO(SPIx);
+   ^~~~~~~~~~~~~
+../STM32F103C6_DRIVERS/USART_Driver.c: In function 'MCAL_USART_init':
+../STM32F103C6_DRIVERS/USART_Driver.c:84:2: warning: implicit declaration of function 'SET_GPIO' [-Wimplicit-function-declaration]
+  SET_GPIO(USARTx);
+  ^~~~~~~~
+../STM32F103C6_DRIVERS/USART_Driver.c: At top level:
+../STM32F103C6_DRIVERS/USART_Driver.c:160:6: warning: conflicting types for 'SET_GPIO'
+ void SET_GPIO(USART_REG *USARTx){
+      ^~~~~~~~
+../STM32F103C6_DRIVERS/USART_Driver.c:84:2: note: previous implicit declaration of 'SET_GPIO' was here
+  SET_GPIO(USARTx);
+  ^~~~~~~~
+arm-none-eabi-gcc -gdwarf-2 -o "master.elf" @"objects.list"   -mcpu=cortex-m3 -T"C:\Users\Ahmed\Desktop\SPI_WORK\master\STM32F103C6TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="master.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: master.elf
+ 
+arm-none-eabi-size   master.elf 
+arm-none-eabi-objdump -h -S  master.elf  > "master.list"
+arm-none-eabi-objcopy  -O binary  master.elf  "master.bin"
+   text	   data	    bss	    dec	    hex	filename
+   4472	     28	   1644	   6144	   1800	master.elf
+Finished building: default.size.stdout
+ 
+Finished building: master.bin
+ 
+Finished building: master.list
+ 
+
+07:44:04 Build Finished. 0 errors, 7 warnings. (took 739ms)
+
