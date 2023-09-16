@@ -1,0 +1,7 @@
+LCD2.c:4:6:EN_PULS_V2	8	static
+LCD2.c:11:6:LCD_sendCommand_V2	16	static
+LCD2.c:43:6:LCD_init_V2	8	static
+LCD2.c:125:6:LCD_clearScreen_V2	8	static
+LCD2.c:131:6:LCD_sendCharcter_V2	16	static
+LCD2.c:164:6:LCD_sendString_V2	24	static
+LCD2.c:176:6:LCD_moveCURSER_V2	16	static
