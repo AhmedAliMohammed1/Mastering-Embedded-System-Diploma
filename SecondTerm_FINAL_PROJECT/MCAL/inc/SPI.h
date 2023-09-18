@@ -49,6 +49,12 @@ typedef enum {
 
 #define USART3_IRQ 39
 typedef struct{
+	uint8_t TXE_FLAG:1;
+	uint8_t RXNE_FLAG:1;
+
+}Flag_source;
+
+typedef struct{
 	SPI_enable SP_EN;
 	Master_selection M_S;
 	DATA_size DATA;
@@ -58,7 +64,7 @@ typedef struct{
 	Clock_polarity POL;
 	Clock_phase PHA;
 	interrupt_enable IN_EN;
-	void (* P_CallBack)();
+	void (* P_CallBack)(Flag_source fLAG);
 }SPI_Config_t;
 
 /*
@@ -68,6 +74,6 @@ typedef struct{
  */
 void MCAL_SPI_init(SPI_Reg * SPIx,SPI_Config_t *Config);
 void MCAL_SPI_Deinit(SPI_Reg *SPIx);
-void MCAL_SPI_SendData(SPI_Reg *SPIx,uint16_t data);
-void MCAL_SPI_ReciveData(SPI_Reg *SPIx,uint16_t *data);
+uint8_t MCAL_SPI_SendData(SPI_Reg *SPIx,uint8_t data);
+void MCAL_SPI_ReciveData(SPI_Reg *SPIx,uint8_t *data);
 #endif /* INC_SPI_H_ */

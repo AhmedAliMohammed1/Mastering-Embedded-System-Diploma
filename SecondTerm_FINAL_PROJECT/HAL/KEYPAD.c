@@ -29,32 +29,34 @@ unsigned char Get_Pressed_KEY(void){
 	MCAL_write_PIN(KEYPAD_PORT, ROWs[1], LOGIC_LOW);
 	MCAL_write_PIN(KEYPAD_PORT, ROWs[2], LOGIC_LOW);
 	MCAL_write_PIN(KEYPAD_PORT, ROWs[3], LOGIC_LOW);
+//			dms(200);
 	MCAL_write_PIN(KEYPAD_PORT, ROWs[i], LOGIC_HIGH);
 //	wait_ms(30);
 	for(j=0;j<Col_N;j++){
+
 		if(MCAL_Read_PIN(KEYPAD_PORT, COL_s[j])){
 			while(MCAL_Read_PIN(KEYPAD_PORT, COL_s[j]));
 			switch(i){
 			case 0:
 				if (j==0) return '*';
-				if (j==1) return '0';
+				if (j==1) return 0;
 				if (j==2) return '#';
 				break;
 			case 1:
-				if (j==0) return '7';
-				if (j==1) return '8';
-				if (j==2) return '9';
+				if (j==0) return 7;
+				if (j==1) return 8;
+				if (j==2) return 9;
 
 				break;
 			case 2:
-				if (j==0) return '4';
-				if (j==1) return '5';
-				if (j==2) return '6';
+				if (j==0) return 4;
+				if (j==1) return 5;
+				if (j==2) return 6;
 				break;
 			case 3:
-				if (j==0) return '1';
-				if (j==1) return '2';
-				if (j==2) return '3';
+				if (j==0) return 1;
+				if (j==1) return 2;
+				if (j==2) return 3;
 				break;
 			default:
 				break;

@@ -4,4 +4,5 @@ LCD.c:43:6:LCD_init	8	static
 LCD.c:125:6:LCD_clearScreen	8	static
 LCD.c:131:6:LCD_sendCharcter	16	static
 LCD.c:164:6:LCD_sendString	24	static
-LCD.c:176:6:LCD_moveCURSER	16	static
+LCD.c:170:6:LCD_moveCURSER	16	static
+LCD.c:189:6:LCD_intgerToString	80	static

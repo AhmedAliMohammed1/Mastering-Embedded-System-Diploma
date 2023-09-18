@@ -3,14 +3,14 @@
 
 void EN_PULS(){
 	MCAL_write_PIN(CTRL_PORT, EN, LOGIC_HIGH);
-	dus(50);
+	dms(1);
 	MCAL_write_PIN(CTRL_PORT, EN, LOGIC_LOW);
 
 }
 
 void LCD_sendCommand(usint8_t command){
 	MCAL_write_PIN(CTRL_PORT, RS, LOGIC_LOW);
-	dus(1);
+	dms(1);
 #ifdef EIGHT_BIT_MODE
 	MCAL_write_PIN(DATA_PORT, D0, GET_BIT(command,0));
 	MCAL_write_PIN(DATA_PORT, D1, GET_BIT(command,1));
@@ -41,7 +41,7 @@ void LCD_sendCommand(usint8_t command){
 }
 
 void LCD_init(){
-	dus(20); // wait until power
+	dms(20); // wait until power
 
 	// COFIGEUR RS Pin as output OD
 
@@ -51,7 +51,7 @@ void LCD_init(){
 
 	MCAL_GPIO_init(CTRL_PORT,&PIN_C);
 	// COFIGEUR RW Pin as output OD
-//	dus(1);
+	dus(1);
 
 //		PIN_C.PIN_number=RW;
 //	MCAL_GPIO_init(CTRL_PORT,&PIN_C);
@@ -114,7 +114,7 @@ LCD_sendCommand(LCD_GO_TO_HOME);
 
 	LCD_sendCommand(LCD_TWO_LINES_FOUR_BITS_MODE);
 
-	dus(1);
+	dus(10);
 
 
 
@@ -132,7 +132,7 @@ void LCD_sendCharcter(usint8_t data){
 	MCAL_write_PIN(CTRL_PORT, RS, LOGIC_HIGH);
 //	MCAL_write_PIN(CTRL_PORT, RW, LOGIC_LOW);
 
-	dus(1);
+	dus(10);
 #ifdef EIGHT_BIT_MODE
 	MCAL_write_PIN(DATA_PORT, D0, GET_BIT(data,0));
 	MCAL_write_PIN(DATA_PORT, D1, GET_BIT(data,1));
@@ -164,13 +164,7 @@ void LCD_sendCharcter(usint8_t data){
 void LCD_sendString(char *data){
 	usint8_t counter=0;
 	while(*data != 0){
-		counter++;
-		if(!(counter >=0 && counter <=16)){
-					counter=0;
-					LCD_moveCURSER(1,0);
-				}
 		LCD_sendCharcter(*data++);
-
 	}
 }
 void LCD_moveCURSER(unsigned char row,unsigned char col){
@@ -183,12 +177,21 @@ void LCD_moveCURSER(unsigned char row,unsigned char col){
 		break;
 
 	case 2:
-		LCD_sendCommand(0x94 + col);
+		LCD_sendCommand(0x90+ col);
 		break;
 	case 3:
-		LCD_sendCommand(0xD4  + col);
+		LCD_sendCommand(0xD0+ col);
 		break;
 
 	}
 }
+
+void LCD_intgerToString(unsigned int num){
+	int buff[16];
+	itoa(num,buff,10);
+	LCD_sendString(buff);
+
+
+}
+
 

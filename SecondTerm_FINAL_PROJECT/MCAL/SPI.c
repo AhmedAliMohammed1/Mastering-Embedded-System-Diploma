@@ -6,7 +6,7 @@
  */
 
 #include "SPI.h"
-SPI_Config_t G_P_Config_t[2]={0,}; // index 0 for SPI0 index 1 for SPI1
+SPI_Config_t G_P_Config_t[2]={0}; // index 0 for SPI0 index 1 for SPI1
 
 void MCAL_SPI_init(SPI_Reg * SPIx,SPI_Config_t *Config){
 	// make a global backup for the configuration of the SPI
@@ -36,8 +36,6 @@ void MCAL_SPI_init(SPI_Reg * SPIx,SPI_Config_t *Config){
 
 	// 7.check if the interrupt is enabled or not
 	if(Config->IN_EN ==interrupt_EN){
-		SPIx->SPI_CR2.Bit_Name.RXNEIE = 1;
-//		SPIx->SPI_CR2.Bit_Name.TXEIE = 1;
 
 		if(SPIx == SPI1)    	NVIC_ISER1 |=(1<< (SPI1_IRQ-32));
 		else if(SPIx == SPI2)   NVIC_ISER1 |=(1<< (SPI2_IRQ-32));
@@ -56,20 +54,23 @@ void MCAL_SPI_Deinit(SPI_Reg *SPIx){
 }
 
 
-void MCAL_SPI_SendData(SPI_Reg *SPIx,uint16_t data){
+uint8_t MCAL_SPI_SendData(SPI_Reg *SPIx,uint8_t data){
 	SPI_Config_t *L_P_config_t=NULL;
 	if(SPIx == SPI1) L_P_config_t =&G_P_Config_t[0];
 	else if(SPIx == SPI2) L_P_config_t =&G_P_Config_t[1];
 	// check if the configuration is polling or interrupt
 	if(L_P_config_t->IN_EN ==interrupt_EN){ // do nothing the cpu will jump to isr
+		SPIx->SPI_CR2.Bit_Name.TXEIE = 1;
 
 	}else{
 		while(!SPIx->SPI_SR.Bit_Name.TXE);
 	}
-	SPIx->DR_reg.ALL_REG=data;
+	SPIx->DR_reg.ALL_REG=(uint8_t)data;
+
+	return SPIx->DR_reg.ALL_REG;
 
 }
-void MCAL_SPI_ReciveData(SPI_Reg *SPIx,uint16_t *data){
+void MCAL_SPI_ReciveData(SPI_Reg *SPIx,uint8_t *data){
 	SPI_Config_t *L_P_config_t=NULL;
 	if(SPIx == SPI1) L_P_config_t =&G_P_Config_t[0];
 	else if(SPIx == SPI2) L_P_config_t =&G_P_Config_t[1];
@@ -77,7 +78,7 @@ void MCAL_SPI_ReciveData(SPI_Reg *SPIx,uint16_t *data){
 	SPIx->DR_reg.ALL_REG=0x00;
 
 	if(L_P_config_t->IN_EN ==interrupt_EN){ // do nothing the cpu will jump to isr
-
+		SPIx->SPI_CR2.Bit_Name.RXNEIE = 1;
 	}else{
 		while(!SPIx->SPI_SR.Bit_Name.RXNE);
 	}
@@ -140,5 +141,19 @@ void MCAL_SET_GPIO(SPI_Reg *SPIx){
 
 
 void SPI1_IRQHandler(void){
-	G_P_Config_t[0].P_CallBack();
+	Flag_source flagv2;
+	get_flag_source(&flagv2,SPI1);
+	G_P_Config_t[0].P_CallBack(flagv2);
+}
+void get_flag_source(Flag_source *flag,SPI_Reg* SPIx){
+
+	if(SPIx->SPI_SR.Bit_Name.RXNE){
+			flag->TXE_FLAG=0;
+			flag->RXNE_FLAG=1;
+			SPIx->SPI_CR2.Bit_Name.RXNEIE=0;
+		}else if(SPIx->SPI_SR.Bit_Name.TXE){
+		flag->TXE_FLAG=1;
+		flag->RXNE_FLAG=0;
+		SPIx->SPI_CR2.Bit_Name.TXEIE=0;
+	}
 }

@@ -8,9 +8,7 @@
 #include "Servo_Motor.h"
 
 
-//Direction of motion
-#define UP   1
-#define Down 2
+
 
 
 //B8 SERVO1
@@ -21,7 +19,7 @@ void Servo1_Entry_Gate_Init(void)
 	PinCinfg.PIN_number=PIN_8;
 	PinCinfg.MODE = OUTPUT_PP;
 	PinCinfg.SPEED =SPEED_10;
-	MCAL_GPIO_Init(GPIOB, &PinCinfg);
+	MCAL_GPIO_init(GPIOB, &PinCinfg);
 }
 
 //Direction Up or Down
@@ -53,7 +51,7 @@ void Servo2_Exit_Gate_Init(void)
 	PinCinfg.PIN_number=PIN_9;
 	PinCinfg.MODE = OUTPUT_PP;
 	PinCinfg.SPEED =SPEED_10;
-	MCAL_GPIO_Init(GPIOB, &PinCinfg);
+	MCAL_GPIO_init(GPIOB, &PinCinfg);
 }
 
 //Direction Up or Down

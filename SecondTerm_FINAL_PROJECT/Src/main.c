@@ -18,39 +18,55 @@
  */
 
 #if !defined(__SOFT_FP__) && defined(__ARM_FP)
-  #warning "FPU is not initialized, but the project is compiling for an FPU. Please initialize the FPU before use."
+#warning "FPU is not initialized, but the project is compiling for an FPU. Please initialize the FPU before use."
 #endif
 #include "SPI_EEPROM.h"
 #include  "Timer.h"
 #include "EXTI_Driver.h"
 #include "USART_Driver.h"
+#include "Servo_Motor.h"
 #include "main.h"
 /********************DEFINES**********************/
 #define ADMIN_PASSWORD_EEPROM_ADDRESS		0xF3
 #define ADMIN_PASSWORD_LEN					8
 #define	USERS								3
+#define User_ID_ADDRESS						0x00
+#define R_LED								PIN_0
+#define G_LED								PIN_11
+#define PIR_1								PIN_1
+#define PIR_2								PIN_8
+#define LED_ON								0
+#define LED_OFF								1
+#define USART_TX_RX_FLAG					0xFF
 
 /*********************GLOBAL CONFIGRATION********************/
+uint8_t DEAFULT_EPPROM_DATA=0xFF,*G__P_USER_ID_ADDRESS=User_ID_ADDRESS,g_user_id=0xFF,g_exit_user_id=0xFF;
+uint8_t CREATE_PASSWORD[ADMIN_PASSWORD_LEN]={0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF};
+USART_Config_t UART1_CONFIG_V={115200,EGHIT_BITS,Parity_DISABLE,Interrupt,ONE_STOP_BIT,Disabled,Asynchronous,USART1_call_Back};
+USART_Config_t UART2_CONFIG_V={115200,EGHIT_BITS,Parity_DISABLE,Interrupt,ONE_STOP_BIT,Disabled,Asynchronous,USART2_call_Back};
 
-
-USART_Config_t UART_CONFIG_V={115200,EGHIT_BITS,Parity_DISABLE,Interrupt,ONE_STOP_BIT,Disabled,Asynchronous};
-EXTI_config_t	EXTI_PIR1={(GPIO_CONFIG_t){8,GPIOA,PIN_8,23},FALLING,ENABLE};
-EXTI_config_t	EXTI_PIR2={(GPIO_CONFIG_t){1,GPIOA,PIN_1,7},FALLING,ENABLE};
+EXTI_config_t	EXTI_PIR1={EXT8PA8,FALLING,ENABLE,EXTI_ENTRY_GATE};
+EXTI_config_t	EXTI_PIR2={EXT1PA1,FALLING,ENABLE,EXTI_EXIT_GATE};
 /*******************************************/
 
 void (*g_f_MASTER_state)(void) =ADMIN_OLD_PASSWORD_CHECK;
-void (*g_f_USER_state)(void)=NULL;
+void (*g_f_USER_state)(void)=USER_RFID_ENTER;
 int main(void)
 {
-	int data[4]={1,2,3,4};
 	ALL_PREPHRAL_Init();
-	SPI_EEPROM_WRITE(SPI1, 0x0001, data,4);
-	SPI_EEPROM_READ(SPI1, 0x0001, &data, 4);
-
+//	SPI_EEPROM_WRITE(SPI1, ADMIN_PASSWORD_EEPROM_ADDRESS, CREATE_PASSWORD, ADMIN_PASSWORD_LEN);
 	for(;;){
+//		action=Get_Pressed_KEY();
+//		switch(action){
+//			case 'N':
+				g_f_USER_state();
+//				break;
+//			default:
+				g_f_MASTER_state();
+//				break;
 
-//		g_f_MASTER_state();
-}
+//		}
+	}
 }
 
 
@@ -63,15 +79,33 @@ int main(void)
  *
  */
 void ALL_PREPHRAL_Init(void){
+	PIN_config PIN_CONFIG={R_LED,OUTPUT_PP,SPEED_10};
 	Timer2_init();
 	SPI_EEPROM_init(SPI1);
-	MCAL_USART_init(USART1,&UART_CONFIG_V);
-	MCAL_USART_init(USART2,&UART_CONFIG_V);
+	MCAL_USART_init(USART1,&UART1_CONFIG_V);
+	MCAL_USART_init(USART2,&UART2_CONFIG_V);
 	KEYPAD_init();
 	LCD_init();
 	MCAL_EXTI_init(&EXTI_PIR1);
 	MCAL_EXTI_init(&EXTI_PIR2);
 	LCD_init_V2();
+	Servo1_Entry_Gate_Init();
+	Servo2_Exit_Gate_Init();
+	MCAL_GPIO_init(GPIOA, &PIN_CONFIG);
+	/******************************/
+	PIN_CONFIG=(PIN_config){G_LED,OUTPUT_PP,SPEED_10};
+	MCAL_GPIO_init(GPIOA, &PIN_CONFIG);
+	/***************PIR1***************/
+	PIN_CONFIG=(PIN_config){PIR_1,INPUT_FI,0};
+	MCAL_GPIO_init(GPIOA, &PIN_CONFIG);
+	/***************PIR2***************/
+	PIN_CONFIG=(PIN_config){PIR_2,INPUT_FI,0};
+	MCAL_GPIO_init(GPIOA, &PIN_CONFIG);
+	/******************************/
+
+	MCAL_write_PIN(GPIOA,G_LED,LED_OFF);
+	MCAL_write_PIN(GPIOA,R_LED,LED_OFF);
+
 
 }
 /*======================================================================================================
@@ -85,23 +119,23 @@ void ALL_PREPHRAL_Init(void){
 void ADMIN_OLD_PASSWORD_CHECK(){
 	uint8_t PASSWORD[ADMIN_PASSWORD_LEN]={0};
 
-	SPI_EEPROM_READ(SPI1, ADMIN_PASSWORD_EEPROM_ADDRESS, &PASSWORD, ADMIN_PASSWORD_LEN);
+	SPI_EEPROM_READ(SPI1, ADMIN_PASSWORD_EEPROM_ADDRESS, PASSWORD, ADMIN_PASSWORD_LEN);
 
-		for(int i=0;i<ADMIN_PASSWORD_LEN;i++)
-		{
-			if(PASSWORD[i]!=0xFF){
-				g_f_MASTER_state=ADMIN_ENTER_PASSWORD;
-				break;
-			}else{
-				g_f_MASTER_state=ADMIN_CREATE_PASSWORD;
+	for(int i=0;i<ADMIN_PASSWORD_LEN;i++)
+	{
+		if(PASSWORD[i]!=0xFF){
+			g_f_MASTER_state=ADMIN_ENTER_PASSWORD;
+			break;
+		}else{
+			g_f_MASTER_state=ADMIN_CREATE_PASSWORD;
 
-			}
 		}
+	}
 }
 
 /*======================================================================================================
  * FUNC NAME ----> ADMIN_ENTER_PASSWORD
- * BRIEF     ----> USE TO CHECK THE ENTERD PASSWORD IS CORRECT OR NOT
+ * BRIEF     ---->	 USE TO CHECK THE ENTERD PASSWORD IS CORRECT OR NOT
  * PARAM1[IN]----> VOID
  * RETAVAL	 ---->
  * NOTE		 ---->
@@ -112,20 +146,35 @@ void ADMIN_ENTER_PASSWORD(){
 	LCD_clearScreen();
 	LCD_sendString("Hello Admin,");
 	LCD_moveCURSER(1,0);
-	LCD_sendString("Please Enter The PASSWORD:");
-	for(int i=0;i<ADMIN_PASSWORD_LEN;){
+	LCD_sendString("Please Enter ");
+	LCD_moveCURSER(2,0);
+	LCD_sendString("The PASSWORD:");
+	LCD_moveCURSER(3,0);
+
+
 		pass=Get_Pressed_KEY();
-		switch(pass){
+		switch(pass){ // this make the two state (ADMIN and USER) Work at the same time
 		case 'N':
 			break;
 		default:
-			i++;
-			PASSWORD[i]=pass;
-			LCD_sendCharcter('*');
+			for(int i=0;i<ADMIN_PASSWORD_LEN;){
+				pass=Get_Pressed_KEY();
+				switch(pass){
+						case 'N':
+							break;
+						default:
+							PASSWORD[i]=pass;
+							i++;
+							LCD_sendCharcter('*');
+							break;
+				}
+
+			}
+			break;
 
 		}
-	}
-	if(ADMIN_PASSWORD_CHECK(&PASSWORD)){
+
+	if(ADMIN_PASSWORD_CHECK(PASSWORD)){
 		g_f_MASTER_state=ADMIN_mian_menu;
 	}else{
 		g_f_MASTER_state=ADMIN_ENTER_PASSWORD;
@@ -141,29 +190,39 @@ void ADMIN_ENTER_PASSWORD(){
  *
  */
 void ADMIN_CREATE_PASSWORD(){
-	uint8_t PASSWORD[ADMIN_PASSWORD_LEN]={0},pass=0;
+	uint8_t PASSWORD[ADMIN_PASSWORD_LEN],pass;
 	LCD_clearScreen();
 	LCD_sendString("Hello Admin,");
 	LCD_moveCURSER(1,0);
 	LCD_sendString("Please CREATE");
 	LCD_moveCURSER(2,0);
 	LCD_sendString("The PASSWORD:");
+	LCD_moveCURSER(3,0);
 
-	for(int i=0;i<ADMIN_PASSWORD_LEN;){
-		pass=Get_Pressed_KEY();
-		switch(pass){
-		case 'N':
-			break;
-		default:
-			i++;
-			PASSWORD[i]=pass;
-			LCD_sendCharcter('*');
-
+	pass=Get_Pressed_KEY();
+	switch(pass){ // this make the two state (ADMIN and USER) Work at the same time
+	case 'N':
+		break;
+	default:
+		for(int i=0;i<ADMIN_PASSWORD_LEN;){
+			pass=Get_Pressed_KEY();
+			switch(pass){
+					case 'N':
+						break;
+					default:
+						PASSWORD[i]=pass;
+						i++;
+						LCD_sendCharcter('*');
+						break;
+			}
 
 		}
+		g_f_MASTER_state=ADMIN_ENTER_PASSWORD;
+		break;
+
 	}
-	SPI_EEPROM_WRITE(SPI1, 0x00, &PASSWORD, ADMIN_PASSWORD_LEN);
-	g_f_MASTER_state=ADMIN_ENTER_PASSWORD;
+
+	SPI_EEPROM_WRITE(SPI1, ADMIN_PASSWORD_EEPROM_ADDRESS, &PASSWORD, ADMIN_PASSWORD_LEN);
 }
 /*======================================================================================================
  * FUNC NAME ----> ADMIN_PASSWORD_CHECK
@@ -173,7 +232,7 @@ void ADMIN_CREATE_PASSWORD(){
  * NOTE		 ---->
  *
  */
-uint8_t ADMIN_PASSWORD_CHECK(int *data){
+uint8_t ADMIN_PASSWORD_CHECK(uint8_t *data){
 	uint8_t PASSWORD[ADMIN_PASSWORD_LEN]={0};
 	SPI_EEPROM_READ(SPI1, ADMIN_PASSWORD_EEPROM_ADDRESS, &PASSWORD, ADMIN_PASSWORD_LEN);
 	for(int i=0;i<ADMIN_PASSWORD_LEN;i++){
@@ -185,9 +244,307 @@ uint8_t ADMIN_PASSWORD_CHECK(int *data){
 	}
 	return 1;
 }
+/*======================================================================================================
+ * FUNC NAME ----> ADMIN_change_PASSWORD
+ * BRIEF     ----> USE TO Change The PASSWORD  that stored in the EEPROM
+ * PARAM1[IN]----> THE COMPARE PASSOWRD
+ * RETAVAL	 ---->
+ * NOTE		 ---->
+ *
+ */
+uint8_t ADMIN_change_PASSWORD(){
+	uint8_t PASSWORD[ADMIN_PASSWORD_LEN]={0},pass=0;
+	LCD_clearScreen();
+	LCD_sendString("-Hello Admin,");
+	LCD_moveCURSER(1,0);
+	LCD_sendString("-ENTER NEW PASSWORD:");
+	LCD_moveCURSER(3, 0);
+	LCD_sendString("* -> MAIN_MENU");
+	LCD_moveCURSER(2,0);
 
-void ADMIN_mian_menu(){
-LCD_clearScreen();
-LCD_sendString("MAIN MENU");
+	pass=Get_Pressed_KEY();
+	switch(pass){ // this make the two state (ADMIN and USER) Work at the same time
+	case 'N':
+		break;
+	default:
+		for(int i=0;i<ADMIN_PASSWORD_LEN;){
+			pass=Get_Pressed_KEY();
+			switch(pass){
+					case 'N':
+						break;
+					default:
+						PASSWORD[i]=pass;
+						i++;
+						LCD_sendCharcter('*');
+						break;
+			}
+
+		}
+		g_f_MASTER_state=ADMIN_ENTER_PASSWORD;
+		break;
+
+	}
+
+	SPI_EEPROM_WRITE(SPI1, ADMIN_PASSWORD_EEPROM_ADDRESS, (uint8_t *)&PASSWORD, ADMIN_PASSWORD_LEN);
+	return 1;
 }
+/*======================================================================================================
+ * FUNC NAME ----> ADMIN_ADD_USER
+ * BRIEF     ----> USE TO Add new user to eeprom
+ * PARAM1[IN]----> THE COMPARE PASSOWRD
+ * RETAVAL	 ---->
+ * NOTE		 ----> USER id must be from 0 to 9 only and every time power released the G__P_USER_ID_ADDRESS will reset because i will not save it in eeprom
+ *
+ */
+uint8_t ADMIN_ADD_USER(){
+	uint8_t user_id=0;
+	LCD_clearScreen();
+	LCD_sendString("Enter User ID:");
+	LCD_moveCURSER(3, 0);
+	LCD_sendString("* -> MAIN_MENU");
+	while(1){
+		user_id=Get_Pressed_KEY();
+		switch(user_id){
+		case 'N':
+			break;
+		case '*':
+			g_f_MASTER_state=ADMIN_mian_menu;
+			return 1; // this to break the while(1)
+			break;
+		default :
+			LCD_moveCURSER(0, 15);
+			LCD_intgerToString(user_id);
+			LCD_moveCURSER(2, 0);
+
+			if(G__P_USER_ID_ADDRESS>(User_ID_ADDRESS+(USERS-1))){
+				LCD_sendString("Users FULL");
+				dms(200);
+
+			}else{
+				SPI_EEPROM_WRITE(SPI1, G__P_USER_ID_ADDRESS++, &user_id, 1);
+				LCD_moveCURSER(2, 0);
+				LCD_sendString("Done");
+				dms(200);
+
+			}
+			g_f_MASTER_state=ADMIN_mian_menu;
+			return 1; // this to break the while(1)
+			break;
+
+
+		}
+	}
+}
+
+
+uint8_t ADMIN_Delete_USER(uint8_t user_id) // i will use different technique here
+{
+	uint8_t *user_ptr=User_ID_ADDRESS,EEPROM_DATA=0;
+	for(uint8_t i=0;i<USERS;i++){
+		SPI_EEPROM_READ(SPI1, user_ptr, &EEPROM_DATA, 1);
+		if(EEPROM_DATA==user_id){
+			SPI_EEPROM_WRITE(SPI1, user_ptr, &DEAFULT_EPPROM_DATA, 1);
+			return 1;
+		}else{
+			user_ptr++;
+		}
+	}
+	return 0;
+}
+
+
+uint8_t ADMIN_Delete_USER_interface(){
+	uint8_t user_id=0;
+	LCD_clearScreen();
+	LCD_sendString("Enter User ID:");
+	LCD_moveCURSER(3, 0);
+	LCD_sendString("* -> MAIN_MENU");
+	while(1){
+		user_id=Get_Pressed_KEY();
+		switch(user_id){
+		case 'N':
+			break;
+		case '*':
+			g_f_MASTER_state=ADMIN_mian_menu;
+			return 1; // this to break the while(1)
+			break;
+		default :
+			LCD_moveCURSER(0, 15);
+
+			LCD_intgerToString(user_id);
+			LCD_moveCURSER(2, 0);
+			if(ADMIN_Delete_USER(user_id)){
+				G__P_USER_ID_ADDRESS--; // this what track the users in the memory
+				LCD_sendString("DONE");
+				dms(200);
+			}else{
+				LCD_sendString("FAIL");
+				dms(200);
+			}
+			g_f_MASTER_state=ADMIN_mian_menu;
+			return 1; // this to break the while(1)
+			break;
+
+
+		}
+	}
+}
+
+
+
+/*======================================================================================================
+ * FUNC NAME ----> ADMIN_mian_menu
+ * BRIEF     ----> USE TO display The Admin user interface
+ * PARAM1[IN]----> THE COMPARE PASSOWRD
+ * RETAVAL	 ---->
+ * NOTE		 ---->
+ *
+ */
+uint8_t ADMIN_mian_menu(){
+	uint8_t pass=0;
+	LCD_clearScreen();
+	LCD_sendString("1-CHANGE PASSWORD");
+	LCD_moveCURSER(1,0);
+	LCD_sendString("2-ADD NEW USER");
+	LCD_moveCURSER(2,0);
+	LCD_sendString("3-DELETE USER");
+	LCD_moveCURSER(3,0);
+	LCD_sendString("4-QUIT");
+	while(1){ // loop here until you got an action
+		pass=Get_Pressed_KEY(); // pass is the assci value of the number so we will -30 from the number to make it number
+		switch(pass){
+		case 'N':
+			break;
+		case 1:
+			g_f_MASTER_state=ADMIN_change_PASSWORD;
+			return 1;
+			break;
+		case 2:
+			g_f_MASTER_state=ADMIN_ADD_USER;
+			return 1;
+			break;
+		case 3:
+			g_f_MASTER_state=ADMIN_Delete_USER_interface;
+			return 1;
+			break;
+		case 4:
+			g_f_MASTER_state=ADMIN_ENTER_PASSWORD;
+			return 1;
+			break;
+		default:
+
+			break;
+		}
+	}
+
+
+}
+
+/*======================================================================================================
+ * FUNC NAME ----> USER_check_validation
+ * BRIEF     ----> USE TO check if user exist or not
+ * PARAM1[IN]----> THE COMPARE id
+ * RETAVAL	 ---->
+ * NOTE		 ---->
+ *
+ */
+uint8_t USER_check_validation(	uint8_t user_id){
+	uint8_t *user_ptr=User_ID_ADDRESS,EEPROM_DATA=0;;
+	for(uint8_t i=0;i<USERS;i++){
+		SPI_EEPROM_READ(SPI1, user_ptr++, &EEPROM_DATA, 1);
+		if(user_id ==EEPROM_DATA){
+			return 1;
+		}
+	}
+	return 0;
+
+}
+
+void USER_RFID_ENTER(){
+	LCD_clearScreen_V2();
+	LCD_sendString_V2("HELLO");
+	LCD_moveCURSER_V2(1,0);
+	LCD_sendString_V2("Please Enter RFID");
+	if(g_user_id != USART_TX_RX_FLAG){ // 0xFF is a flag indicate if the user send any data using usart or not
+		if(USER_check_validation(g_user_id)){
+			LCD_clearScreen_V2();
+			LCD_sendString_V2("Welcome");
+			Servo1_Entry_Gate(UP);
+			MCAL_write_PIN(GPIOA,G_LED,LED_ON);
+			dms(500);
+			MCAL_write_PIN(GPIOA,G_LED,LED_OFF);
+
+
+		}else{
+			LCD_clearScreen_V2();
+			LCD_sendString_V2("Wrong ID");
+			MCAL_write_PIN(GPIOA,R_LED,LED_ON);
+			dms(500);
+			MCAL_write_PIN(GPIOA,R_LED,LED_OFF);
+
+		}
+
+		g_user_id=USART_TX_RX_FLAG;
+	}
+	g_f_USER_state=USER_RFID_EXIT;
+
+
+}
+void USER_RFID_EXIT(){
+
+	if(g_exit_user_id != USART_TX_RX_FLAG){ // 0xFF is a flag indicate if the user send any data using usart or not
+		if(USER_check_validation(g_exit_user_id)){
+			Servo2_Exit_Gate(UP);
+
+		}else{
+
+			MCAL_write_PIN(GPIOA,R_LED,LED_ON);
+			dms(500);
+			MCAL_write_PIN(GPIOA,R_LED,LED_OFF);
+
+		}
+
+		g_exit_user_id=USART_TX_RX_FLAG;
+	}
+	g_f_USER_state=USER_RFID_ENTER;
+
+
+
+}
+void USART1_call_Back(void){
+	if(	USART1->SR &(1<<5)){
+		g_user_id=	(MCAL_USART_ReciveData(USART1));
+
+		}if((USART1->SR &(1<<7))){
+		MCAL_USART_SendData(USART1, g_user_id);
+
+	}
+
+		g_user_id-=48;
+}
+void USART2_call_Back(void){
+	if(	USART2->SR &(1<<5)){
+		g_exit_user_id=	(MCAL_USART_ReciveData(USART2));
+
+		}if((USART2->SR &(1<<7))){
+		MCAL_USART_SendData(USART2, g_exit_user_id);
+
+	}
+
+		g_exit_user_id-=48; //convert from assci to decimal
+}
+
+
+
+void EXTI_ENTRY_GATE(){
+	Servo1_Entry_Gate(Down);
+
+}
+void EXTI_EXIT_GATE(){
+	Servo2_Exit_Gate(Down);
+
+}
+
+
+
 

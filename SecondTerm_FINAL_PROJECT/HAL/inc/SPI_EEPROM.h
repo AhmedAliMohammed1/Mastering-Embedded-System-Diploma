@@ -8,6 +8,7 @@
 #ifndef INC_SPI_EEPROM_H_
 #define INC_SPI_EEPROM_H_
 #include "SPI.h"
+#include "Timer.h"
 /* defines*/
 #define  READ_Instruction		0b00000011
 #define  WRITE_Instruction		0b00000010
