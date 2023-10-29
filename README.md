@@ -19,8 +19,8 @@
 - [Unit 7: MCU Essential Peripherals](Unit7) ![image](https://progress-bar.dev/100/)
 - [Unit 8: MCU Interfacing](Unit8) ![image](https://progress-bar.dev/100/)
 - [Unit 9: MCU Timers/ADC](Unit9) ![image](https://progress-bar.dev/100/)
-- [Unit 10: SW Testing/Validation]([https://github.com/adem-marangoz/embedded_system_online_diploma](https://github.com/AhmedAliMohammed1/Mastering-Embedded-System-Diploma)) ![image](https://progress-bar.dev/60/)
-- [Unit 11: Design Bootloader]([Bootloader](https://github.com/AhmedAliMohammed1/Mastering-Embedded-System-Diploma)) ![image](https://progress-bar.dev/40/)
+- [Unit 10: SW Testing/Validation](https://github.com/AhmedAliMohammed1/Mastering-Embedded-System-Diploma) ![image](https://progress-bar.dev/60/)
+- [Unit 11: Design Bootloader](https://github.com/AhmedAliMohammed1/Mastering-Embedded-System-Diploma) ![image](https://progress-bar.dev/40/)
 
 ---
 
