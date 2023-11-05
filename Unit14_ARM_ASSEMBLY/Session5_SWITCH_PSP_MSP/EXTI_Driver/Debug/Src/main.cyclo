@@ -1,0 +1,7 @@
+../Src/main.c:77:5:TASKA_HANDLER	1
+../Src/main.c:80:5:TASKB_HANDLER	1
+../Src/main.c:83:6:SVC_Handler	1
+../Src/main.c:86:6:Main_OS	3
+../Src/main.c:122:6:EXTI9_callBack	3
+../Src/main.c:131:6:clock_init	1
+../Src/main.c:137:5:main	1
