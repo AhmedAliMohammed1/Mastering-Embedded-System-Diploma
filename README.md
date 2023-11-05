@@ -28,7 +28,7 @@
 
 - [Unit 12: Advanced Topics]([https://github.com/adem-marangoz/embedded_system_online_diploma](https://github.com/AhmedAliMohammed1/Mastering-Embedded-System-Diploma)) ![image](https://progress-bar.dev/0/)
 - [Unit 13: Automotive Protocols]([https://github.com/adem-marangoz/embedded_system_online_diploma](https://github.com/AhmedAliMohammed1/Mastering-Embedded-System-Diploma)) ![image](https://progress-bar.dev/0/)
-- [Unit 14: ARM Architecture](Unit14_ARM_ASSEMBLY/ARM_ASSEMPLY) ![image](https://progress-bar.dev/30/)
+- [Unit 14: ARM Architecture](Unit14_ARM_ASSEMBLY/ARM_ASSEMPLY) ![image](https://progress-bar.dev/70/)
 - [Unit 15: RTOS](unit_15) ![image](https://progress-bar.dev/0/)
 - [Unit 16: AUTOSAR Basics](https://github.com/adem-marangoz/embedded_system_online_diploma) ![image](https://progress-bar.dev/0/)
 - [Unit 17: Embedded Linux Basics](https://github.com/adem-marangoz/embedded_system_online_diploma) ![image](https://progress-bar.dev/0/)
