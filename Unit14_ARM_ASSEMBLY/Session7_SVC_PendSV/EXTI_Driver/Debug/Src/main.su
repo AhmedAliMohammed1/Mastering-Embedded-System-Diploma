@@ -1,0 +1,10 @@
+../Src/main.c:77:5:TASKA_HANDLER	24	static
+../Src/main.c:80:5:TASKB_HANDLER	24	static
+../Src/main.c:84:6:Main_OS	8	static,ignoring_inline_asm
+../Src/main.c:120:6:EXTI9_callBack	4	static
+../Src/main.c:129:6:clock_init	4	static
+../Src/main.c:135:6:PendSV_Handler	4	static
+../Src/main.c:138:6:OS_SVC_ACTION	32	static
+../Src/main.c:168:26:SVC_Handler	0	static,ignoring_inline_asm
+../Src/main.c:180:5:OS_service_call	32	static,ignoring_inline_asm
+../Src/main.c:204:5:main	40	static,ignoring_inline_asm
