@@ -1,0 +1,4 @@
+../Ahmed_RTOS/MY_RTOS_fifo.c:8:13:FIFO_init	2
+../Ahmed_RTOS/MY_RTOS_fifo.c:20:13:FIFO_PUSH	8
+../Ahmed_RTOS/MY_RTOS_fifo.c:37:13:FIFO_POP	6
+../Ahmed_RTOS/MY_RTOS_fifo.c:55:6:FIFO_print	3

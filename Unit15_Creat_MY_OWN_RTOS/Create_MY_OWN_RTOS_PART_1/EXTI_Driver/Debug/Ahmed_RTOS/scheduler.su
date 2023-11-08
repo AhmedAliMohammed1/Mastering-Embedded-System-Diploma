@@ -1,0 +1,6 @@
+../Ahmed_RTOS/scheduler.c:31:6:PendSV_Handler	4	static
+../Ahmed_RTOS/scheduler.c:33:10:Create_main_stack	16	static
+../Ahmed_RTOS/scheduler.c:44:6:RTOS_Create_Task_Stack	24	static
+../Ahmed_RTOS/scheduler.c:73:10:RTOS_Create_Task	24	static
+../Ahmed_RTOS/scheduler.c:94:6:RTOS_ideal_task	4	static
+../Ahmed_RTOS/scheduler.c:97:10:RTOS_init	48	static

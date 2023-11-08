@@ -1,0 +1,4 @@
+../Src/main.c:24:6:TASKA_Handler	4	static
+../Src/main.c:27:6:TASKB_Handler	4	static
+../Src/main.c:30:6:TASKC_Handler	4	static
+../Src/main.c:33:5:main	120	static
