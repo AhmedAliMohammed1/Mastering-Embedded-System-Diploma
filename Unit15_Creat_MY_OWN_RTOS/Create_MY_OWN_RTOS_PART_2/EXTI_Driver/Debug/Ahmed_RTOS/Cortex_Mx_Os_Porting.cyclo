@@ -1,0 +1,9 @@
+C:/Users/medoo/Desktop/WorkSpace/Lesson 4/EXTI_Driver/CMSIS/core_cm3.h:1638:22:__NVIC_SetPriority	2
+../Ahmed_RTOS/Cortex_Mx_Os_Porting.c:9:26:SVC_Handler	1
+../Ahmed_RTOS/Cortex_Mx_Os_Porting.c:22:6:HW_init	1
+../Ahmed_RTOS/Cortex_Mx_Os_Porting.c:25:6:SET_PendSV	1
+../Ahmed_RTOS/Cortex_Mx_Os_Porting.c:28:6:NMI_Handler	1
+../Ahmed_RTOS/Cortex_Mx_Os_Porting.c:31:6:HardFault_Handler	1
+../Ahmed_RTOS/Cortex_Mx_Os_Porting.c:33:6:MemManage_Handler	1
+../Ahmed_RTOS/Cortex_Mx_Os_Porting.c:35:6:BusFault_Handler	1
+../Ahmed_RTOS/Cortex_Mx_Os_Porting.c:37:6:UsageFault_Handler	1

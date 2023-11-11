@@ -1,0 +1,4 @@
+../Ahmed_RTOS/MY_RTOS_fifo.c:8:13:FIFO_init	24	static
+../Ahmed_RTOS/MY_RTOS_fifo.c:20:13:FIFO_PUSH	32	static
+../Ahmed_RTOS/MY_RTOS_fifo.c:43:13:FIFO_POP	32	static
+../Ahmed_RTOS/MY_RTOS_fifo.c:73:6:FIFO_print	24	static
