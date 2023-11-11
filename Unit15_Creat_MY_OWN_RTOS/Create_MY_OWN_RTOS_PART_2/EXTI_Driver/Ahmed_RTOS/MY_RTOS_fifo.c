@@ -16,7 +16,7 @@ FIFO_status FIFO_init(FIFO_t *FIFO,element_type *buff,uint32_t length)
 	FIFO->count=0;
 	return FIFO_no_error;
 
-	}
+}
 FIFO_status FIFO_PUSH(FIFO_t *FIFO,element_type item)
 {
 	uint32_t size1= sizeof(element_type);
@@ -26,20 +26,25 @@ FIFO_status FIFO_PUSH(FIFO_t *FIFO,element_type item)
 	if(!FIFO->base || !FIFO->head || !FIFO->tail)
 		return FIFO_null;
 	//check if FIFO is full or not
-	 if((FIFO->count==FIFO->length))
-		 return FIFO_FULL;
-	 if((FIFO->head < (element_type*)size)&(FIFO->count<=FIFO->length)){
-	 *(FIFO->head)=item;
-	 FIFO->head++;
-	 FIFO->count++;
-	 }else{
-		 FIFO->head=FIFO->base;
-		 *(FIFO->head)=item;
-		 FIFO->head++;
-		 FIFO->count++;
-	 }
-	 return FIFO_no_error;
+	if((FIFO->count==FIFO->length))
+		return FIFO_FULL;
+	if((FIFO->head < (element_type*)size)&(FIFO->count<=FIFO->length)){
+		*(FIFO->head)=item;
+		FIFO->head++;
+		FIFO->count++;
+	}else{
+		if(FIFO->tail > FIFO->base){
+			FIFO->head=FIFO->base;
+			*(FIFO->head)=item;
+			FIFO->head++;
+			FIFO->count++;
+		}else{
+			FIFO->head=FIFO->base;
+
+		}
 	}
+	return FIFO_no_error;
+}
 FIFO_status FIFO_POP(FIFO_t *FIFO,element_type *item)
 {
 	uint32_t size1= sizeof(element_type);
@@ -50,25 +55,30 @@ FIFO_status FIFO_POP(FIFO_t *FIFO,element_type *item)
 		return FIFO_null;
 	//check if FIFO emty of not
 	if(FIFO->count==0){
-		 FIFO->head=FIFO->base;
+		FIFO->head=FIFO->base;
 		FIFO->tail=FIFO->base;
 		return FIFO_empty;
 
 	}
 	if((FIFO->tail < (element_type*)size )&& (FIFO->count!=0)){
-	*item=*(FIFO->tail);
-	*(FIFO->tail)=0;
-	FIFO->tail++;
-	FIFO->count--;
-	}else{
-		FIFO->tail=FIFO->base;
 		*item=*(FIFO->tail);
 		*(FIFO->tail)=0;
 		FIFO->tail++;
 		FIFO->count--;
+	}else{
+		if(FIFO->head > FIFO->base){
+			FIFO->tail=FIFO->base;
+			*item=*(FIFO->tail);
+			*(FIFO->tail)=0;
+			FIFO->tail++;
+			FIFO->count--;
+		}else{
+			FIFO->tail=FIFO->base;
+
+		}
 	}
 	return FIFO_no_error;
-	}
+}
 
 void FIFO_print(FIFO_t *FIFO)
 {
@@ -77,11 +87,11 @@ void FIFO_print(FIFO_t *FIFO)
 	if(FIFO->count==0){
 		printf("FIFO is EMPTY");
 	}else{
-	for(i=0;i<FIFO->count;i++){
-		printf("FIFO elemnt is : %d\n",*temp);
-	temp++;
+		for(i=0;i<FIFO->count;i++){
+			printf("FIFO elemnt is : %d\n",*temp);
+			temp++;
 
-	}
+		}
 	}
 
 
