@@ -1,0 +1,24 @@
+C:/Users/medoo/Desktop/WorkSpace/Lesson 4/EXTI_Driver/CMSIS/core_cm3.h:1638:22:__NVIC_SetPriority	16	static
+C:/Users/medoo/Desktop/WorkSpace/Lesson 4/EXTI_Driver/CMSIS/core_cm3.h:1836:26:SysTick_Config	16	static
+../Ahmed_RTOS/scheduler.c:40:28:PendSV_Handler	0	static,ignoring_inline_asm
+../Ahmed_RTOS/scheduler.c:94:10:Create_main_stack	16	static
+../Ahmed_RTOS/scheduler.c:105:6:RTOS_Create_Task_Stack	24	static
+../Ahmed_RTOS/scheduler.c:134:10:RTOS_Create_Task	24	static
+../Ahmed_RTOS/scheduler.c:156:6:RTOS_ideal_task	4	static
+../Ahmed_RTOS/scheduler.c:161:10:RTOS_init	48	static
+../Ahmed_RTOS/scheduler.c:176:6:OS_set_SVC	16	static,ignoring_inline_asm
+../Ahmed_RTOS/scheduler.c:195:6:Swap	24	static
+../Ahmed_RTOS/scheduler.c:201:6:Selection_sort	16	static
+../Ahmed_RTOS/scheduler.c:216:6:Re_Arrange_Queue_Buffer	24	static
+../Ahmed_RTOS/scheduler.c:251:6:Decide_Who_next	8	static
+../Ahmed_RTOS/scheduler.c:275:6:OS_UPdate_Scadular_TABLE	16	static
+../Ahmed_RTOS/scheduler.c:287:6:OS_SVC_ACTION	24	static
+../Ahmed_RTOS/scheduler.c:334:6:OS_Active_TASK	16	static
+../Ahmed_RTOS/scheduler.c:338:6:OS_TERMINATE_TASK	16	static
+../Ahmed_RTOS/scheduler.c:342:6:OS_Ticker_Start	8	static
+../Ahmed_RTOS/scheduler.c:347:6:OS_TASK_wait	16	static
+../Ahmed_RTOS/scheduler.c:356:13:Acquire_Mutex	16	static
+../Ahmed_RTOS/scheduler.c:371:13:Release_Mutex	16	static
+../Ahmed_RTOS/scheduler.c:385:6:OS_TIME_CHECK	16	static
+../Ahmed_RTOS/scheduler.c:402:6:SysTick_Handler	8	static
+../Ahmed_RTOS/scheduler.c:410:6:OS_start	8	static,ignoring_inline_asm

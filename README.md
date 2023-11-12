@@ -24,12 +24,12 @@
 
 ---
 
-### Third Term ![image](https://progress-bar.dev/13/?title=inProgress&color=ff0000)
+### Third Term ![image](https://progress-bar.dev/80/?title=inProgress&color=ff00ff)
 
 - [Unit 12: Advanced Topics]([https://github.com/adem-marangoz/embedded_system_online_diploma](https://github.com/AhmedAliMohammed1/Mastering-Embedded-System-Diploma)) ![image](https://progress-bar.dev/0/)
 - [Unit 13: Automotive Protocols]([https://github.com/adem-marangoz/embedded_system_online_diploma](https://github.com/AhmedAliMohammed1/Mastering-Embedded-System-Diploma)) ![image](https://progress-bar.dev/0/)
 - [Unit 14: ARM Architecture](Unit14_ARM_ASSEMBLY/ARM_ASSEMPLY) ![image](https://progress-bar.dev/100/)
-- [Unit 15: RTOS](Unit15_Creat_MY_OWN_RTOS) ![image](https://progress-bar.dev/70/)
+- [Unit 15: RTOS](Unit15_Creat_MY_OWN_RTOS) ![image](https://progress-bar.dev/100/)
 - [Unit 16: AUTOSAR Basics](https://github.com/adem-marangoz/embedded_system_online_diploma) ![image](https://progress-bar.dev/0/)
 - [Unit 17: Embedded Linux Basics](https://github.com/adem-marangoz/embedded_system_online_diploma) ![image](https://progress-bar.dev/0/)
 

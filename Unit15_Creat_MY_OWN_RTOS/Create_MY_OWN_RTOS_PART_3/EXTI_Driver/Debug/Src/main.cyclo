@@ -1,0 +1,6 @@
+../Src/main.c:43:6:TASKA_Handler	2
+../Src/main.c:53:6:TASKB_Handler	1
+../Src/main.c:60:6:TASKC_Handler	1
+../Src/main.c:64:6:TASKD_Handler	1
+../Src/main.c:68:6:TASKE_Handler	3
+../Src/main.c:85:5:main	2
