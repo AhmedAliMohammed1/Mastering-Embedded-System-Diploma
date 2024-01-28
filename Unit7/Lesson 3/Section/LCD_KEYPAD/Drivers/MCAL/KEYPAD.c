@@ -25,15 +25,15 @@ void KEYPAD_init(){
 unsigned char Get_Pressed_KEY(void){
 	int i,j;
 	for(i=0;i<Row_N;i++){
-	MCAL_write_PIN(KEYPAD_PORT, ROWs[0], LOGIC_HIGH);
-	MCAL_write_PIN(KEYPAD_PORT, ROWs[1], LOGIC_HIGH);
-	MCAL_write_PIN(KEYPAD_PORT, ROWs[2], LOGIC_HIGH);
-	MCAL_write_PIN(KEYPAD_PORT, ROWs[3], LOGIC_HIGH);
-	MCAL_write_PIN(KEYPAD_PORT, ROWs[i], LOGIC_LOW);
+	MCAL_write_PIN(KEYPAD_PORT, ROWs[0], LOGIC_LOW);
+	MCAL_write_PIN(KEYPAD_PORT, ROWs[1], LOGIC_LOW);
+	MCAL_write_PIN(KEYPAD_PORT, ROWs[2], LOGIC_LOW);
+	MCAL_write_PIN(KEYPAD_PORT, ROWs[3], LOGIC_LOW);
+	MCAL_write_PIN(KEYPAD_PORT, ROWs[i], LOGIC_HIGH);
 //	wait_ms(30);
 	for(j=0;j<Col_N;j++){
-		if(!MCAL_Read_PIN(KEYPAD_PORT, COL_s[j])){
-			while(!MCAL_Read_PIN(KEYPAD_PORT, COL_s[j]));
+		if(MCAL_Read_PIN(KEYPAD_PORT, COL_s[j])){
+			while(MCAL_Read_PIN(KEYPAD_PORT, COL_s[j]));
 			switch(i){
 			case 0:
 				if (j==0) return '7';

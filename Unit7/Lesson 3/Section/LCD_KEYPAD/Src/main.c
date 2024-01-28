@@ -67,7 +67,7 @@ int main(void)
 	GPIO_init();
 	LCD_init();
 	KEYPAD_init();
-	LCD_sendString("ENG:AHMED ALI");
+//	LCD_sendString("ENG:AHMED ALI");
 	for(;;){
 		Pressed_key=Get_Pressed_KEY();
 		switch(Pressed_key){

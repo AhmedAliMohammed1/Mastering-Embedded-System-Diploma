@@ -46,8 +46,8 @@ gggg.bin \
 all: gggg.elf secondary-outputs
 
 # Tool invocations
-gggg.elf: $(OBJS) $(USER_OBJS) C:\Users\Ahmed\STM32CubeIDE\workspace_1.4.0\gggg\STM32F103C6TX_FLASH.ld
-	arm-none-eabi-gcc -gdwarf-2 -o "gggg.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m3 -T"C:\Users\Ahmed\STM32CubeIDE\workspace_1.4.0\gggg\STM32F103C6TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="gggg.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+gggg.elf: $(OBJS) $(USER_OBJS) C:\Users\medoo\Desktop\Mastering-Embedded-System-Diploma\Unit7\Lesson\ 3\Section\LCD_KEYPAD\STM32F103C6TX_FLASH.ld
+	arm-none-eabi-gcc -gdwarf-2 -o "gggg.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m3 -T"C:\Users\medoo\Desktop\Mastering-Embedded-System-Diploma\Unit7\Lesson 3\Section\LCD_KEYPAD\STM32F103C6TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="gggg.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 
