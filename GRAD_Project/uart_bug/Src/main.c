@@ -18,16 +18,38 @@
  */
 #include "USART_Driver.h"
 #include "GP_Timers.h"
+
 #if !defined(__SOFT_FP__) && defined(__ARM_FP)
 #warning "FPU is not initialized, but the project is compiling for an FPU. Please initialize the FPU before use."
 #endif
-uint16_t GR_TSR_FLAG_OLED=0xFF;
-uint16_t GR_TSR_FLAG_START=0xFF;
+uint8_t GR_TSR_FLAG_rec=0;
+uint8_t GR_TSR_FLAG_OLED=0;
+uint8_t GR_TSR_FLAG_OLED_send=0;
+uint8_t temp=0;
+uint8_t temp2=0;
+
+uint8_t i=0;
+uint8_t GR_TSR_FLAG_START=0xFF;
 
 void call_Back(void){
 	if(	USART1->SR &(1<<5)){
-		GR_TSR_FLAG_OLED=	MCAL_USART_ReciveData(USART1);
+		GR_TSR_FLAG_rec=	MCAL_USART_ReciveData(USART1);
+		GR_TSR_FLAG_rec &=0x0F;
 
+	}
+	if(i<2)
+	{
+//		MCAL_USART_SendData(USART1,GR_TSR_FLAG_rec);
+		GR_TSR_FLAG_OLED= (GR_TSR_FLAG_OLED<<4) | (GR_TSR_FLAG_rec);
+		temp = ((GR_TSR_FLAG_OLED >>4) |((GR_TSR_FLAG_OLED <<4)));
+		i++;
+
+	}
+
+	if(i>=2){
+		i=0;
+		GR_TSR_FLAG_OLED_send=(temp);
+		GR_TSR_FLAG_OLED=0;
 	}
 
 }
@@ -44,6 +66,9 @@ int main(void)
 
 	for(;;){
 		TSR_START();
+
+			MCAL_USART_SendData(USART1,GR_TSR_FLAG_OLED_send);
+
 			_delay_s(TIM2, 1);
 
 
