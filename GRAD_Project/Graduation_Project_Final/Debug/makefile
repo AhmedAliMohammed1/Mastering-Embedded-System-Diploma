@@ -39,13 +39,13 @@ $(wildcard ../makefile.targets) \
 
 
 BUILD_ARTIFACT_NAME := Graduation_Project_Final
-BUILD_ARTIFACT_EXTENSION := elf
+BUILD_ARTIFACT_EXTENSION := axf
 BUILD_ARTIFACT_PREFIX :=
 BUILD_ARTIFACT := $(BUILD_ARTIFACT_PREFIX)$(BUILD_ARTIFACT_NAME)$(if $(BUILD_ARTIFACT_EXTENSION),.$(BUILD_ARTIFACT_EXTENSION),)
 
 # Add inputs and outputs from these tool invocations to the build variables 
 EXECUTABLES += \
-Graduation_Project_Final.elf \
+Graduation_Project_Final.axf \
 
 MAP_FILES += \
 Graduation_Project_Final.map \
@@ -61,11 +61,11 @@ Graduation_Project_Final.list \
 all: main-build
 
 # Main-build Target
-main-build: Graduation_Project_Final.elf secondary-outputs
+main-build: Graduation_Project_Final.axf secondary-outputs
 
 # Tool invocations
-Graduation_Project_Final.elf Graduation_Project_Final.map: $(OBJS) $(USER_OBJS) C:\Users\medoo\Desktop\WorkSpace\Graduation_Project_Final\STM32F103C6TX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -gdwarf-2 -o "Graduation_Project_Final.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m3 -T"C:\Users\medoo\Desktop\WorkSpace\Graduation_Project_Final\STM32F103C6TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Graduation_Project_Final.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Graduation_Project_Final.axf Graduation_Project_Final.map: $(OBJS) $(USER_OBJS) C:\Users\medoo\Desktop\WorkSpace\Graduation_Project_Final\STM32F103C6TX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-gcc -gdwarf-2 -o "Graduation_Project_Final.axf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m3 -T"C:\Users\medoo\Desktop\WorkSpace\Graduation_Project_Final\STM32F103C6TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Graduation_Project_Final.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 
@@ -81,7 +81,7 @@ Graduation_Project_Final.list: $(EXECUTABLES) makefile objects.list $(OPTIONAL_T
 
 # Other Targets
 clean:
-	-$(RM) Graduation_Project_Final.elf Graduation_Project_Final.list Graduation_Project_Final.map default.size.stdout
+	-$(RM) Graduation_Project_Final.axf Graduation_Project_Final.list Graduation_Project_Final.map default.size.stdout
 	-@echo ' '
 
 secondary-outputs: $(SIZE_OUTPUT) $(OBJDUMP_LIST)
