@@ -1,0 +1,10 @@
+../Src/main.c:31:6:Error_Handller	1
+../Src/main.c:43:6:TSR_START	1
+../Src/main.c:55:6:TSR_Handller_TASK	4
+../Src/main.c:78:6:TSR_Flag_Read_TASK	1
+../Src/main.c:94:6:TSR_call_Back	4
+../Src/main.c:125:6:TSR_init	1
+../Src/main.c:138:6:ACC_Handller_TASK	5
+../Src/main.c:169:6:ACC_LUNA_READ_TASK	3
+../Src/main.c:185:6:HW_init	1
+../Src/main.c:197:5:main	5
