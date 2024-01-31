@@ -10,6 +10,7 @@
 #define LUNA_LIDAR_H_
 #include <stdint.h>
 #define LUNA_UART_INSTANT USART3
+#define Distance_SET 100
 typedef enum
 {
 	CONTIOUS_RANGING_MODE,

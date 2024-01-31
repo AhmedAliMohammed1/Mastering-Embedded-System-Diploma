@@ -53,19 +53,20 @@ void TSR_START(void){
  * Note-
  */
 void TSR_Handller_TASK(){
-	TSR_START();
-	if(xQueueReceive(TSR__Flags_Queue,&GR_TSR_FLAG_OLED_FINAL,1)==pdTRUE){
+	while(1){
+		TSR_START();
+		if(xQueueReceive(TSR__Flags_Queue,&GR_TSR_FLAG_OLED_FINAL,5)==pdTRUE){
 
-		switch(GR_TSR_FLAG_OLED_FINAL){
-		case 0x99:
-			break;
-		case 0x1:
-			break;
+			switch(GR_TSR_FLAG_OLED_FINAL){
+			case 0x99:
+				break;
+			case 0x1:
+				break;
+			}
+		}else{
+
 		}
-	}else{
-
 	}
-
 }
 /**================================================================
  * @Fn- TSR_Flag_Read_TASK
@@ -76,10 +77,12 @@ void TSR_Handller_TASK(){
  * Note-
  */
 void TSR_Flag_Read_TASK(){
-	if(xQueueSend(TSR__Flags_Queue,&GR_TSR_FLAG_OLED_send,1)==pdTRUE){
+	while(1){
+		if(xQueueSend(TSR__Flags_Queue,&GR_TSR_FLAG_OLED_send,1)==pdTRUE){
 
-	}else{
+		}else{
 
+		}
 	}
 }
 /**================================================================
@@ -136,26 +139,32 @@ void TSR_init(void){
  * Note-
  */
 void ACC_Handller_TASK(){
-	if(xQueueReceive(ACC__AMP_Queue,&ACC_AMP,1)==pdTRUE){
-		if((ACC_AMP>=100) && (ACC_AMP<=65535) ){
-			if(xQueueReceive(ACC__dis_Queue,&ACC_dis,1)==pdTRUE){
-				if(ACC_dis <=200){
-					// here should send CAN fram to atmega to stop the motor
-					MCAL_write_PIN(GPIOA, PIN_0, 1);
-				}else{
-					MCAL_write_PIN(GPIOA, PIN_0, 0);
+	while(1){
+		if(xQueueReceive(ACC__AMP_Queue,&ACC_AMP,2)==pdTRUE){
+			MCAL_USART_SendData(LUNA_UART_INSTANT, (uint8_t)ACC_AMP);
+			MCAL_USART_SendData(LUNA_UART_INSTANT, (ACC_AMP>>8));
+			if((ACC_AMP>=100) && (ACC_AMP<=65535) ){
+				if(xQueueReceive(ACC__dis_Queue,&ACC_dis,2)==pdTRUE){
+					MCAL_USART_SendData(LUNA_UART_INSTANT, (uint8_t)ACC_dis);
+					MCAL_USART_SendData(LUNA_UART_INSTANT, (ACC_dis>>8));
+					if(ACC_dis <= Distance_SET){
+						// here should send CAN fram to atmega to stop the motor
+						MCAL_write_PIN(GPIOA, PIN_0, 1);
+					}else{
+						MCAL_write_PIN(GPIOA, PIN_0, 0);
 
+					}
 				}
+
 			}
-		}
-		// if the Signal strength indicator not strong dequeue its disance value
-		else{
-			xQueueReceive(ACC__dis_Queue,&ACC_dis,1);
-		}
-	}else{
+			// if the Signal strength indicator not strong dequeue its disance value
+			else{
+				xQueueReceive(ACC__dis_Queue,&ACC_dis,0);
+			}
+		}else{
 
+		}
 	}
-
 
 }
 /**================================================================
@@ -167,17 +176,16 @@ void ACC_Handller_TASK(){
  * Note-
  */
 void ACC_LUNA_READ_TASK(){
-	if(xQueueSend(ACC__dis_Queue,&LUNA_dis,1)==pdTRUE){
-		MCAL_USART_SendData(LUNA_UART_INSTANT, LUNA_dis);
+	while(1){
+		if(xQueueSend(ACC__dis_Queue,&LUNA_dis,2)==pdTRUE){
 		}else{
 
 		}
-	if(xQueueSend(ACC__AMP_Queue,&LUNA_AMP,1)==pdTRUE){
-		MCAL_USART_SendData(LUNA_UART_INSTANT, LUNA_AMP);
+		if(xQueueSend(ACC__AMP_Queue,&LUNA_AMP,2)==pdTRUE){
 		}else{
 
 		}
-
+	}
 }
 
 
@@ -197,18 +205,18 @@ void HW_init(){
 int main(void)
 {
 	HW_init();
-	if(xTaskCreate(TSR_Handller_TASK,"TSR_Handller_TASK",128,NULL,2,NULL)!=pdPASS ){
+	if(xTaskCreate(TSR_Handller_TASK,"TSR_Handller_TASK",256,NULL,2,NULL)!=pdPASS ){
 		Error_Handller();
 	}
 
-	if(xTaskCreate(TSR_Flag_Read_TASK,"Read From UART1",128,NULL,2,NULL)!=pdPASS ){
+	if(xTaskCreate(TSR_Flag_Read_TASK,"Read_From_UART1",256,NULL,2,NULL)!=pdPASS ){
 		Error_Handller();
 	}
-	if(xTaskCreate(ACC_Handller_TASK,"ACC_Handller_TASK",128,NULL,2,NULL)!=pdPASS ){
+	if(xTaskCreate(ACC_Handller_TASK,"ACC_Handller_TASK",256,NULL,2,NULL)!=pdPASS ){
 		Error_Handller();
 	}
 
-	if(xTaskCreate(ACC_LUNA_READ_TASK,"LUNA READ",128,NULL,2,NULL)!=pdPASS ){
+	if(xTaskCreate(ACC_LUNA_READ_TASK,"LUNA_READ",256,NULL,2,NULL)!=pdPASS ){
 		Error_Handller();
 	}
 	xSemaphore = xSemaphoreCreateBinary();
