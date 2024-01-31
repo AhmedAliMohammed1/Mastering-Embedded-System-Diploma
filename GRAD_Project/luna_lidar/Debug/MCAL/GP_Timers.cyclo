@@ -1,0 +1,15 @@
+../MCAL/GP_Timers.c:28:6:GP_ERROR_HANDLER	1
+../MCAL/GP_Timers.c:39:6:MCAL_SET_GP_TIMx_GPIO	40
+../MCAL/GP_Timers.c:224:6:GP_TIMx_start	15
+../MCAL/GP_Timers.c:289:6:GP_TIMx__CTC_start	74
+../MCAL/GP_Timers.c:826:6:GP_TIMx_ICU_init	17
+../MCAL/GP_Timers.c:937:6:GP_TIMx_Icu_setEdgeDetectionType	40
+../MCAL/GP_Timers.c:1064:10:GP_TIMx_getTime	5
+../MCAL/GP_Timers.c:1088:6:GP_TIMX_Clear	1
+../MCAL/GP_Timers.c:1092:6:GP_TIMx_Deint	7
+../MCAL/GP_Timers.c:1114:6:TIM2_IRQHandler	6
+../MCAL/GP_Timers.c:1145:6:TIM3_IRQHandler	6
+../MCAL/GP_Timers.c:1176:7:TIM4_IRQHandler	6
+../MCAL/GP_Timers.c:1211:6:_delay_us	2
+../MCAL/GP_Timers.c:1221:6:_delay_ms	2
+../MCAL/GP_Timers.c:1225:6:_delay_s	2
