@@ -23,34 +23,43 @@
 #warning "FPU is not initialized, but the project is compiling for an FPU. Please initialize the FPU before use."
 #endif
 uint8_t GR_TSR_FLAG_rec=0;
-uint8_t GR_TSR_FLAG_OLED=0;
+uint16_t GR_TSR_FLAG_OLED=0;
 uint8_t GR_TSR_FLAG_OLED_send=0;
 uint8_t temp=0;
 uint8_t temp2=0;
 
 uint8_t i=0;
+uint8_t y=0;
+
 uint8_t GR_TSR_FLAG_START=0xFF;
 
 void call_Back(void){
 	if(	USART1->SR &(1<<5)){
 		GR_TSR_FLAG_rec=	MCAL_USART_ReciveData(USART1);
-		GR_TSR_FLAG_rec &=0x0F;
+
 
 	}
-	if(i<2)
-	{
-//		MCAL_USART_SendData(USART1,GR_TSR_FLAG_rec);
-		GR_TSR_FLAG_OLED= (GR_TSR_FLAG_OLED<<4) | (GR_TSR_FLAG_rec);
-		temp = ((GR_TSR_FLAG_OLED >>4) |((GR_TSR_FLAG_OLED <<4)));
-		i++;
+	/*
+	0x38 0x2A
+	0x0038
+	0x0008
 
-	}
+	0x0000 | 0x0008
+	0x0008
+*/
 
-	if(i>=2){
-		i=0;
-		GR_TSR_FLAG_OLED_send=(temp);
+	if(GR_TSR_FLAG_rec != '*'){
+		GR_TSR_FLAG_OLED = (GR_TSR_FLAG_OLED<<8)| GR_TSR_FLAG_rec;
+	}else{
+		GR_TSR_FLAG_OLED &=0x0F0F;
+		GR_TSR_FLAG_OLED_send = ((GR_TSR_FLAG_OLED &0x0F00)>>4) |((GR_TSR_FLAG_OLED&0x000F));
 		GR_TSR_FLAG_OLED=0;
+
 	}
+
+
+
+
 
 }
 void TSR_START(void){
@@ -61,14 +70,26 @@ int main(void)
 {
 	USART_Config_t UART1_CON={115200,EGHIT_BITS,Parity_DISABLE,Interrupt,ONE_STOP_BIT,Disabled,Asynchronous,call_Back};
 	MCAL_USART_init(USART1, &UART1_CON);
+	PIN_config PINx={PIN_0,OUTPUT_PP,SPEED_10};
+	MCAL_GPIO_init(GPIOA, &PINx);
+
 	/* Loop forever */
 	GR_TSR_FLAG_START=0x01;
 
 	for(;;){
 		TSR_START();
 
-			MCAL_USART_SendData(USART1,GR_TSR_FLAG_OLED_send);
+		if(GR_TSR_FLAG_OLED_send!=0x99){
+		MCAL_write_PIN(GPIOA, PIN_0, 1);
 
+		}else{
+			MCAL_write_PIN(GPIOA, PIN_0, 0);
+
+		}
+
+
+
+		MCAL_USART_SendData(USART1, GR_TSR_FLAG_OLED_send);
 			_delay_s(TIM2, 1);
 
 

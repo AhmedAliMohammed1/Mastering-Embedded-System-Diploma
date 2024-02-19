@@ -113,6 +113,7 @@ void MCAL_USART_SendData(USART_REG *USARTx,uint8_t data){
 		L_P_config_pin=&G_P_config[2];
 	}
 	while(!(USARTx->SR & (1<<7)));
+	USARTx->DR=0;
 
 
 

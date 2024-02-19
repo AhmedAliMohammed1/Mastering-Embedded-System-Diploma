@@ -41,6 +41,7 @@ void Error_Handller(){
  * Note-
  */
 void TSR_START(void){
+	GR_TSR_FLAG_START=0x01;
 	MCAL_USART_SendData(TSR_UART_INSTANT, GR_TSR_FLAG_START);
 
 }
