@@ -1,0 +1,13 @@
+../Src/main.c:35:6:Sys_Clk_init	1
+../Src/main.c:47:6:ACC_ADC_CallBack	1
+../Src/main.c:52:6:ACC_throtel_init	1
+../Src/main.c:61:6:Error_Handller	1
+../Src/main.c:75:10:ACC_FROM_PWM_TO_ADC	1
+../Src/main.c:80:10:ACC_FROM_ADC_TO_PWM_DATA	1
+../Src/main.c:84:6:ACC_FROM_ADC_TO_PWM	1
+../Src/main.c:102:6:ACC_Handller_TASK	7
+../Src/main.c:149:6:ACC_LUNA_READ_TASK	1
+../Src/main.c:164:6:HW_init	1
+../Src/main.c:181:6:ACC_throttel_Handller_TASK	13
+../Src/main.c:232:6:ACC_STATE_READ_TASK	1
+../Src/main.c:242:5:main	5
