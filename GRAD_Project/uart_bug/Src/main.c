@@ -18,24 +18,26 @@
  */
 #include "USART_Driver.h"
 #include "GP_Timers.h"
-
+#define ACC_TROTTEL_MIN_ADC_VAL 0x41F
+#define ACC_TROTTEL_Max_ADC_VAL 0xA22
+#define ACC_TROTTEL_Max_ADC_VAL_shifted ((ACC_TROTTEL_Max_ADC_VAL)-(ACC_TROTTEL_MIN_ADC_VAL))
 #if !defined(__SOFT_FP__) && defined(__ARM_FP)
 #warning "FPU is not initialized, but the project is compiling for an FPU. Please initialize the FPU before use."
 #endif
-uint8_t GR_TSR_FLAG_rec=0;
 uint16_t GR_TSR_FLAG_OLED=0;
 uint8_t GR_TSR_FLAG_OLED_send=0;
-uint8_t temp=0;
-uint8_t temp2=0;
-
-uint8_t i=0;
-uint8_t y=0;
-
-uint8_t GR_TSR_FLAG_START=0xFF;
-
+uint8_t PC_Uart_Flag=0;
+/////////////////////////////
+uint8_t TSR_START_Flag='#'; //'#'
+uint8_t TSR_END_Flag='*'; //'*'
+////////////////////////////
+uint8_t FACE_START_Flag='-'; //'-'
+uint8_t FACE_END_Flag='+';// '+'
+uint16_t GR_FACE_FLAG_=0;
+uint8_t GR_FACE_FLAG_send=0;
 void call_Back(void){
 	if(	USART1->SR &(1<<5)){
-		GR_TSR_FLAG_rec=	MCAL_USART_ReciveData(USART1);
+		PC_Uart_Flag=	MCAL_USART_ReciveData(USART1);
 
 
 	}
@@ -46,53 +48,77 @@ void call_Back(void){
 
 	0x0000 | 0x0008
 	0x0008
-*/
+	 */
+	switch(PC_Uart_Flag){
+	case '#':
+		TSR_START_Flag=1;
+		break;
+	case '*':
+		TSR_END_Flag=1;
+		break;
+	case '-':
+		FACE_START_Flag=1;
+		break;
+	case '+':
+		FACE_END_Flag=1;
+		break;
+	}
 
-	if(GR_TSR_FLAG_rec != '*'){
-		GR_TSR_FLAG_OLED = (GR_TSR_FLAG_OLED<<8)| GR_TSR_FLAG_rec;
-	}else{
-		GR_TSR_FLAG_OLED &=0x0F0F;
-		GR_TSR_FLAG_OLED_send = ((GR_TSR_FLAG_OLED &0x0F00)>>4) |((GR_TSR_FLAG_OLED&0x000F));
-		GR_TSR_FLAG_OLED=0;
+	if(TSR_START_Flag){
+		if(TSR_END_Flag ==0){
+			GR_TSR_FLAG_OLED = (GR_TSR_FLAG_OLED<<8)| PC_Uart_Flag;
+
+
+		}else{
+			GR_TSR_FLAG_OLED &=0x0F0F;
+			GR_TSR_FLAG_OLED_send = ((GR_TSR_FLAG_OLED &0x0F00)>>4) |((GR_TSR_FLAG_OLED&0x000F));
+			GR_TSR_FLAG_OLED=0;
+			///////////////
+			TSR_END_Flag=0;
+			TSR_START_Flag=0;
+		}
+	}else if (FACE_START_Flag){
+		if(FACE_END_Flag ==0){
+			GR_FACE_FLAG_ = (GR_FACE_FLAG_<<8)| PC_Uart_Flag;
+
+		}else{
+			GR_FACE_FLAG_ &=0x0F0F;
+			GR_FACE_FLAG_send = ((GR_FACE_FLAG_ &0x0F00)>>4) |((GR_FACE_FLAG_&0x000F));
+			GR_FACE_FLAG_=0;
+
+			///////////////
+			FACE_START_Flag=0;
+			FACE_END_Flag=0;
+		}
 
 	}
 
 
 
 
+//	if(PC_Uart_Flag != '*'){
+//		GR_TSR_FLAG_OLED = (GR_TSR_FLAG_OLED<<8)| PC_Uart_Flag;
+//	}else{
+//		GR_TSR_FLAG_OLED &=0x0F0F;
+//		GR_TSR_FLAG_OLED_send = ((GR_TSR_FLAG_OLED &0x0F00)>>4) |((GR_TSR_FLAG_OLED&0x000F));
+//		GR_TSR_FLAG_OLED=0;
+//
+//	}
+
+
+
+
 
 }
-void TSR_START(void){
-	MCAL_USART_SendData(USART1, GR_TSR_FLAG_START);
 
-}
 int main(void)
 {
-	USART_Config_t UART1_CON={115200,EGHIT_BITS,Parity_DISABLE,Interrupt,ONE_STOP_BIT,Disabled,Asynchronous,call_Back};
-	MCAL_USART_init(USART1, &UART1_CON);
-	PIN_config PINx={PIN_0,OUTPUT_PP,SPEED_10};
-	MCAL_GPIO_init(GPIOA, &PINx);
-
-	/* Loop forever */
-	GR_TSR_FLAG_START=0x01;
+		USART_Config_t UART1_CON={115200,EGHIT_BITS,Parity_DISABLE,Interrupt,ONE_STOP_BIT,Disabled,Asynchronous,call_Back};
+		MCAL_USART_init(USART1, &UART1_CON);
 
 	for(;;){
-		TSR_START();
-
-		if(GR_TSR_FLAG_OLED_send!=0x99){
-		MCAL_write_PIN(GPIOA, PIN_0, 1);
-
-		}else{
-			MCAL_write_PIN(GPIOA, PIN_0, 0);
-
-		}
-
-
-
 		MCAL_USART_SendData(USART1, GR_TSR_FLAG_OLED_send);
-			_delay_s(TIM2, 1);
-
-
+		MCAL_USART_SendData(USART1, GR_FACE_FLAG_send);
 
 
 

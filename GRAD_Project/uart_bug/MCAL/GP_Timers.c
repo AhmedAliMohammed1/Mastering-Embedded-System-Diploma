@@ -286,11 +286,37 @@ void GP_TIMx_start(GP_TIMx_REG* TIMx,GP_TIMERx_config* Sitting,GP_TIMERx_NORMAL_
  * @retval -
  * Note-
  */
+void GP_TIMx__CTC_change(GP_TIMx_REG* TIMx,uint8_t ch_num,uint16_t ccr_val){
+	switch(ch_num){
+	case 1:
+		TIMx->CCR1=ccr_val;
+
+		break;
+	case 2:
+		TIMx->CCR2=ccr_val;
+
+		break;
+	case 3:
+		TIMx->CCR3=ccr_val;
+
+
+		break;
+	case 4:
+		TIMx->CCR4=ccr_val;
+
+
+		break;
+	default:
+		GP_ERROR_HANDLER();
+		break;
+
+	}
+}
 void GP_TIMx__CTC_start(GP_TIMx_REG* TIMx,GP_TIMERx_config* Sitting,GP_TIMERx_CTC_config* CTC_Sitting){
 
 	if(Sitting->mode==PWM ||Sitting->mode==CTC ){
 		g_GP_TIMX=TIMx;
-		GP_TIMx_Deint(TIMx);
+//		GP_TIMx_Deint(TIMx);
 
 		if(TIMx== TIM2){RCC->APB1ENR|=(1<<0);			g_GP_Sitting[0]=(* Sitting);	}
 		else if(TIMx== TIM3) {RCC->APB1ENR|=(1<<1);	g_GP_Sitting[1]=(* Sitting);	}
@@ -299,11 +325,11 @@ void GP_TIMx__CTC_start(GP_TIMx_REG* TIMx,GP_TIMERx_config* Sitting,GP_TIMERx_CT
 		TIMx->PSC=Sitting->TIME_PSC;
 
 		TIMx->ARR=Sitting->TIME_ARR;
+		TIMx->CR1.BIT_NAME.ARPE=0;
 
-		TIMx->RCR=Sitting->TIME_RCR;
 
 		if(Sitting->TIME_RCR)
-			TIMx->CR1.BIT_NAME.ARPE=1;
+			TIMx->RCR=Sitting->TIME_RCR;
 
 
 		/*
@@ -790,23 +816,23 @@ void GP_TIMx__CTC_start(GP_TIMx_REG* TIMx,GP_TIMERx_config* Sitting,GP_TIMERx_CT
 			switch (CTC_Sitting->CHx_num) {
 			case 1:
 				while(!TIMx->SR.BIT_NAME.CC1IF);
-				TIMx->SR.BIT_NAME.CC1IF=0;
+//				TIMx->SR.BIT_NAME.CC1IF=0;
 				break;
 			case 2:
-				while(!TIMx->SR.BIT_NAME.UIF);
+//				while(!TIMx->SR.BIT_NAME.UIF);
 
 				while(!TIMx->SR.BIT_NAME.CC2IF);
-				TIMx->SR.BIT_NAME.CC2IF=0;
-				TIMx->SR.BIT_NAME.UIF=0;
+//				TIMx->SR.BIT_NAME.CC2IF=0;
+//				TIMx->SR.BIT_NAME.UIF=0;
 
 				break;
 			case 3:
 				while(!TIMx->SR.BIT_NAME.CC3IF);
-				TIMx->SR.BIT_NAME.CC3IF=0;
+//				TIMx->SR.BIT_NAME.CC3IF=0;
 				break;
 			case 4:
 				while(!TIMx->SR.BIT_NAME.CC4IF);
-				TIMx->SR.BIT_NAME.CC4IF=0;
+//				TIMx->SR.BIT_NAME.CC4IF=0;
 				break;
 			default:
 				GP_ERROR_HANDLER();
@@ -817,6 +843,7 @@ void GP_TIMx__CTC_start(GP_TIMx_REG* TIMx,GP_TIMERx_config* Sitting,GP_TIMERx_CT
 	}else{
 		GP_ERROR_HANDLER();
 	}
+
 }
 ////////////////////////////////
 
