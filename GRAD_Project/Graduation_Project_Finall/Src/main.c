@@ -559,6 +559,10 @@ void FACE_ID_TASK(){
 
 			//UART SEND
 			if(CAR_login_counter <3){
+				if(CAR_login_counter==0){
+					MCAL_USART_SendData(TSR_UART_INSTANT,CAR_ON_FLAG);
+					CAR_login_counter++;
+				}
 				if(GR_FACE_FLAG_ ==0x99){
 				MCAL_USART_SendData(TSR_UART_INSTANT,CAR_ON_FLAG);
 				GR_FACE_FLAG_=0;
@@ -607,7 +611,8 @@ void HW_init(){
 	ACC_throtel_init();
 	////////////*********DAC init***************//////////////////
 	ACC_DAC_init();
-
+	////////////*********DMS_init***************//////////////////
+	DMS_init();
 
 
 

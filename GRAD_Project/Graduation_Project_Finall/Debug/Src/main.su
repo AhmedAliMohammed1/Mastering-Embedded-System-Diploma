@@ -19,5 +19,5 @@
 ../Src/main.c:542:6:CAR_ON_Handler	8	static
 ../Src/main.c:552:6:CAR_ON_init	40	static
 ../Src/main.c:556:6:FACE_ID_TASK	8	static
-../Src/main.c:598:6:HW_init	8	static
-../Src/main.c:616:5:main	16	static
+../Src/main.c:602:6:HW_init	8	static
+../Src/main.c:620:5:main	16	static
