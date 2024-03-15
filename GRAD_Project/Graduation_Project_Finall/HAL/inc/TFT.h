@@ -31,16 +31,16 @@
 #define TFT_width 320
 #define TFT_height 480
 
-#define NO_PARKING_SIGN_FLAG	7
-#define NO_WAITING_SIGN_FLAG	8
-#define _100_KM_SIGN_FLAG		9
-#define _120_KM_SIGN_FLAG		10
-#define _20_KM_SIGN_FLAG		11
-#define _30_KM_SIGN_FLAG		12
-#define _40_KM_SIGN_FLAG		13
-#define _50_KM_SIGN_FLAG		14
-#define _70_KM_SIGN_FLAG		16
-#define _80_KM_SIGN_FLAG		17
+#define NO_PARKING_SIGN_FLAG	0x7
+#define NO_WAITING_SIGN_FLAG	0x8
+#define _100_KM_SIGN_FLAG		0x9
+#define _120_KM_SIGN_FLAG		0x10
+#define _20_KM_SIGN_FLAG		0x11
+#define _30_KM_SIGN_FLAG		0x12
+#define _40_KM_SIGN_FLAG		0x13
+#define _50_KM_SIGN_FLAG		0x14
+#define _70_KM_SIGN_FLAG		0x16
+#define _80_KM_SIGN_FLAG		0x17
 #define _90_KM_SIGN_FLAG		18
 #define STOP_SIGN_FLAG			19
 

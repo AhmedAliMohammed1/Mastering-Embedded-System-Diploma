@@ -94,7 +94,7 @@ void TFT_send_data(uint8_t data){
 void TFT_send_image(uint8_t image_flag){
 
 	volatile uint16_t *image=NULL;
-
+	uint8_t r=0,g=0,b=0;
 
 
 	/***********************************/
@@ -108,11 +108,11 @@ void TFT_send_image(uint8_t image_flag){
 	/***********************************/
 	TFT_send_command(TFT_SET_Row_MODE);
 	TFT_send_data(0x00);
-	TFT_send_data(0xBE);
+	TFT_send_data(0xF0);
 
 
 	TFT_send_data(0x01);
-	TFT_send_data(0x22);
+	TFT_send_data(0x53);
 	/***********************************/
 
 
@@ -160,9 +160,9 @@ void TFT_send_image(uint8_t image_flag){
 		//		TFT_send_data(tr[i]>>16);
 		//		TFT_send_data(tr[i]>>8);
 		//		TFT_send_data(tr[i]);
-		uint8_t r = (image[i] & 0xF800) >> 11;
-		uint8_t g = (image[i] & 0x07E0) >> 5;
-		uint8_t b = image[i] & 0x001F;
+		 r = (image[i] & 0xF800) >> 11;
+		 g = (image[i] & 0x07E0) >> 5;
+		 b = image[i] & 0x001F;
 		r = (r * 255) / 31;
 		g = (g * 255) / 63;
 		b = (b * 255) / 31;

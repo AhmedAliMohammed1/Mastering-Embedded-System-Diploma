@@ -18,7 +18,23 @@
 #if !defined(__SOFT_FP__) && defined(__ARM_FP)
 #warning "FPU is not initialized, but the project is compiling for an FPU. Please initialize the FPU before use."
 #endif
+/*#############################################################################################################################
 
+
+#     ____ ____      _    ____  _   _   _  _____ ___ ___  _   _      ____  ____   ___      _ _____ ____ _____
+#    / ___|  _ \    / \  |  _ \| | | | / \|_   _|_ _/ _ \| \ | |    |  _ \|  _ \ / _ \    | | ____/ ___|_   _|
+#   | |  _| |_) |  / _ \ | | | | | | |/ _ \ | |  | | | | |  \| |    | |_) | |_) | | | |_  | |  _|| |     | |
+#   | |_| |  _ <  / ___ \| |_| | |_| / ___ \| |  | | |_| | |\  |    |  __/|  _ <| |_| | |_| | |__| |___  | |
+#    \____|_| \_\/_/   \_\____/ \___/_/   \_\_| |___\___/|_| \_|    |_|   |_| \_\\___/ \___/|_____\____| |_|
+
+#    _____ ____ ___ _____ ____   ___  _   _ ___ ____ ____             ____ ____      _    _____ _____ _____ ____  ____
+#   | ____/ ___/ _ \_   _|  _ \ / _ \| \ | |_ _/ ___/ ___|           / ___|  _ \    / \  |  ___|_   _| ____|  _ \/ ___|
+#   |  _|| |  | | | || | | |_) | | | |  \| || | |   \___ \          | |   | |_) |  / _ \ | |_    | | |  _| | |_) \___ \
+#   | |__| |__| |_| || | |  _ <| |_| | |\  || | |___ ___) |         | |___|  _ <  / ___ \|  _|   | | | |___|  _ < ___) |
+#   |_____\____\___/ |_| |_| \_\\___/|_| \_|___\____|____/           \____|_| \_\/_/   \_\_|     |_| |_____|_| \_\____/
+
+
+ */
 #include "main.h"
 
 /**================================================================
@@ -123,7 +139,7 @@ void ACC_throtel_init(){
 	ADC_Analog_WDG AWDG={0,0,0,0};
 	ADC_CONFIG config={ACC_THROTTEL_CHx,ADC_Continuous_conversion,ADC_1_5_cycles,ADC_Polling,&AWDG,ACC_ADC_CallBack};
 	ADC_init(ADC1,&config);
-//	ADC_interrupt_Enable(ADC1);
+	//	ADC_interrupt_Enable(ADC1);
 	PIN_config PINx={ACC_BOTTON_PIN,INPUT_PD,0};
 	MCAL_GPIO_init(ACC_BOTTON_PORT, &PINx);
 
@@ -198,63 +214,30 @@ void ACC_FROM_ADC_TO_DAC(uint16_t ADC_VAL){
  */
 void ACC_Handller_TASK(){
 	while(1){
-		if(xQueueReceive(ACC__AMP_Queue,&ACC_AMP,2)==pdTRUE){
-			if((ACC_AMP>=100) && (ACC_AMP<=65535) ){
-				if(xQueueReceive(ACC__dis_Queue,&ACC_dis,2)==pdTRUE){
-					if(ACC_dis <= Distance_SET){
+
+//			ACC_AMP=500;
+			if((LUNA_AMP>=100) && (LUNA_AMP<=65535) ){
+					if(LUNA_dis <= Distance_SET){
 						// here should send CAN fram to atmega to stop the motor
 						ACC_ACTION=ACC_CAR_STOP;
-						if(xQueueSend(ACC__ACTION_Queue,&ACC_ACTION,2)==pdTRUE){
-						}else{
 
-						}
-					}else if((ACC_dis > Distance_SET) &&(ACC_dis <MAX_Distance_SET)){
+					}else if((LUNA_dis > Distance_SET) &&(LUNA_dis <MAX_Distance_SET)){
 						ACC_ACTION=ACC_CAR_SLOW_DOWN;
-						if(xQueueSend(ACC__ACTION_Queue,&ACC_ACTION,2)==pdTRUE){
-						}else{
 
-						}
 
 					}else{
 						ACC_ACTION=ACC_CAR_GO;
-						if(xQueueSend(ACC__ACTION_Queue,&ACC_ACTION,2)==pdTRUE){
-						}else{
 
-						}
 					}
-				}
+
 
 			}
 			// if the Signal strength indicator not strong dequeue its disance value
 			else{
-				xQueueReceive(ACC__dis_Queue,&ACC_dis,0);
 			}
-		}else{
-
 		}
 	}
 
-}
-/**================================================================
- * @Fn- ACC_LUNA_READ_TASK
- * @brief - this task shall to get distance from LIDAR using UART2
- * @param [in] - void
- * @param [out] - Void
- * @retval -
- * Note-
- */
-void ACC_LUNA_READ_TASK(){
-	while(1){
-		if(xQueueSend(ACC__dis_Queue,&LUNA_dis,2)==pdTRUE){
-		}else{
-
-		}
-		if(xQueueSend(ACC__AMP_Queue,&LUNA_AMP,2)==pdTRUE){
-		}else{
-
-		}
-	}
-}
 
 
 
@@ -268,12 +251,11 @@ void ACC_LUNA_READ_TASK(){
  */
 
 void ACC_throttel_Handller_TASK(){
-	uint8_t ACC_action=0,ACC_state=0,ACC_counter=0;
+	uint8_t ACC_counter=0;
 	uint16_t ADC_to_send=0,ADC_SAVED=0;
 	while(1){
-		xQueueReceive(ACC__ACTION_Queue,&ACC_action,2);
-		xQueueReceive(ACC__STATE_Queue,&ACC_state,2);
-		if(ACC_state==ACC_ON){
+
+		if(ACC_ST==ACC_ON){
 			if(ACC_counter ==0){
 				ADC_SAVED=ACC_THROTTEL_DATA;
 				ACC_counter++;
@@ -282,36 +264,36 @@ void ACC_throttel_Handller_TASK(){
 				ACC_FROM_ADC_TO_DAC(ACC_THROTTEL_DATA);
 
 			}else{
-				if(ACC_action ==ACC_CAR_STOP){
+				if(ACC_ACTION ==ACC_CAR_STOP){
 					ADC_to_send=ACC_FROM_DAC_TO_ADC(0);
 					ACC_FROM_ADC_TO_DAC(ADC_to_send);
-				}else if(ACC_action ==ACC_CAR_SLOW_DOWN){
+				}else if(ACC_ACTION ==ACC_CAR_SLOW_DOWN){
 					//get the adc val and convert it to pwm and sub 20% from it then change the pwm duty
 					ADC_to_send=ACC_FROM_ADC_TO_DAC_DATA(ADC_SAVED);
 					if(ADC_to_send>50)
-					ADC_to_send=50;
+						ADC_to_send=50;
 					ADC_to_send=ACC_FROM_DAC_TO_ADC(ADC_to_send);
 					ACC_FROM_ADC_TO_DAC(ADC_to_send);
-				}else if(ACC_action ==ACC_CAR_GO){
+				}else if(ACC_ACTION ==ACC_CAR_GO){
 					ACC_FROM_ADC_TO_DAC(ADC_SAVED);
 
 				}
 			}
 
 
-		}else if(ACC_state==ACC_OFF){
+		}else if(ACC_ST==ACC_OFF){
 			ACC_counter=0;
-			if(ACC_action ==ACC_CAR_STOP){
+			if(ACC_ACTION ==ACC_CAR_STOP){
 				ADC_to_send=ACC_FROM_DAC_TO_ADC(0);
 				ACC_FROM_ADC_TO_DAC(ADC_to_send);
-			}else if(ACC_action ==ACC_CAR_SLOW_DOWN){
+			}else if(ACC_ACTION ==ACC_CAR_SLOW_DOWN){
 				//get the adc val and convert it to pwm and sub 20% from it then change the pwm duty
 				ADC_to_send=ACC_FROM_ADC_TO_DAC_DATA(ACC_THROTTEL_DATA);
 				if(ADC_to_send>50)
-				ADC_to_send=50;
+					ADC_to_send=50;
 				ADC_to_send=ACC_FROM_DAC_TO_ADC(ADC_to_send);
 				ACC_FROM_ADC_TO_DAC(ADC_to_send);
-			}else if(ACC_action ==ACC_CAR_GO){
+			}else if(ACC_ACTION ==ACC_CAR_GO){
 				ACC_FROM_ADC_TO_DAC(ACC_THROTTEL_DATA);
 			}
 		}
@@ -332,9 +314,7 @@ void ACC_STATE_READ_TASK(){
 
 		ACC_ST=MCAL_Read_PIN(ACC_BOTTON_PORT, ACC_BOTTON_PIN);
 		ADC_read(ADC1,ACC_THROTTEL_CHx,&ACC_THROTTEL_DATA);
-		if(xQueueSend(ACC__STATE_Queue,&ACC_ST,2)==pdTRUE){
-		}else{
-		}
+
 	}
 }
 /***********************************/
@@ -374,32 +354,14 @@ void ACC_STATE_READ_TASK(){
  * Note-
  */
 void TSR_Handller_TASK(){
-	while(1){
-		if(xQueueReceive(TSR__Flags_Queue,&GR_TSR_FLAG_OLED_FINAL,5)==pdTRUE){
+  while(1){
+	  vTaskPrioritySet(TSR_Handller_TASK_Handle,4);
+      TFT_send_image(GR_TSR_FLAG_OLED_send);
+	  vTaskPrioritySet(TSR_Handller_TASK_Handle,2);
 
-			TFT_send_image(GR_TSR_FLAG_OLED_FINAL);
-		}else{
-
-		}
-	}
+  }
 }
-/**================================================================
- * @Fn- TSR_Flag_Read_TASK
- * @brief - this task shall to send the flags using queue to the handler
- * @param [in] - void
- * @param [out] - Void
- * @retval -
- * Note-
- */
-void TSR_Flag_Read_TASK(){
-	while(1){
-		if(xQueueSend(TSR__Flags_Queue,&GR_TSR_FLAG_OLED_send,1)==pdTRUE){
 
-		}else{
-
-		}
-	}
-}
 /**================================================================
  * @Fn- TSR_call_Back
  * @brief - this task shall to get the flags PC using TSR_UART_INSTANT
@@ -410,80 +372,85 @@ void TSR_Flag_Read_TASK(){
  * Note-
  */
 void TSR_call_Back(void){
-	  if(  USART1->SR &(1<<5)){
-	    PC_Uart_Flag=  MCAL_USART_ReciveData(USART1);
+	if(  USART1->SR &(1<<5)){
+		PC_Uart_Flag=  MCAL_USART_ReciveData(USART1);
 
 
-	  }
+	}
 
-	  /*
+
+//	MCAL_USART_SendData(USART1, PC_Uart_Flag);
+	/*
 	  0x38 0x2A
 	  0x0038
 	  0x0008
 
 	  0x0000 | 0x0008
 	  0x0008
-	   */
-	  switch(PC_Uart_Flag){
-	  case '#':
-	    TSR_START_Flag=1;
-	    TSR_END_Flag=0;
-	    break;
-	  case '*':
-	    TSR_END_Flag=1;
-	    break;
-	  case '/':
-	    FACE_START_Flag=1;
-	    FACE_END_Flag=0;
-	    break;
-	  case '+':
-	    FACE_END_Flag=1;
-	    break;
-	  }
-	  if (FACE_START_Flag){
-	    if(PC_Counter ==0)
-	      PC_Uart_Flag=0;
-
-	    if(FACE_END_Flag ==0){
-	      GR_FACE_FLAG_ = (GR_FACE_FLAG_<<8)| PC_Uart_Flag;
-	      PC_Counter++;
-	      /*
-	       * 0x0000 | 0x2F =0x
-	       *
-	       * */
-
-	    }else{
-	      GR_FACE_FLAG_ &=0x0F0F;
-	      GR_FACE_FLAG_send = ((GR_FACE_FLAG_ &0x0F00)>>4) |((GR_FACE_FLAG_&0x000F));
-	      GR_FACE_FLAG_=0;
-
-	      ///////////////
-	      FACE_START_Flag=0;
-	      FACE_END_Flag=0;
-	      PC_Counter=0;
-	    }
-	  }
-	  if(TSR_START_Flag){
-	    if(PC_Counter ==0)
-	      PC_Uart_Flag=0;
-
-	    if(TSR_END_Flag ==0){
-	      GR_TSR_FLAG_OLED = (GR_TSR_FLAG_OLED<<8)| PC_Uart_Flag;
-	      PC_Counter++;
+	 */
+	switch(PC_Uart_Flag){
+	case '#':
+		TSR_START_Flag=1;
+		TSR_END_Flag=0;
+		break;
+	case '*':
+		TSR_END_Flag=1;
+		break;
+	case 0x2F:
+		FACE_START_Flag=1;
+		FACE_END_Flag=0;
+		break;
+	case 0x2B:
+		FACE_END_Flag=1;
+		break;
+	}
 
 
-	    }else{
-	      GR_TSR_FLAG_OLED &=0x0F0F;
-	      GR_TSR_FLAG_OLED_send = ((GR_TSR_FLAG_OLED &0x0F00)>>4) |((GR_TSR_FLAG_OLED&0x000F));
-	      GR_TSR_FLAG_OLED=0;
-	      ///////////////
-	      TSR_END_Flag=0;
-	      TSR_START_Flag=0;
-	      PC_Counter=0;
+
+	if (FACE_START_Flag){
+		if(PC_Counter ==0)
+			PC_Uart_Flag=0;
+
+		if(FACE_END_Flag ==0){
+			GR_FACE_FLAG_ = (GR_FACE_FLAG_<<8)| PC_Uart_Flag;
+			PC_Counter++;
+			/*
+			 * 0x0000 | 0x2F =0x
+			 *
+			 * */
+
+		}else{
+			GR_FACE_FLAG_ &=0x0F0F;
+			GR_FACE_FLAG_send = ((GR_FACE_FLAG_ &0x0F00)>>4) |((GR_FACE_FLAG_&0x000F));
+			GR_FACE_FLAG_=0;
+
+			///////////////
+			FACE_START_Flag=0;
+			FACE_END_Flag=0;
+			PC_Counter=0;
+		}
+	}
+	if(TSR_START_Flag){
+		if(PC_Counter ==0)
+			PC_Uart_Flag=0;
+
+		if(TSR_END_Flag ==0){
+			GR_TSR_FLAG_OLED = (GR_TSR_FLAG_OLED<<8)| PC_Uart_Flag;
+			PC_Counter++;
 
 
-	    }
-	  }
+		}else{
+			GR_TSR_FLAG_OLED &=0x0F0F;
+			GR_TSR_FLAG_OLED_send = ((GR_TSR_FLAG_OLED &0x0F00)>>4) |((GR_TSR_FLAG_OLED&0x000F));
+			GR_TSR_FLAG_OLED=0;
+			///////////////
+			TSR_END_Flag=0;
+			TSR_START_Flag=0;
+			PC_Counter=0;
+
+
+		}
+	}
 
 
 
@@ -540,45 +507,65 @@ void TSR_init(void){
 /************FACE ID TASK*************/
 
 void CAR_ON_Handler(){
- if(CAR_ON_counter ==1 &&GR_FACE_FLAG_ !=0x99&&GR_FACE_FLAG_ !=0x00){
-		CAR_ON_counter=0;
-		//UART SEND
-		MCAL_USART_SendData(TSR_UART_INSTANT,CAR_OFF_FLAG);
+	if((MCAL_Read_PIN(GPIOB, PIN_1)==0) ){
+		_TIM1_delay_ms(30);
+		if((MCAL_Read_PIN(GPIOB, PIN_1)==0) ){
 
-		vTaskResume(FACE_ID_TASK_Handle);
+			if(CAR_ON_counter ==1 &&GR_FACE_FLAG_send !=0x99&&GR_FACE_FLAG_send !=0x00){
+//				MCAL_USART_Deinit(LUNA_UART_INSTANT);
+//				NVIC_ISER1 |=(1<<(USART1_IRQ-32));
+				CAR_ON_counter=0;
+				GR_FACE_FLAG_send=0;
+				//UART SEND
+				MCAL_USART_SendData(TSR_UART_INSTANT,CAR_OFF_FLAG);
+				vTaskResume(FACE_ID_TASK_Handle);
+
+			}
+		}
+
 	}
+
 
 }
 void CAR_ON_init(){
-	EXTI_config_t CAR_BOTTON_SITTING={EXT13PC13,FALLING,ENABLE,CAR_ON_Handler};
+	EXTI_config_t CAR_BOTTON_SITTING={EXT1PB1,FALLING,ENABLE,CAR_ON_Handler};
 	MCAL_EXTI_init(&CAR_BOTTON_SITTING);
+	PIN_config pin={PIN_1,INPUT_PD};
+	MCAL_GPIO_init(GPIOB, &pin);
 }
 void FACE_ID_TASK(){
 	while(1){
-		if((MCAL_Read_PIN(GPIOC, PIN_13)==1) ){
 
+		if((MCAL_Read_PIN(GPIOB, PIN_1)==1) ){
+			_TIM1_delay_ms(30);
+			if((MCAL_Read_PIN(GPIOB, PIN_1)==1) ){
 			//UART SEND
-			if(CAR_login_counter <3){
+
+//				MCAL_USART_Deinit(LUNA_UART_INSTANT);
 				if(CAR_login_counter==0){
 					MCAL_USART_SendData(TSR_UART_INSTANT,CAR_ON_FLAG);
 					CAR_login_counter++;
 				}
-				if(GR_FACE_FLAG_ ==0x99){
-				MCAL_USART_SendData(TSR_UART_INSTANT,CAR_ON_FLAG);
-				GR_FACE_FLAG_=0;
-				CAR_login_counter++;
-				}
-			}
-
-			if(GR_FACE_FLAG_ !=0x99 && GR_FACE_FLAG_ !=0x00){
+//				if(GR_FACE_FLAG_send ==0x99){
+//					MCAL_USART_SendData(TSR_UART_INSTANT,CAR_OFF_FLAG);
+//
+//				}
+			if(GR_FACE_FLAG_send !=0x99 && GR_FACE_FLAG_send !=0x00){
 				CAR_ON_counter=1;
 				CAR_login_counter=0;
+//				////////////*********LUNA_INIT***************//////////////////
+//				LUNA_INIT(CONTIOUS_RANGING_MODE,BYTE_9_CM);
+//				LUNA_ENABLE();
 				vTaskSuspend(FACE_ID_TASK_Handle);
 
+
 			}
-		}else{
-			CAR_login_counter=0;
 		}
+		}else{
+			//			MCAL_write_PIN(GPIOB, PIN_13, 0);
+						CAR_login_counter=0;
+						GR_FACE_FLAG_send=0;
+					}
 	}
 }
 
@@ -605,15 +592,21 @@ void HW_init(){
 	TFT_init(RGB_5_6_5);
 	////////////*********TSR init***************//////////////////
 	TSR_init();
-	////////////*********LUNA_INIT***************//////////////////
-	LUNA_INIT(CONTIOUS_RANGING_MODE,BYTE_9_CM);
+
 	////////////*********ACC_throtel_init*********//////////////////
 	ACC_throtel_init();
 	////////////*********DAC init***************//////////////////
 	ACC_DAC_init();
 	////////////*********DMS_init***************//////////////////
 	DMS_init();
+	////////////*********CAR_ON_init***************//////////////////
+	CAR_ON_init();
+	////////////*********LUNA_INIT***************//////////////////
+	LUNA_INIT(CONTIOUS_RANGING_MODE,BYTE_9_CM);
 
+
+//	PIN_config PINx={PIN_13,OUTPUT_PP,SPEED_10};
+//	MCAL_GPIO_init(GPIOB, &PINx);
 
 
 
@@ -630,20 +623,16 @@ int main(void)
 		Error_Handller();
 	}
 
-	if(xTaskCreate(ACC_LUNA_READ_TASK,"LUNA_READ",256,NULL,2,NULL)!=pdPASS ){
-		Error_Handller();
-	}
+
 	if(xTaskCreate(ACC_STATE_READ_TASK,"BOTTON_READ",256,NULL,2,NULL)!=pdPASS ){
 		Error_Handller();
 	}
 	///////////////////////
 
-	if(xTaskCreate(TSR_Flag_Read_TASK,"Read_From_UART1",256,NULL,2,NULL)!=pdPASS ){
+	if(xTaskCreate(TSR_Handller_TASK,"TSR_Handller_TASK",256,NULL,2,&TSR_Handller_TASK_Handle)!=pdPASS ){
 		Error_Handller();
 	}
-	if(xTaskCreate(TSR_Handller_TASK,"TSR_Handller_TASK",256,NULL,2,NULL)!=pdPASS ){
-		Error_Handller();
-	}
+
 	///////////////////////
 
 	if(xTaskCreate(DMS_Handller_TASK,"DMS_Handller_TASK",256,NULL,2,NULL)!=pdPASS ){
@@ -659,13 +648,8 @@ int main(void)
 	}
 
 
-
 	DMS_Semaphore = xSemaphoreCreateBinary();
 	TSR__Flags_Queue=xQueueCreate(10,sizeof(char));
-	ACC__dis_Queue=xQueueCreate(10,sizeof(short));
-	ACC__AMP_Queue=xQueueCreate(10,sizeof(short));
-	ACC__ACTION_Queue=xQueueCreate(10,sizeof(char));
-	ACC__STATE_Queue=xQueueCreate(10,sizeof(char));
 
 	vTaskStartScheduler();
 

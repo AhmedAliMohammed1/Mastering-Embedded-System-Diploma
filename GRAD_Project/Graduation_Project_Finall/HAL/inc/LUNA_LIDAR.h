@@ -34,5 +34,6 @@ typedef enum
 void LUNA_INIT(LUNA_MODES mode,OUTPUT_FORMAT format);
 
 void LUNA_dist(void);
-
+void LUNA_ENABLE();
+void LUNA_Disable();
 #endif /* LUNA_LIDAR_H_ */

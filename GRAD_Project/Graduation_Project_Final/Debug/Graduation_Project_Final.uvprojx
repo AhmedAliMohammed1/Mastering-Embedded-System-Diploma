@@ -47,8 +47,8 @@
             <NotGenerated>0</NotGenerated>
             <InvalidFlash>1</InvalidFlash>
           </TargetStatus>
-          <OutputDirectory>.\</OutputDirectory>
-          <OutputName>Graduation_Project_Final</OutputName>
+          <OutputDirectory>..\..\Graduation_Project_Finall\Debug\</OutputDirectory>
+          <OutputName>Graduation_Project_Finall</OutputName>
           <CreateExecutable>1</CreateExecutable>
           <CreateLib>0</CreateLib>
           <CreateHexFile>0</CreateHexFile>
