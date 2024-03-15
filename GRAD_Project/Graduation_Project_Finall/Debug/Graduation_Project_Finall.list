@@ -1,5 +1,5 @@
 
-Graduation_Project_Finall.axf:     file format elf32-littlearm
+Graduation_Project_Finall.elf:     file format elf32-littlearm
 
 Sections:
 Idx Name          Size      VMA       LMA       File off  Algn

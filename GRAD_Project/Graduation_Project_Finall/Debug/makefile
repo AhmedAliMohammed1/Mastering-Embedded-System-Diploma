@@ -34,7 +34,7 @@ endif
 
 # Add inputs and outputs from these tool invocations to the build variables 
 EXECUTABLES += \
-Graduation_Project_Finall.axf \
+Graduation_Project_Finall.elf \
 
 SIZE_OUTPUT += \
 default.size.stdout \
@@ -47,11 +47,11 @@ Graduation_Project_Finall.bin \
 
 
 # All Target
-all: Graduation_Project_Finall.axf secondary-outputs
+all: Graduation_Project_Finall.elf secondary-outputs
 
 # Tool invocations
-Graduation_Project_Finall.axf: $(OBJS) $(USER_OBJS) C:\Users\Ahmed\Desktop\EmbeddedSys\Mastering-Embedded-System-Diploma\GRAD_Project\Graduation_Project_Finall\STM32F103CBTX_FLASH.ld
-	arm-none-eabi-gcc -gdwarf-2 -o "Graduation_Project_Finall.axf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m3 -T"C:\Users\Ahmed\Desktop\EmbeddedSys\Mastering-Embedded-System-Diploma\GRAD_Project\Graduation_Project_Finall\STM32F103CBTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Graduation_Project_Finall.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Graduation_Project_Finall.elf: $(OBJS) $(USER_OBJS) C:\Users\Ahmed\Desktop\EmbeddedSys\Mastering-Embedded-System-Diploma\GRAD_Project\Graduation_Project_Finall\STM32F103CBTX_FLASH.ld
+	arm-none-eabi-gcc -gdwarf-2 -o "Graduation_Project_Finall.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m3 -T"C:\Users\Ahmed\Desktop\EmbeddedSys\Mastering-Embedded-System-Diploma\GRAD_Project\Graduation_Project_Finall\STM32F103CBTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Graduation_Project_Finall.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 
