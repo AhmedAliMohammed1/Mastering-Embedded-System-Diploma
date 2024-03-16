@@ -44,12 +44,11 @@ void TFT_init(RGB_fromat RGB){
 	TFT_send_command(0x36);
 	_TIM1_delay_ms( 120);
 
-	TFT_send_data(0x8 );
+	TFT_send_data(0b00001000 );
+
 	_TIM1_delay_ms( 120);
 
 	///////////////////////
-
-
 
 	/////////////////////////
 	TFT_send_command(TFT_Display_On_MODE);
@@ -58,6 +57,81 @@ void TFT_init(RGB_fromat RGB){
 
 
 
+
+
+	TFT_SET_BACKGROUND(0x0000,0x01DF,0x0000,0x013F,0xff,0xff,0xff);
+
+
+
+}
+void TFT_SET_LOCATION(uint16_t x1,uint16_t x2,uint16_t y1,uint16_t y2){
+	/***********************************/
+	TFT_send_command(TFT_SET_Column_MODE);
+	TFT_send_data((y1>>8));
+	TFT_send_data(((uint8_t)y1));
+
+
+	TFT_send_data((y2>>8));
+	TFT_send_data(((uint8_t)y2));
+	/***********************************/
+	TFT_send_command(TFT_SET_Row_MODE);
+	TFT_send_data((x1>>8));
+	TFT_send_data(((uint8_t)x1));
+
+
+	TFT_send_data((x2>>8));
+	TFT_send_data(((uint8_t)x2));
+}
+
+void TFT_SEND_Image(uint16_t x1,uint16_t x2,uint16_t y1,uint16_t y2,uint16_t* image){
+	uint32_t image_size=(((x2+1)-x1)*((y2+1)-y1));
+	uint8_t r=0,g=0,b=0;
+
+	TFT_SET_LOCATION(x1,x2,y1,y2);
+	TFT_send_command(TFT_Memory_Write_MODE);
+	for(uint32_t i=0;i<image_size;i++){
+		r = (image[i] & 0xF800) >> 11;
+		g = (image[i] & 0x07E0) >> 5;
+		b = image[i] & 0x001F;
+		r = (r * 255) / 31;
+		g = (g * 255) / 63;
+		b = (b * 255) / 31;
+
+		TFT_send_data(r);
+		TFT_send_data(g);
+		TFT_send_data(b);
+	}
+	TFT_send_command(0x00);
+
+
+}
+void TFT_SET_BACKGROUND(uint16_t x1,uint16_t x2,uint16_t y1,uint16_t y2,uint8_t r,uint8_t g,uint8_t b){
+	uint32_t image_size=(((x2+1)-x1)*((y2+1)-y1));
+	TFT_SET_LOCATION(x1,x2,y1,y2);
+	TFT_send_command(TFT_Memory_Write_MODE);
+	for(uint32_t i=0;i<image_size;i++){
+		TFT_send_data(r);
+		TFT_send_data(g);
+		TFT_send_data(b);
+	}
+	TFT_send_command(0x00);
+
+
+}
+void TFT_MAKE_option(IMAGE_option OPTION){
+	TFT_send_command(TFT_Memory_Access_Control);
+	_TIM1_delay_ms( 120);
+	switch(OPTION){
+	case X_ROTATE:
+		TFT_send_data(0b01001000 );
+		break;
+	case Y_ROTATE:
+		TFT_send_data(0b10001000 );
+		break;
+	default:
+		TFT_send_data(0b00001000 );
+		break;
+	}
 }
 void TFT_send_command(uint8_t command)
 {
@@ -91,90 +165,57 @@ void TFT_send_data(uint8_t data){
 
 
 
-void TFT_send_image(uint8_t image_flag){
-
-	volatile uint16_t *image=NULL;
-	uint8_t r=0,g=0,b=0;
+uint8_t TFT_send_image(uint8_t image_flag){
 
 
-	/***********************************/
-	TFT_send_command(TFT_SET_Column_MODE);
-	TFT_send_data(0x00);
-	TFT_send_data(0x6E);
-
-
-	TFT_send_data(0x00);
-	TFT_send_data(0xD1);
-	/***********************************/
-	TFT_send_command(TFT_SET_Row_MODE);
-	TFT_send_data(0x00);
-	TFT_send_data(0xF0);
-
-
-	TFT_send_data(0x01);
-	TFT_send_data(0x53);
-	/***********************************/
-
-
+	TFT_SET_BACKGROUND(0x008C,0x0153,0x006E,0x00D1,0xff,0xff,0xff);
 	switch(image_flag){
 	case (_100_KM_SIGN_FLAG):
-		image =_100_KM_SIGN;
+	TFT_MAKE_option(default_option);
+	TFT_SEND_Image(0x008C, 0x0153, 0x006E, 0x009F, _100_KM_SIGN);
+	TFT_SEND_Image(0x008C, 0x0153, 0x00A0, 0x00D1, image_data_zeroh);
 
-		break;
+	return 0;
+	break;
+
 	case _120_KM_SIGN_FLAG:
-		image =_120_KM_SIGN;
+		TFT_SEND_Image(0x008C, 0x0153, 0x006E, 0x009F, _120_KM_SIGN);
+		TFT_SEND_Image(0x008C, 0x0153, 0x00A0, 0x00D1, image_data_zeroh);
+
+
+		return 0;
+		break;
+
 
 		break;
 	case NO_WAITING_SIGN_FLAG:
-		image =NO_WAITING_SIGN;
+		TFT_MAKE_option(default_option);
+		TFT_SEND_Image(0x008C, 0x0153, 0x006E, 0x009F, NO_WAITING_SIGN);
+		TFT_MAKE_option(X_ROTATE);
+		TFT_SEND_Image(0x008C, 0x0153, 0x006E, 0x009F, NO_WAITING_SIGN);
+		TFT_MAKE_option(default_option);
 
+		return 0;
 		break;
 	case _40_KM_SIGN_FLAG:
-		image =_40_KM_SIGN;
+		TFT_MAKE_option(default_option);
+		TFT_SEND_Image(0x008C, 0x0153, 0x006E, 0x009F, _40_KM_SIGN);
+		TFT_SEND_Image(0x008C, 0x0153, 0x00A0, 0x00D1, image_data_zeroh);
 
+		return 0;
 		break;
 	default:
-		image =_NO_SIGN;
+		TFT_SET_BACKGROUND(0x008C,0x0153,0x006E,0x00D1,0xff,0xff,0xff);
+
+		TFT_SEND_Image(0x00D7, 0x0108, 0x0087, 0x00B8, _NO_SIGN);
+
+
+		return 1;
+
 		break;
 
 	}
-	TFT_send_command(TFT_Memory_Write_MODE);
 
-	for(uint32_t i=0;i<(100*100);i++){
-		//		if(i<(76800)){
-		//
-		//
-		//			TFT_send_data(0xf8);
-		//			TFT_send_data(0xFF);
-		//			TFT_send_data(0x00);
-		//
-		//		}else{
-		//			TFT_send_data(0xF7);
-		//			TFT_send_data(0x00);
-		//			TFT_send_data(0x00);
-		//		}
-		//		R=(tr[i]>>11);
-		//		R<<=3;
-		//		G=(tr[i]>>5);
-		//		G&=0x3F;
-		//		TFT_send_data(tr[i]>>16);
-		//		TFT_send_data(tr[i]>>8);
-		//		TFT_send_data(tr[i]);
-		 r = (image[i] & 0xF800) >> 11;
-		 g = (image[i] & 0x07E0) >> 5;
-		 b = image[i] & 0x001F;
-		r = (r * 255) / 31;
-		g = (g * 255) / 63;
-		b = (b * 255) / 31;
-
-		TFT_send_data(r);
-		TFT_send_data(g);
-		TFT_send_data(b);
-	}
-
-
-
-	TFT_send_command(0x00);
 
 
 

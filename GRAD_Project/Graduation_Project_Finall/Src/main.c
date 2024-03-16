@@ -130,6 +130,7 @@ void DMS_read_TASK(){
 
 
 uint16_t ACC_THROTTEL_DATA=0x00;
+uint8_t  ACC_DICIMAL_VAL=0;
 void ACC_ADC_CallBack(){
 	ADC_read(ADC1,ACC_THROTTEL_CHx,&ACC_THROTTEL_DATA);
 
@@ -175,31 +176,22 @@ void ACC_DAC_init(){
  */
 
 
-uint16_t ACC_FROM_DAC_TO_ADC(uint8_t PWM_VAL){
-	uint16_t ADC=(uint16_t)(((PWM_VAL*ACC_TROTTEL_Max_ADC_VAL_shifted)/(100))+ACC_TROTTEL_MIN_ADC_VAL);
 
-	return ADC;
-}
-uint16_t ACC_FROM_ADC_TO_DAC_DATA(uint16_t ADC_VAL){
-	uint16_t PWM=(uint16_t)(((ADC_VAL-ACC_TROTTEL_MIN_ADC_VAL)*100)/(ACC_TROTTEL_Max_ADC_VAL_shifted));
-	return PWM;
-}
-void ACC_FROM_ADC_TO_DAC(uint16_t ADC_VAL){
-	uint16_t PWM_V=((ADC_VAL-1000)/6);
+void ACC_FROM_ADC_TO_DAC(uint16_t decimal_val){
 
 	//	uint16_t PWM_V=(uint16_t)(((ADC_VAL-ACC_TROTTEL_MIN_ADC_VAL)*100)/(ACC_TROTTEL_Max_ADC_VAL_shifted));
 	/*MY CLOCK IS 28Mhz so i the prescaler will be 27
 	 * and i need to proudce and it will make tick every 1us and i need 3KHZ PWM so the ARR= will be 333.33
 	 * */
 	//	PWM_V=((PWM_V*35)/100);
-	MCAL_write_PIN(GPIOA, ACC_DAC_0, ((PWM_V >>0) &1));
-	MCAL_write_PIN(GPIOB, ACC_DAC_1, ((PWM_V >>1) &1));
-	MCAL_write_PIN(GPIOB, ACC_DAC_2, ((PWM_V >>2) &1));
-	MCAL_write_PIN(GPIOB, ACC_DAC_3, ((PWM_V >>3) &1));
-	MCAL_write_PIN(GPIOB, ACC_DAC_4, ((PWM_V >>4) &1));
-	MCAL_write_PIN(GPIOB, ACC_DAC_5, ((PWM_V >>5) &1));
-	MCAL_write_PIN(GPIOB, ACC_DAC_6, ((PWM_V >>6) &1));
-	MCAL_write_PIN(GPIOB, ACC_DAC_7, ((PWM_V >>7) &1));
+	MCAL_write_PIN(GPIOA, ACC_DAC_0, ((decimal_val >>0) &1));
+	MCAL_write_PIN(GPIOB, ACC_DAC_1, ((decimal_val >>1) &1));
+	MCAL_write_PIN(GPIOB, ACC_DAC_2, ((decimal_val >>2) &1));
+	MCAL_write_PIN(GPIOB, ACC_DAC_3, ((decimal_val >>3) &1));
+	MCAL_write_PIN(GPIOB, ACC_DAC_4, ((decimal_val >>4) &1));
+	MCAL_write_PIN(GPIOB, ACC_DAC_5, ((decimal_val >>5) &1));
+	MCAL_write_PIN(GPIOB, ACC_DAC_6, ((decimal_val >>6) &1));
+	MCAL_write_PIN(GPIOB, ACC_DAC_7, ((decimal_val >>7) &1));
 
 }
 
@@ -261,21 +253,16 @@ void ACC_throttel_Handller_TASK(){
 				ACC_counter++;
 			}
 			if(ADC_SAVED<ACC_THROTTEL_DATA){
-				ACC_FROM_ADC_TO_DAC(ACC_THROTTEL_DATA);
+				ACC_FROM_ADC_TO_DAC(ACC_DICIMAL_VAL);
 
 			}else{
 				if(ACC_ACTION ==ACC_CAR_STOP){
-					ADC_to_send=ACC_FROM_DAC_TO_ADC(0);
-					ACC_FROM_ADC_TO_DAC(ADC_to_send);
+					ACC_FROM_ADC_TO_DAC(ACC_DAC_MIN_DECIMAL);
 				}else if(ACC_ACTION ==ACC_CAR_SLOW_DOWN){
-					//get the adc val and convert it to pwm and sub 20% from it then change the pwm duty
-					ADC_to_send=ACC_FROM_ADC_TO_DAC_DATA(ADC_SAVED);
-					if(ADC_to_send>50)
-						ADC_to_send=50;
-					ADC_to_send=ACC_FROM_DAC_TO_ADC(ADC_to_send);
-					ACC_FROM_ADC_TO_DAC(ADC_to_send);
+
+					ACC_FROM_ADC_TO_DAC((ACC_DICIMAL_VAL/2));
 				}else if(ACC_ACTION ==ACC_CAR_GO){
-					ACC_FROM_ADC_TO_DAC(ADC_SAVED);
+					ACC_FROM_ADC_TO_DAC(ACC_DICIMAL_VAL);
 
 				}
 			}
@@ -284,17 +271,11 @@ void ACC_throttel_Handller_TASK(){
 		}else if(ACC_ST==ACC_OFF){
 			ACC_counter=0;
 			if(ACC_ACTION ==ACC_CAR_STOP){
-				ADC_to_send=ACC_FROM_DAC_TO_ADC(0);
-				ACC_FROM_ADC_TO_DAC(ADC_to_send);
+				ACC_FROM_ADC_TO_DAC(ACC_DAC_MIN_DECIMAL);
 			}else if(ACC_ACTION ==ACC_CAR_SLOW_DOWN){
-				//get the adc val and convert it to pwm and sub 20% from it then change the pwm duty
-				ADC_to_send=ACC_FROM_ADC_TO_DAC_DATA(ACC_THROTTEL_DATA);
-				if(ADC_to_send>50)
-					ADC_to_send=50;
-				ADC_to_send=ACC_FROM_DAC_TO_ADC(ADC_to_send);
-				ACC_FROM_ADC_TO_DAC(ADC_to_send);
+				ACC_FROM_ADC_TO_DAC((ACC_DICIMAL_VAL/2));
 			}else if(ACC_ACTION ==ACC_CAR_GO){
-				ACC_FROM_ADC_TO_DAC(ACC_THROTTEL_DATA);
+				ACC_FROM_ADC_TO_DAC(ACC_DICIMAL_VAL);
 			}
 		}
 
@@ -314,7 +295,19 @@ void ACC_STATE_READ_TASK(){
 
 		ACC_ST=MCAL_Read_PIN(ACC_BOTTON_PORT, ACC_BOTTON_PIN);
 		ADC_read(ADC1,ACC_THROTTEL_CHx,&ACC_THROTTEL_DATA);
+		if(ACC_THROTTEL_DATA<ACC_TROTTEL_MIN_ADC_VAL){
+			ACC_DICIMAL_VAL=64;
+		}else if(ACC_THROTTEL_DATA>ACC_TROTTEL_Max_ADC_VAL){
+			ACC_DICIMAL_VAL=255;
+		}
 
+		else{
+//		uint32_t step1=((uint32_t)(ACC_THROTTEL_DATA-ACC_TROTTEL_MIN_ADC_VAL)*(ACC_DAC_MAX_DECIMAL-ACC_DAC_MIN_DECIMAL)); //884.3
+//		uint32_t step2=(ACC_TROTTEL_Max_ADC_VAL-ACC_TROTTEL_MIN_ADC_VAL);//1539
+//		uint32_t step3=(step1/step2);
+//		ACC_DICIMAL_VAL=step3+ACC_DAC_MIN_DECIMAL;
+		ACC_DICIMAL_VAL=((((ACC_THROTTEL_DATA-ACC_TROTTEL_MIN_ADC_VAL)*(ACC_DAC_MAX_DECIMAL-ACC_DAC_MIN_DECIMAL))/(ACC_TROTTEL_Max_ADC_VAL-ACC_TROTTEL_MIN_ADC_VAL))+ACC_DAC_MIN_DECIMAL);
+		}
 	}
 }
 /***********************************/
