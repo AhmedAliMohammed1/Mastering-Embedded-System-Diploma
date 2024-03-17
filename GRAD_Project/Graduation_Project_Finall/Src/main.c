@@ -348,10 +348,11 @@ void ACC_STATE_READ_TASK(){
  */
 void TSR_Handller_TASK(){
   while(1){
+//	  if(GR_TSR_FLAG_OLED_send !=0x99){
 	  vTaskPrioritySet(TSR_Handller_TASK_Handle,4);
       TFT_send_image(GR_TSR_FLAG_OLED_send);
 	  vTaskPrioritySet(TSR_Handller_TASK_Handle,2);
-
+//	  }
   }
 }
 
@@ -509,7 +510,9 @@ void CAR_ON_Handler(){
 //				NVIC_ISER1 |=(1<<(USART1_IRQ-32));
 				CAR_ON_counter=0;
 				GR_FACE_FLAG_send=0;
+				CAR_login_counter=0;
 				//UART SEND
+				ACC_FROM_ADC_TO_DAC(ACC_DAC_MIN_DECIMAL);
 				MCAL_USART_SendData(TSR_UART_INSTANT,CAR_OFF_FLAG);
 				vTaskResume(FACE_ID_TASK_Handle);
 
@@ -557,7 +560,6 @@ void FACE_ID_TASK(){
 		}else{
 			//			MCAL_write_PIN(GPIOB, PIN_13, 0);
 						CAR_login_counter=0;
-						GR_FACE_FLAG_send=0;
 					}
 	}
 }
