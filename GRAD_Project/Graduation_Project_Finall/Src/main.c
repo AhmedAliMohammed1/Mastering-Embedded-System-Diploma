@@ -293,7 +293,15 @@ void ACC_throttel_Handller_TASK(){
 void ACC_STATE_READ_TASK(){
 	while(1){
 
-		ACC_ST=MCAL_Read_PIN(ACC_BOTTON_PORT, ACC_BOTTON_PIN);
+		if(MCAL_Read_PIN(ACC_BOTTON_PORT, ACC_BOTTON_PIN)){
+		      _TIM1_delay_ms(30);
+		      if(MCAL_Read_PIN(ACC_BOTTON_PORT, ACC_BOTTON_PIN)){
+		        ACC_ST=1;
+		      }
+		    }else{
+		      ACC_ST=0;
+
+		    }
 		ADC_read(ADC1,ACC_THROTTEL_CHx,&ACC_THROTTEL_DATA);
 		if(ACC_THROTTEL_DATA<ACC_TROTTEL_MIN_ADC_VAL){
 			ACC_DICIMAL_VAL=64;
@@ -526,8 +534,8 @@ void CAR_ON_Handler(){
 void CAR_ON_init(){
 	EXTI_config_t CAR_BOTTON_SITTING={EXT1PB1,FALLING,ENABLE,CAR_ON_Handler};
 	MCAL_EXTI_init(&CAR_BOTTON_SITTING);
-	PIN_config pin={PIN_1,INPUT_PD};
-	MCAL_GPIO_init(GPIOB, &pin);
+	PIN_config pin={CONTACT_BOTTON_PIN,INPUT_PD};
+	  MCAL_GPIO_init(CONTACT_BOTTON_PORT, &pin);
 }
 void FACE_ID_TASK(){
 	while(1){
@@ -616,7 +624,7 @@ int main(void)
 
 	if(xTaskCreate(ACC_Handller_TASK,"ACC_Handller_TASK",256,NULL,2,NULL)!=pdPASS ){
 		Error_Handller();
-	}
++	}
 
 
 	if(xTaskCreate(ACC_STATE_READ_TASK,"BOTTON_READ",256,NULL,2,NULL)!=pdPASS ){
