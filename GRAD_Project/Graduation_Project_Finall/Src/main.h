@@ -21,6 +21,7 @@
 #include "GPIO_Driver.h"
 #include "EXTI_Driver.h"
 #include "Timer1_8.h"
+#include "DMS.h"
 //////////***********defines***********//////////
 #define TSR_UART_INSTANT USART1
 #define ACC_TROTTEL_MIN_VOLT 0.85

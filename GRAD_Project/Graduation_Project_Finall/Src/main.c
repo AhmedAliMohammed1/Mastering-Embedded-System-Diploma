@@ -131,6 +131,12 @@ void DMS_read_TASK(){
 
 uint16_t ACC_THROTTEL_DATA=0x00;
 uint8_t  ACC_DICIMAL_VAL=0;
+uint8_t ACC_CONVERT_ADC_TODICMAL(uint8_t ACC_THROTTEL_){
+  uint8_t ACC_DICIMAL_VAL=((((ACC_THROTTEL_-ACC_TROTTEL_MIN_ADC_VAL)*(ACC_DAC_MAX_DECIMAL-ACC_DAC_MIN_DECIMAL))/(ACC_TROTTEL_Max_ADC_VAL-ACC_TROTTEL_MIN_ADC_VAL))+ACC_DAC_MIN_DECIMAL);
+
+  return ACC_DICIMAL_VAL;
+
+}
 void ACC_ADC_CallBack(){
 	ADC_read(ADC1,ACC_THROTTEL_CHx,&ACC_THROTTEL_DATA);
 
@@ -207,28 +213,35 @@ void ACC_FROM_ADC_TO_DAC(uint16_t decimal_val){
 void ACC_Handller_TASK(){
 	while(1){
 
-//			ACC_AMP=500;
-			if((LUNA_AMP>=100) && (LUNA_AMP<=65535) ){
-					if(LUNA_dis <= Distance_SET){
-						// here should send CAN fram to atmega to stop the motor
-						ACC_ACTION=ACC_CAR_STOP;
+		//      ACC_AMP=500;
+		    if((LUNA_AMP>=100) && (LUNA_AMP<=65535) ){
+		      if(LUNA_dis ==0x00){
+		        ACC_ACTION=ACC_CAR_GO;
 
-					}else if((LUNA_dis > Distance_SET) &&(LUNA_dis <MAX_Distance_SET)){
-						ACC_ACTION=ACC_CAR_SLOW_DOWN;
+		      }else if(LUNA_dis <= Distance_SET){
+		        // here should send CAN fram to atmega to stop the motor
+		        ACC_ACTION=ACC_CAR_STOP;
 
-
-					}else{
-						ACC_ACTION=ACC_CAR_GO;
-
-					}
+		      }else if((LUNA_dis > Distance_SET) &&(LUNA_dis <MAX_Distance_SET)){
+		        ACC_ACTION=ACC_CAR_SLOW_DOWN;
 
 
-			}
-			// if the Signal strength indicator not strong dequeue its disance value
-			else{
-			}
+		      }else{
+		        ACC_ACTION=ACC_CAR_GO;
+
+		      }
+
+
+		    }
+		    // if the Signal strength indicator not strong dequeue its disance value
+		    else{
+		      if(LUNA_dis ==0x00){
+		        ACC_ACTION=ACC_CAR_GO;
+
+		      }
+		    }
+		  }
 		}
-	}
 
 
 
@@ -248,38 +261,38 @@ void ACC_throttel_Handller_TASK(){
 	while(1){
 
 		if(ACC_ST==ACC_ON){
-			if(ACC_counter ==0){
-				ADC_SAVED=ACC_THROTTEL_DATA;
-				ACC_counter++;
-			}
-			if(ADC_SAVED<ACC_THROTTEL_DATA){
-				ACC_FROM_ADC_TO_DAC(ACC_DICIMAL_VAL);
+		      if(ACC_counter ==0){
+		        ADC_SAVED=ACC_CONVERT_ADC_TODICMAL(ACC_THROTTEL_DATA);
+		        ACC_counter++;
+		      }
+		      if(ADC_SAVED<ACC_DICIMAL_VAL){
+		        ACC_FROM_ADC_TO_DAC(ACC_DICIMAL_VAL);
+		      }else{
 
-			}else{
-				if(ACC_ACTION ==ACC_CAR_STOP){
-					ACC_FROM_ADC_TO_DAC(ACC_DAC_MIN_DECIMAL);
-				}else if(ACC_ACTION ==ACC_CAR_SLOW_DOWN){
+		        if(ACC_ACTION ==ACC_CAR_STOP){
+		          ACC_FROM_ADC_TO_DAC(ACC_DAC_MIN_DECIMAL);
+		        }else if(ACC_ACTION ==ACC_CAR_SLOW_DOWN){
 
-					ACC_FROM_ADC_TO_DAC((ACC_DICIMAL_VAL/2));
-				}else if(ACC_ACTION ==ACC_CAR_GO){
-					ACC_FROM_ADC_TO_DAC(ACC_DICIMAL_VAL);
+		          ACC_FROM_ADC_TO_DAC((ADC_SAVED/2));
+		        }else if(ACC_ACTION ==ACC_CAR_GO){
+		          ACC_FROM_ADC_TO_DAC(ADC_SAVED);
 
-				}
-			}
+		        }
+		      }
 
 
-		}else if(ACC_ST==ACC_OFF){
-			ACC_counter=0;
-			if(ACC_ACTION ==ACC_CAR_STOP){
-				ACC_FROM_ADC_TO_DAC(ACC_DAC_MIN_DECIMAL);
-			}else if(ACC_ACTION ==ACC_CAR_SLOW_DOWN){
-				ACC_FROM_ADC_TO_DAC((ACC_DICIMAL_VAL/2));
-			}else if(ACC_ACTION ==ACC_CAR_GO){
-				ACC_FROM_ADC_TO_DAC(ACC_DICIMAL_VAL);
-			}
-		}
+		    }else if(ACC_ST==ACC_OFF){
+		      ACC_counter=0;
+		      if(ACC_ACTION ==ACC_CAR_STOP){
+		        ACC_FROM_ADC_TO_DAC(ACC_DAC_MIN_DECIMAL);
+		      }else if(ACC_ACTION ==ACC_CAR_SLOW_DOWN){
+		        ACC_FROM_ADC_TO_DAC((ACC_DICIMAL_VAL/2));
+		      }else if(ACC_ACTION ==ACC_CAR_GO){
+		        ACC_FROM_ADC_TO_DAC(ACC_DICIMAL_VAL);
+		      }
+		    }
 
-	}
+		  }
 }
 /**================================================================
  * @Fn- ACC_throttel_Handller_TASK
@@ -616,6 +629,8 @@ void HW_init(){
 }
 int main(void)
 {
+	_TIM1_delay_s(2);
+
 	HW_init();
 	///////////////////////////
 	if(xTaskCreate(ACC_throttel_Handller_TASK,"ACC_throttel_Handller_TASK",256,NULL,2,NULL)!=pdPASS ){
@@ -624,7 +639,7 @@ int main(void)
 
 	if(xTaskCreate(ACC_Handller_TASK,"ACC_Handller_TASK",256,NULL,2,NULL)!=pdPASS ){
 		Error_Handller();
-+	}
+	}
 
 
 	if(xTaskCreate(ACC_STATE_READ_TASK,"BOTTON_READ",256,NULL,2,NULL)!=pdPASS ){
