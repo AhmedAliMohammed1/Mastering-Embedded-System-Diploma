@@ -85,6 +85,11 @@ uint8_t GR_FACE_FLAG_send=0;
 ////////////////////////////
 ACC_state ACC_ST=ACC_OFF;
 ACC_ACOTION ACC_ACTION=ACC_CAR_STOP;
+uint8_t ACC_START_OF_FRAME=0; //'#'
+uint8_t ACC_END_OF_FRAME=0; //'*'
+uint16_t GR_ACC_FLAG_=0;
+uint8_t GR_ACC_FLAG_send=0;
+
 /*****************************************/
 uint16_t ACC_dis=0;
 uint16_t ACC_AMP=0;
