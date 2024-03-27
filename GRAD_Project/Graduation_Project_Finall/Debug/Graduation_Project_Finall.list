@@ -5895,7 +5895,7 @@ __attribute__( ( weak ) ) void vPortSetupTimerInterrupt( void )
     /* Configure SysTick to interrupt at the requested rate. */
     portNVIC_SYSTICK_LOAD_REG = ( configSYSTICK_CLOCK_HZ / configTICK_RATE_HZ ) - 1UL;
  8001f6c:	4b07      	ldr	r3, [pc, #28]	; (8001f8c <vPortSetupTimerInterrupt+0x30>)
- 8001f6e:	f646 525f 	movw	r2, #27999	; 0x6d5f
+ 8001f6e:	f648 429f 	movw	r2, #35999	; 0x8c9f
  8001f72:	601a      	str	r2, [r3, #0]
     portNVIC_SYSTICK_CTRL_REG = ( portNVIC_SYSTICK_CLK_BIT_CONFIG | portNVIC_SYSTICK_INT_BIT | portNVIC_SYSTICK_ENABLE_BIT );
  8001f74:	4b03      	ldr	r3, [pc, #12]	; (8001f84 <vPortSetupTimerInterrupt+0x28>)
