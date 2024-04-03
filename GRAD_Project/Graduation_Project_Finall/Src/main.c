@@ -52,10 +52,10 @@ void Error_Handller(){
 
 void Sys_Clk_init(){
 	// system speed 36Mhz
-	RCC->CFGR |=(0b0001 <<18); //1111: PLL input clock x 16
+	RCC->CFGR |=(0b0101 <<18); //1111: PLL input clock x 16
 //	RCC->CFGR |=(0b100<<8); //100: HCLK divided by 2
-	RCC->CFGR |=(1 <<16); //PLL entry clock source
-	RCC->CR|=(1<<16); //HSE clock enable
+//	RCC->CFGR |=(1 <<16); //PLL entry clock source
+//	RCC->CR|=(1<<16); //HSE clock enable
 
 	RCC->CR|=(1<<24); //PLL ON
 	RCC->CFGR |=(0b10 <<0); //10: PLL selected as system clock
@@ -542,6 +542,8 @@ void CAR_ON_Handler(){
 		}
 
 	}
+//	GR_FACE_FLAG_send=0;
+	CAR_login_counter=0;
 
 
 }

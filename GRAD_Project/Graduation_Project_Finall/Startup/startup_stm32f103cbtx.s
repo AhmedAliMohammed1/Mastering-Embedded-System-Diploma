@@ -97,7 +97,7 @@ LoopFillZerobss:
   bl main
 
 LoopForever:
-  b LoopForever
+  bl main
 
   .size Reset_Handler, .-Reset_Handler
 
@@ -112,7 +112,7 @@ LoopForever:
   .section .text.Default_Handler,"ax",%progbits
 Default_Handler:
 Infinite_Loop:
-  b Infinite_Loop
+  bl main
   .size Default_Handler, .-Default_Handler
 
 /******************************************************************************
