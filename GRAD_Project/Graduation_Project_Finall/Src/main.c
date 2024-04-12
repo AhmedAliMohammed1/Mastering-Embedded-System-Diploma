@@ -133,9 +133,9 @@ void DMS_read_TASK(){
 uint16_t ACC_THROTTEL_DATA=0x00;
 uint8_t  ACC_DICIMAL_VAL=0;
 uint8_t ACC_CONVERT_ADC_TODICMAL(uint8_t ACC_THROTTEL_){
-  uint8_t ACC_DICIMAL_VAL=((((ACC_THROTTEL_-ACC_TROTTEL_MIN_ADC_VAL)*(ACC_DAC_MAX_DECIMAL-ACC_DAC_MIN_DECIMAL))/(ACC_TROTTEL_Max_ADC_VAL-ACC_TROTTEL_MIN_ADC_VAL))+ACC_DAC_MIN_DECIMAL);
+	uint8_t ACC_DICIMAL_VAL=((((ACC_THROTTEL_-ACC_TROTTEL_MIN_ADC_VAL)*(ACC_DAC_MAX_DECIMAL-ACC_DAC_MIN_DECIMAL))/(ACC_TROTTEL_Max_ADC_VAL-ACC_TROTTEL_MIN_ADC_VAL))+ACC_DAC_MIN_DECIMAL);
 
-  return ACC_DICIMAL_VAL;
+	return ACC_DICIMAL_VAL;
 
 }
 void ACC_ADC_CallBack(){
@@ -215,34 +215,34 @@ void ACC_Handller_TASK(){
 	while(1){
 
 		//      ACC_AMP=500;
-		    if((LUNA_AMP>=100) && (LUNA_AMP<=65535) ){
-		      if(LUNA_dis ==0x00){
-		        ACC_ACTION=ACC_CAR_GO;
+		if((LUNA_AMP>=100) && (LUNA_AMP<=65535) ){
+			if(LUNA_dis ==0x00){
+				ACC_ACTION=ACC_CAR_GO;
 
-		      }else if(LUNA_dis <= Distance_SET){
-		        // here should send CAN fram to atmega to stop the motor
-		        ACC_ACTION=ACC_CAR_STOP;
+			}else if(LUNA_dis <= Distance_SET){
+				// here should send CAN fram to atmega to stop the motor
+				ACC_ACTION=ACC_CAR_STOP;
 
-		      }else if((LUNA_dis > Distance_SET) &&(LUNA_dis <MAX_Distance_SET)){
-		        ACC_ACTION=ACC_CAR_SLOW_DOWN;
-
-
-		      }else{
-		        ACC_ACTION=ACC_CAR_GO;
-
-		      }
+			}else if((LUNA_dis > Distance_SET) &&(LUNA_dis <MAX_Distance_SET)){
+				ACC_ACTION=ACC_CAR_SLOW_DOWN;
 
 
-		    }
-		    // if the Signal strength indicator not strong dequeue its disance value
-		    else{
-		      if(LUNA_dis ==0x00){
-		        ACC_ACTION=ACC_CAR_GO;
+			}else{
+				ACC_ACTION=ACC_CAR_GO;
 
-		      }
-		    }
-		  }
+			}
+
+
 		}
+		// if the Signal strength indicator not strong dequeue its disance value
+		else{
+			if(LUNA_dis ==0x00){
+				ACC_ACTION=ACC_CAR_GO;
+
+			}
+		}
+	}
+}
 
 
 
@@ -262,38 +262,38 @@ void ACC_throttel_Handller_TASK(){
 	while(1){
 
 		if(ACC_ST==ACC_ON){
-		      if(ACC_counter ==0){
-		        ADC_SAVED=ACC_CONVERT_ADC_TODICMAL(ACC_THROTTEL_DATA);
-		        ACC_counter++;
-		      }
-		      if(ADC_SAVED<ACC_DICIMAL_VAL){
-		        ACC_FROM_ADC_TO_DAC(ACC_DICIMAL_VAL);
-		      }else{
+			if(ACC_counter ==0){
+				ADC_SAVED=ACC_CONVERT_ADC_TODICMAL(ACC_THROTTEL_DATA);
+				ACC_counter++;
+			}
+			if(ADC_SAVED<ACC_DICIMAL_VAL){
+				ACC_FROM_ADC_TO_DAC(ACC_DICIMAL_VAL);
+			}else{
 
-		        if(ACC_ACTION ==ACC_CAR_STOP){
-		          ACC_FROM_ADC_TO_DAC(ACC_DAC_MIN_DECIMAL);
-		        }else if(ACC_ACTION ==ACC_CAR_SLOW_DOWN){
+				if(ACC_ACTION ==ACC_CAR_STOP){
+					ACC_FROM_ADC_TO_DAC(ACC_DAC_MIN_DECIMAL);
+				}else if(ACC_ACTION ==ACC_CAR_SLOW_DOWN){
 
-		          ACC_FROM_ADC_TO_DAC((ADC_SAVED/2));
-		        }else if(ACC_ACTION ==ACC_CAR_GO){
-		          ACC_FROM_ADC_TO_DAC(ADC_SAVED);
+					ACC_FROM_ADC_TO_DAC((ADC_SAVED/2));
+				}else if(ACC_ACTION ==ACC_CAR_GO){
+					ACC_FROM_ADC_TO_DAC(ADC_SAVED);
 
-		        }
-		      }
+				}
+			}
 
 
-		    }else if(ACC_ST==ACC_OFF){
-		      ACC_counter=0;
-		      if(ACC_ACTION ==ACC_CAR_STOP){
-		        ACC_FROM_ADC_TO_DAC(ACC_DAC_MIN_DECIMAL);
-		      }else if(ACC_ACTION ==ACC_CAR_SLOW_DOWN){
-		        ACC_FROM_ADC_TO_DAC((ACC_DICIMAL_VAL/2));
-		      }else if(ACC_ACTION ==ACC_CAR_GO){
-		        ACC_FROM_ADC_TO_DAC(ACC_DICIMAL_VAL);
-		      }
-		    }
+		}else if(ACC_ST==ACC_OFF){
+			ACC_counter=0;
+			if(ACC_ACTION ==ACC_CAR_STOP){
+				ACC_FROM_ADC_TO_DAC(ACC_DAC_MIN_DECIMAL);
+			}else if(ACC_ACTION ==ACC_CAR_SLOW_DOWN){
+				ACC_FROM_ADC_TO_DAC((ACC_DICIMAL_VAL/2));
+			}else if(ACC_ACTION ==ACC_CAR_GO){
+				ACC_FROM_ADC_TO_DAC(ACC_DICIMAL_VAL);
+			}
+		}
 
-		  }
+	}
 }
 /**================================================================
  * @Fn- ACC_throttel_Handller_TASK
@@ -308,14 +308,14 @@ void ACC_STATE_READ_TASK(){
 	while(1){
 
 		if(MCAL_Read_PIN(ACC_BOTTON_PORT, ACC_BOTTON_PIN)){
-		      _TIM1_delay_ms(30);
-		      if(MCAL_Read_PIN(ACC_BOTTON_PORT, ACC_BOTTON_PIN)){
-		        ACC_ST=1;
-		      }
-		    }else{
-		      ACC_ST=0;
+			_TIM1_delay_ms(30);
+			if(MCAL_Read_PIN(ACC_BOTTON_PORT, ACC_BOTTON_PIN)){
+				ACC_ST=1;
+			}
+		}else{
+			ACC_ST=0;
 
-		    }
+		}
 		ADC_read(ADC1,ACC_THROTTEL_CHx,&ACC_THROTTEL_DATA);
 		if(ACC_THROTTEL_DATA<ACC_TROTTEL_MIN_ADC_VAL){
 			ACC_DICIMAL_VAL=64;
@@ -324,11 +324,11 @@ void ACC_STATE_READ_TASK(){
 		}
 
 		else{
-//		uint32_t step1=((uint32_t)(ACC_THROTTEL_DATA-ACC_TROTTEL_MIN_ADC_VAL)*(ACC_DAC_MAX_DECIMAL-ACC_DAC_MIN_DECIMAL)); //884.3
-//		uint32_t step2=(ACC_TROTTEL_Max_ADC_VAL-ACC_TROTTEL_MIN_ADC_VAL);//1539
-//		uint32_t step3=(step1/step2);
-//		ACC_DICIMAL_VAL=step3+ACC_DAC_MIN_DECIMAL;
-		ACC_DICIMAL_VAL=((((ACC_THROTTEL_DATA-ACC_TROTTEL_MIN_ADC_VAL)*(ACC_DAC_MAX_DECIMAL-ACC_DAC_MIN_DECIMAL))/(ACC_TROTTEL_Max_ADC_VAL-ACC_TROTTEL_MIN_ADC_VAL))+ACC_DAC_MIN_DECIMAL);
+			//		uint32_t step1=((uint32_t)(ACC_THROTTEL_DATA-ACC_TROTTEL_MIN_ADC_VAL)*(ACC_DAC_MAX_DECIMAL-ACC_DAC_MIN_DECIMAL)); //884.3
+			//		uint32_t step2=(ACC_TROTTEL_Max_ADC_VAL-ACC_TROTTEL_MIN_ADC_VAL);//1539
+			//		uint32_t step3=(step1/step2);
+			//		ACC_DICIMAL_VAL=step3+ACC_DAC_MIN_DECIMAL;
+			ACC_DICIMAL_VAL=((((ACC_THROTTEL_DATA-ACC_TROTTEL_MIN_ADC_VAL)*(ACC_DAC_MAX_DECIMAL-ACC_DAC_MIN_DECIMAL))/(ACC_TROTTEL_Max_ADC_VAL-ACC_TROTTEL_MIN_ADC_VAL))+ACC_DAC_MIN_DECIMAL);
 		}
 	}
 }
@@ -369,13 +369,13 @@ void ACC_STATE_READ_TASK(){
  * Note-
  */
 void TSR_Handller_TASK(){
-  while(1){
-//	  if(GR_TSR_FLAG_OLED_send !=0x99){
-	  vTaskPrioritySet(TSR_Handller_TASK_Handle,4);
-      TFT_send_image(GR_TSR_FLAG_OLED_send);
-	  vTaskPrioritySet(TSR_Handller_TASK_Handle,2);
-//	  }
-  }
+	while(1){
+		//	  if(GR_TSR_FLAG_OLED_send !=0x99){
+		vTaskPrioritySet(TSR_Handller_TASK_Handle,4);
+		TFT_send_image(GR_TSR_FLAG_OLED_send);
+		vTaskPrioritySet(TSR_Handller_TASK_Handle,2);
+		//	  }
+	}
 }
 
 /**================================================================
@@ -395,7 +395,7 @@ void TSR_call_Back(void){
 	}
 
 
-//	MCAL_USART_SendData(USART1, PC_Uart_Flag);
+	//	MCAL_USART_SendData(USART1, PC_Uart_Flag);
 	/*
 	  0x38 0x2A
 	  0x0038
@@ -419,9 +419,20 @@ void TSR_call_Back(void){
 	case 0x2B:
 		FACE_END_Flag=1;
 		break;
+
+	case '@':
+		ACC_START_OF_FRAME=1;
+		ACC_END_OF_FRAME=0;
+		break;
+	case '&':
+		ACC_END_OF_FRAME=1;
+		break;
+
 	}
 
-
+	////////////////////////////////////////////////////////////////////
+	////////////////////////////////////////////////////////////////////
+	////////////////////////////////////////////////////////////////////
 
 	if (FACE_START_Flag){
 		if(PC_Counter ==0)
@@ -446,6 +457,9 @@ void TSR_call_Back(void){
 			PC_Counter=0;
 		}
 	}
+	////////////////////////////////////////////////////////////////////
+	////////////////////////////////////////////////////////////////////
+	////////////////////////////////////////////////////////////////////
 	if(TSR_START_Flag){
 		if(PC_Counter ==0)
 			PC_Uart_Flag=0;
@@ -467,8 +481,30 @@ void TSR_call_Back(void){
 
 		}
 	}
+	////////////////////////////////////////////////////////////////////
+	////////////////////////////////////////////////////////////////////
+	////////////////////////////////////////////////////////////////////
+	if(ACC_START_OF_FRAME){
+		if(PC_Counter ==0)
+			PC_Uart_Flag=0;
+
+		if(ACC_END_OF_FRAME ==0){
+			GR_ACC_FLAG_ = (GR_ACC_FLAG_<<8)| PC_Uart_Flag;
+			PC_Counter++;
 
 
+		}else{
+			GR_ACC_FLAG_ &=0x0F0F;
+			GR_ACC_FLAG_send = ((GR_ACC_FLAG_ &0x0F00)>>4) |((GR_ACC_FLAG_&0x000F));
+			GR_ACC_FLAG_=0;
+			///////////////
+			ACC_START_OF_FRAME=0;
+			ACC_END_OF_FRAME=0;
+			PC_Counter=0;
+
+
+		}
+	}
 
 
 
@@ -523,19 +559,22 @@ void TSR_init(void){
 /************FACE ID TASK*************/
 
 void CAR_ON_Handler(){
+	CAR_login_counter=0;
 	if((MCAL_Read_PIN(GPIOB, PIN_1)==0) ){
 		_TIM1_delay_ms(30);
 		if((MCAL_Read_PIN(GPIOB, PIN_1)==0) ){
 
 			if(CAR_ON_counter ==1 &&GR_FACE_FLAG_send !=0x99&&GR_FACE_FLAG_send !=0x00){
-//				MCAL_USART_Deinit(LUNA_UART_INSTANT);
-//				NVIC_ISER1 |=(1<<(USART1_IRQ-32));
+				//				MCAL_USART_Deinit(LUNA_UART_INSTANT);
+				//				NVIC_ISER1 |=(1<<(USART1_IRQ-32));
 				CAR_ON_counter=0;
 				GR_FACE_FLAG_send=0;
 				CAR_login_counter=0;
 				//UART SEND
 				ACC_FROM_ADC_TO_DAC(ACC_DAC_MIN_DECIMAL);
 				MCAL_USART_SendData(TSR_UART_INSTANT,CAR_OFF_FLAG);
+				_TIM1_delay_ms(30);
+
 				vTaskResume(FACE_ID_TASK_Handle);
 
 			}
@@ -551,40 +590,40 @@ void CAR_ON_init(){
 	EXTI_config_t CAR_BOTTON_SITTING={EXT1PB1,FALLING,ENABLE,CAR_ON_Handler};
 	MCAL_EXTI_init(&CAR_BOTTON_SITTING);
 	PIN_config pin={CONTACT_BOTTON_PIN,INPUT_PD};
-	  MCAL_GPIO_init(CONTACT_BOTTON_PORT, &pin);
+	MCAL_GPIO_init(CONTACT_BOTTON_PORT, &pin);
 }
 void FACE_ID_TASK(){
 	while(1){
-
+//		_TIM1_delay_ms(500);
 		if((MCAL_Read_PIN(GPIOB, PIN_1)==1) ){
 			_TIM1_delay_ms(30);
 			if((MCAL_Read_PIN(GPIOB, PIN_1)==1) ){
-			//UART SEND
+				//UART SEND
 
-//				MCAL_USART_Deinit(LUNA_UART_INSTANT);
+				//				MCAL_USART_Deinit(LUNA_UART_INSTANT);
 				if(CAR_login_counter==0){
 					MCAL_USART_SendData(TSR_UART_INSTANT,CAR_ON_FLAG);
 					CAR_login_counter++;
 				}
-//				if(GR_FACE_FLAG_send ==0x99){
-//					MCAL_USART_SendData(TSR_UART_INSTANT,CAR_OFF_FLAG);
-//
-//				}
-			if(GR_FACE_FLAG_send !=0x99 && GR_FACE_FLAG_send !=0x00){
-				CAR_ON_counter=1;
-				CAR_login_counter=0;
-//				////////////*********LUNA_INIT***************//////////////////
-//				LUNA_INIT(CONTIOUS_RANGING_MODE,BYTE_9_CM);
-//				LUNA_ENABLE();
-				vTaskSuspend(FACE_ID_TASK_Handle);
+				//				if(GR_FACE_FLAG_send ==0x99){
+				//					MCAL_USART_SendData(TSR_UART_INSTANT,CAR_OFF_FLAG);
+				//
+				//				}
+				if(GR_FACE_FLAG_send !=0x99 && GR_FACE_FLAG_send !=0x00){
+					CAR_ON_counter=1;
+					CAR_login_counter=0;
+					//				////////////*********LUNA_INIT***************//////////////////
+					//				LUNA_INIT(CONTIOUS_RANGING_MODE,BYTE_9_CM);
+					//				LUNA_ENABLE();
+					vTaskSuspend(FACE_ID_TASK_Handle);
 
 
+				}
 			}
-		}
 		}else{
 			//			MCAL_write_PIN(GPIOB, PIN_13, 0);
-						CAR_login_counter=0;
-					}
+		}
+
 	}
 }
 
@@ -607,6 +646,7 @@ void FACE_ID_TASK(){
 
 void HW_init(){
 	Sys_Clk_init();
+	_TIM1_delay_s(1);
 	////////////*********TFT_init***************//////////////////
 	TFT_init(RGB_5_6_5);
 	////////////*********TSR init***************//////////////////
@@ -624,8 +664,8 @@ void HW_init(){
 	LUNA_INIT(CONTIOUS_RANGING_MODE,BYTE_9_CM);
 
 
-//	PIN_config PINx={PIN_13,OUTPUT_PP,SPEED_10};
-//	MCAL_GPIO_init(GPIOB, &PINx);
+	//	PIN_config PINx={PIN_13,OUTPUT_PP,SPEED_10};
+	//	MCAL_GPIO_init(GPIOB, &PINx);
 
 
 
@@ -633,8 +673,8 @@ void HW_init(){
 int main(void)
 {
 	_TIM1_delay_s(2);
-
 	HW_init();
+
 	///////////////////////////
 	if(xTaskCreate(ACC_throttel_Handller_TASK,"ACC_throttel_Handller_TASK",256,NULL,2,NULL)!=pdPASS ){
 		Error_Handller();
