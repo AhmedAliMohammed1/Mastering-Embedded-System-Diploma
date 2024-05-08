@@ -1,0 +1,2 @@
+../HALL/KEYPAD.c:13:6:KEYPAD_init	8	static
+../HALL/KEYPAD.c:24:15:Get_Pressed_KEY	16	static

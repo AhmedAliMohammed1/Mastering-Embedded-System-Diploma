@@ -1,0 +1,8 @@
+../HALL/LCD.c:4:6:EN_PULS	1
+../HALL/LCD.c:13:6:LCD_sendCommand	1
+../HALL/LCD.c:45:6:LCD_init	1
+../HALL/LCD.c:130:6:LCD_clearScreen	1
+../HALL/LCD.c:136:6:LCD_sendCharcter	1
+../HALL/LCD.c:169:6:LCD_sendString	2
+../HALL/LCD.c:176:6:LCD_moveCURSER	5
+../HALL/LCD.c:199:6:LCD_intgerToString	1
